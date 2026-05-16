@@ -1,0 +1,76 @@
+{
+  "existing": {
+    "indicator": {
+      "INDICATOR00": {
+        "country": {},
+        "countryiso3code": "s8d",
+        "date": "s8e",
+        "decimal": "s8f",
+        "id": "INDICATOR00",
+        "indicator": {},
+        "name": "s92",
+        "obs_status": "s93",
+        "source": {},
+        "source_note": "s95",
+        "source_organization": "s96",
+        "topic": [],
+        "unit": "s98",
+        "value": 153,
+        "country_code": "COUNTRY_CODE01"
+      },
+      "INDICATOR01": {
+        "country": {},
+        "countryiso3code": "s119",
+        "date": "s11a",
+        "decimal": "s11b",
+        "id": "INDICATOR01",
+        "indicator": {},
+        "name": "s11e",
+        "obs_status": "s11f",
+        "source": {},
+        "source_note": "s121",
+        "source_organization": "s122",
+        "topic": [],
+        "unit": "s124",
+        "value": 293,
+        "country_code": "COUNTRY_CODE01"
+      },
+      "INDICATOR02": {
+        "country": {},
+        "countryiso3code": "s1a5",
+        "date": "s1a6",
+        "decimal": "s1a7",
+        "id": "INDICATOR02",
+        "indicator": {},
+        "name": "s1aa",
+        "obs_status": "s1ab",
+        "source": {},
+        "source_note": "s1ad",
+        "source_organization": "s1ae",
+        "topic": [],
+        "unit": "s1b0",
+        "value": 433,
+        "country_code": "COUNTRY_CODE01"
+      }
+    }
+  },
+  "new": {
+    "indicator": {
+      "indicator_ref01": {
+        "country": {},
+        "countryiso3code": "s231",
+        "date": "s232",
+        "decimal": "s233",
+        "indicator": {},
+        "name": "s236",
+        "obs_status": "s237",
+        "source": {},
+        "source_note": "s239",
+        "source_organization": "s23a",
+        "topic": [],
+        "unit": "s23c",
+        "value": 573
+      }
+    }
+  }
+}

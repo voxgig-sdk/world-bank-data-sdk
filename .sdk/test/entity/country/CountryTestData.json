@@ -1,0 +1,69 @@
+{
+  "existing": {
+    "country": {
+      "COUNTRY00": {
+        "adminregion": {},
+        "capital_city": "s83",
+        "id": "COUNTRY00",
+        "income_level": {},
+        "iso2_code": "s86",
+        "latitude": "s87",
+        "lending_type": {},
+        "longitude": "s89",
+        "name": "s8a",
+        "page": "s8b",
+        "per_page": "s8c",
+        "region": {},
+        "total": "s8e"
+      },
+      "COUNTRY01": {
+        "adminregion": {},
+        "capital_city": "s105",
+        "id": "COUNTRY01",
+        "income_level": {},
+        "iso2_code": "s108",
+        "latitude": "s109",
+        "lending_type": {},
+        "longitude": "s10b",
+        "name": "s10c",
+        "page": "s10d",
+        "per_page": "s10e",
+        "region": {},
+        "total": "s110"
+      },
+      "COUNTRY02": {
+        "adminregion": {},
+        "capital_city": "s187",
+        "id": "COUNTRY02",
+        "income_level": {},
+        "iso2_code": "s18a",
+        "latitude": "s18b",
+        "lending_type": {},
+        "longitude": "s18d",
+        "name": "s18e",
+        "page": "s18f",
+        "per_page": "s190",
+        "region": {},
+        "total": "s192"
+      }
+    }
+  },
+  "new": {
+    "country": {
+      "country_ref01": {
+        "adminregion": {},
+        "capital_city": "s209",
+        "income_level": {},
+        "iso2_code": "s20c",
+        "latitude": "s20d",
+        "lending_type": {},
+        "longitude": "s20f",
+        "name": "s210",
+        "page": "s211",
+        "per_page": "s212",
+        "region": {},
+        "total": "s214"
+      }
+    }
+  }
+}

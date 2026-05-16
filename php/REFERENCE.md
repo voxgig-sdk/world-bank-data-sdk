@@ -1,0 +1,368 @@
+# WorldBankData PHP SDK Reference
+
+Complete API reference for the WorldBankData PHP SDK.
+
+
+## WorldBankDataSDK
+
+### Constructor
+
+```php
+require_once __DIR__ . '/world-bank-data_sdk.php';
+
+$client = new WorldBankDataSDK($options);
+```
+
+Create a new SDK client instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `$options` | `array` | SDK configuration options. |
+| `$options["apikey"]` | `string` | API key for authentication. |
+| `$options["base"]` | `string` | Base URL for API requests. |
+| `$options["prefix"]` | `string` | URL prefix appended after base. |
+| `$options["suffix"]` | `string` | URL suffix appended after path. |
+| `$options["headers"]` | `array` | Custom headers for all requests. |
+| `$options["feature"]` | `array` | Feature configuration. |
+| `$options["system"]` | `array` | System overrides (e.g. custom fetch). |
+
+
+### Static Methods
+
+#### `WorldBankDataSDK::test($testopts = null, $sdkopts = null)`
+
+Create a test client with mock features active. Both arguments may be `null`.
+
+```php
+$client = WorldBankDataSDK::test();
+```
+
+
+### Instance Methods
+
+#### `Country($data = null)`
+
+Create a new `CountryEntity` instance. Pass `null` for no initial data.
+
+#### `Indicator($data = null)`
+
+Create a new `IndicatorEntity` instance. Pass `null` for no initial data.
+
+#### `Metadata($data = null)`
+
+Create a new `MetadataEntity` instance. Pass `null` for no initial data.
+
+#### `Topic($data = null)`
+
+Create a new `TopicEntity` instance. Pass `null` for no initial data.
+
+#### `optionsMap(): array`
+
+Return a deep copy of the current SDK options.
+
+#### `getUtility(): ProjectNameUtility`
+
+Return a copy of the SDK utility object.
+
+#### `direct(array $fetchargs = []): array`
+
+Make a direct HTTP request to any API endpoint. Returns `[$result, $err]`.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `$fetchargs["path"]` | `string` | URL path with optional `{param}` placeholders. |
+| `$fetchargs["method"]` | `string` | HTTP method (default: `"GET"`). |
+| `$fetchargs["params"]` | `array` | Path parameter values for `{param}` substitution. |
+| `$fetchargs["query"]` | `array` | Query string parameters. |
+| `$fetchargs["headers"]` | `array` | Request headers (merged with defaults). |
+| `$fetchargs["body"]` | `mixed` | Request body (arrays are JSON-serialized). |
+| `$fetchargs["ctrl"]` | `array` | Control options. |
+
+**Returns:** `array [$result, $err]`
+
+#### `prepare(array $fetchargs = []): array`
+
+Prepare a fetch definition without sending the request. Returns `[$fetchdef, $err]`.
+
+
+---
+
+## CountryEntity
+
+```php
+$country = $client->Country();
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `adminregion` | ``$OBJECT`` | No |  |
+| `capital_city` | ``$STRING`` | No |  |
+| `id` | ``$STRING`` | No |  |
+| `income_level` | ``$OBJECT`` | No |  |
+| `iso2_code` | ``$STRING`` | No |  |
+| `latitude` | ``$STRING`` | No |  |
+| `lending_type` | ``$OBJECT`` | No |  |
+| `longitude` | ``$STRING`` | No |  |
+| `name` | ``$STRING`` | No |  |
+| `page` | ``$INTEGER`` | No |  |
+| `per_page` | ``$INTEGER`` | No |  |
+| `region` | ``$OBJECT`` | No |  |
+| `total` | ``$INTEGER`` | No |  |
+
+### Operations
+
+#### `list(array $reqmatch, ?array $ctrl = null): array`
+
+List entities matching the given criteria. Returns an array.
+
+```php
+[$results, $err] = $client->Country()->list([]);
+```
+
+#### `load(array $reqmatch, ?array $ctrl = null): array`
+
+Load a single entity matching the given criteria.
+
+```php
+[$result, $err] = $client->Country()->load(["id" => "country_id"]);
+```
+
+### Common Methods
+
+#### `dataGet(): array`
+
+Get the entity data. Returns a copy of the current data.
+
+#### `dataSet($data): void`
+
+Set the entity data.
+
+#### `matchGet(): array`
+
+Get the entity match criteria.
+
+#### `matchSet($match): void`
+
+Set the entity match criteria.
+
+#### `make(): CountryEntity`
+
+Create a new `CountryEntity` instance with the same client and
+options.
+
+#### `getName(): string`
+
+Return the entity name.
+
+
+---
+
+## IndicatorEntity
+
+```php
+$indicator = $client->Indicator();
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `country` | ``$OBJECT`` | No |  |
+| `countryiso3code` | ``$STRING`` | No |  |
+| `date` | ``$STRING`` | No |  |
+| `decimal` | ``$INTEGER`` | No |  |
+| `id` | ``$STRING`` | No |  |
+| `indicator` | ``$OBJECT`` | No |  |
+| `name` | ``$STRING`` | No |  |
+| `obs_status` | ``$STRING`` | No |  |
+| `source` | ``$OBJECT`` | No |  |
+| `source_note` | ``$STRING`` | No |  |
+| `source_organization` | ``$STRING`` | No |  |
+| `topic` | ``$ARRAY`` | No |  |
+| `unit` | ``$STRING`` | No |  |
+| `value` | ``$NUMBER`` | No |  |
+
+### Operations
+
+#### `list(array $reqmatch, ?array $ctrl = null): array`
+
+List entities matching the given criteria. Returns an array.
+
+```php
+[$results, $err] = $client->Indicator()->list([]);
+```
+
+#### `load(array $reqmatch, ?array $ctrl = null): array`
+
+Load a single entity matching the given criteria.
+
+```php
+[$result, $err] = $client->Indicator()->load(["id" => "indicator_id"]);
+```
+
+### Common Methods
+
+#### `dataGet(): array`
+
+Get the entity data. Returns a copy of the current data.
+
+#### `dataSet($data): void`
+
+Set the entity data.
+
+#### `matchGet(): array`
+
+Get the entity match criteria.
+
+#### `matchSet($match): void`
+
+Set the entity match criteria.
+
+#### `make(): IndicatorEntity`
+
+Create a new `IndicatorEntity` instance with the same client and
+options.
+
+#### `getName(): string`
+
+Return the entity name.
+
+
+---
+
+## MetadataEntity
+
+```php
+$metadata = $client->Metadata();
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `code` | ``$STRING`` | No |  |
+| `description` | ``$STRING`` | No |  |
+| `id` | ``$STRING`` | No |  |
+| `iso2code` | ``$STRING`` | No |  |
+| `lastupdated` | ``$STRING`` | No |  |
+| `name` | ``$STRING`` | No |  |
+| `url` | ``$STRING`` | No |  |
+| `value` | ``$STRING`` | No |  |
+
+### Operations
+
+#### `list(array $reqmatch, ?array $ctrl = null): array`
+
+List entities matching the given criteria. Returns an array.
+
+```php
+[$results, $err] = $client->Metadata()->list([]);
+```
+
+### Common Methods
+
+#### `dataGet(): array`
+
+Get the entity data. Returns a copy of the current data.
+
+#### `dataSet($data): void`
+
+Set the entity data.
+
+#### `matchGet(): array`
+
+Get the entity match criteria.
+
+#### `matchSet($match): void`
+
+Set the entity match criteria.
+
+#### `make(): MetadataEntity`
+
+Create a new `MetadataEntity` instance with the same client and
+options.
+
+#### `getName(): string`
+
+Return the entity name.
+
+
+---
+
+## TopicEntity
+
+```php
+$topic = $client->Topic();
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | ``$STRING`` | No |  |
+| `source_note` | ``$STRING`` | No |  |
+| `value` | ``$STRING`` | No |  |
+
+### Operations
+
+#### `list(array $reqmatch, ?array $ctrl = null): array`
+
+List entities matching the given criteria. Returns an array.
+
+```php
+[$results, $err] = $client->Topic()->list([]);
+```
+
+### Common Methods
+
+#### `dataGet(): array`
+
+Get the entity data. Returns a copy of the current data.
+
+#### `dataSet($data): void`
+
+Set the entity data.
+
+#### `matchGet(): array`
+
+Get the entity match criteria.
+
+#### `matchSet($match): void`
+
+Set the entity match criteria.
+
+#### `make(): TopicEntity`
+
+Create a new `TopicEntity` instance with the same client and
+options.
+
+#### `getName(): string`
+
+Return the entity name.
+
+
+---
+
+## Features
+
+| Feature | Version | Description |
+| --- | --- | --- |
+| `test` | 0.0.1 | In-memory mock transport for testing without a live server |
+
+
+Features are activated via the `feature` option:
+
+```php
+$client = new WorldBankDataSDK([
+  "feature" => [
+    "test" => ["active" => true],
+  ],
+]);
+```
+

@@ -1,0 +1,63 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 4
+  metrics: count: path: 12
+  metrics: count: method: 12
+
+  entity: country: {
+    path: "/country": {
+      op: list: method: *GET
+    }
+    path: "/country/{countryCode}": {
+      rename: param: "countryCode": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: indicator: {
+    path: "/countries/{countryCode}/indicators/{indicatorCode}": {
+      rename: param: "countryCode": *"country_code"
+      rename: param: "indicatorCode": *"id"
+      op: load: method: *GET
+    }
+    path: "/indicator": {
+      op: list: method: *GET
+    }
+    path: "/indicator/{indicatorCode}": {
+      rename: param: "indicatorCode": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: metadata: {
+    path: "/incomelevel": {
+      op: list: method: *GET
+    }
+    path: "/lendingtype": {
+      op: list: method: *GET
+    }
+    path: "/region": {
+      op: list: method: *GET
+    }
+    path: "/source": {
+      op: list: method: *GET
+    }
+    path: "/source/{sourceId}/indicator": {
+      rename: param: "sourceId": *"source_id"
+      op: list: method: *GET
+    }
+  }
+
+  entity: topic: {
+    path: "/topic": {
+      op: list: method: *GET
+    }
+    path: "/topic/{topicId}/indicator": {
+      action: "indicator": {}
+      rename: param: "topicId": *"id"
+      op: list: method: *GET
+    }
+  }
+
+}

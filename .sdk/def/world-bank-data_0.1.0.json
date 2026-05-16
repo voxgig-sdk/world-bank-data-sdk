@@ -1,0 +1,1284 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "World Bank Data API",
+    "description": "The World Bank Data API provides access to a wide array of economic, financial, and social data from over 200 countries. It allows developers to integrate World Bank datasets into their applications and services, facilitating data-driven decision-making for research and policy development.",
+    "version": "2.0.0",
+    "contact": {
+      "name": "World Bank Data Help Desk",
+      "url": "https://datahelpdesk.worldbank.org/knowledgebase/topics/125589"
+    },
+    "termsOfService": "https://www.worldbank.org/en/about/legal"
+  },
+  "servers": [
+    {
+      "url": "https://api.worldbank.org/v2",
+      "description": "World Bank Data API V2"
+    }
+  ],
+  "paths": {
+    "/country": {
+      "get": {
+        "summary": "Get Countries",
+        "description": "Retrieve a list of countries with their metadata including region, income level, and other classification information.",
+        "operationId": "getCountries",
+        "tags": [
+          "Country"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Response format (json or xml)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json",
+                "xml"
+              ],
+              "default": "json"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of results per page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with country list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "page": {
+                        "type": "integer"
+                      },
+                      "pages": {
+                        "type": "integer"
+                      },
+                      "per_page": {
+                        "type": "integer"
+                      },
+                      "total": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid parameters"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/country/{countryCode}": {
+      "get": {
+        "summary": "Get Country by Code",
+        "description": "Retrieve detailed information about a specific country using its ISO 2-letter or 3-letter country code.",
+        "operationId": "getCountryByCode",
+        "tags": [
+          "Country"
+        ],
+        "parameters": [
+          {
+            "name": "countryCode",
+            "in": "path",
+            "required": true,
+            "description": "ISO 2-letter or 3-letter country code (e.g., US, USA, BR, BRA)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Response format (json or xml)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json",
+                "xml"
+              ],
+              "default": "json"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with country details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "iso2Code": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "region": {
+                      "type": "object"
+                    },
+                    "adminregion": {
+                      "type": "object"
+                    },
+                    "incomeLevel": {
+                      "type": "object"
+                    },
+                    "lendingType": {
+                      "type": "object"
+                    },
+                    "capitalCity": {
+                      "type": "string"
+                    },
+                    "longitude": {
+                      "type": "string"
+                    },
+                    "latitude": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Country not found"
+          }
+        }
+      }
+    },
+    "/countries/{countryCode}/indicators/{indicatorCode}": {
+      "get": {
+        "summary": "Get Indicator Data for Country",
+        "description": "Retrieve indicator data for a specific country. Indicators include economic, social, financial, and environmental metrics.",
+        "operationId": "getCountryIndicatorData",
+        "tags": [
+          "Indicator"
+        ],
+        "parameters": [
+          {
+            "name": "countryCode",
+            "in": "path",
+            "required": true,
+            "description": "ISO 2-letter or 3-letter country code, or 'all' for all countries",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "indicatorCode",
+            "in": "path",
+            "required": true,
+            "description": "Indicator code (e.g., NY.GDP.MKTP.CD for GDP)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Response format (json or xml)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json",
+                "xml"
+              ],
+              "default": "json"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Date range (e.g., 2010:2020 or specific year like 2020)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of results per page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 32500,
+              "default": 50
+            }
+          },
+          {
+            "name": "mrv",
+            "in": "query",
+            "description": "Most recent values - number of most recent values to return",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "gapfill",
+            "in": "query",
+            "description": "Fill gaps in data with Y (yes) or N (no)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Y",
+                "N"
+              ],
+              "default": "N"
+            }
+          },
+          {
+            "name": "frequency",
+            "in": "query",
+            "description": "Data frequency (Y for yearly, Q for quarterly, M for monthly)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Y",
+                "Q",
+                "M"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with indicator data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "indicator": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "country": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "countryiso3code": {
+                        "type": "string"
+                      },
+                      "date": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "number"
+                      },
+                      "unit": {
+                        "type": "string"
+                      },
+                      "obs_status": {
+                        "type": "string"
+                      },
+                      "decimal": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid parameters"
+          },
+          "404": {
+            "description": "Country or indicator not found"
+          }
+        }
+      }
+    },
+    "/indicator": {
+      "get": {
+        "summary": "Get Indicators",
+        "description": "Retrieve a list of all available indicators with their metadata including name, source, and description.",
+        "operationId": "getIndicators",
+        "tags": [
+          "Indicator"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Response format (json or xml)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json",
+                "xml"
+              ],
+              "default": "json"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of results per page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 32500,
+              "default": 50
+            }
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "description": "Filter by source ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with indicator list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid parameters"
+          }
+        }
+      }
+    },
+    "/indicator/{indicatorCode}": {
+      "get": {
+        "summary": "Get Indicator by Code",
+        "description": "Retrieve detailed metadata about a specific indicator.",
+        "operationId": "getIndicatorByCode",
+        "tags": [
+          "Indicator"
+        ],
+        "parameters": [
+          {
+            "name": "indicatorCode",
+            "in": "path",
+            "required": true,
+            "description": "Indicator code (e.g., NY.GDP.MKTP.CD)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Response format (json or xml)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json",
+                "xml"
+              ],
+              "default": "json"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with indicator details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "source": {
+                      "type": "object"
+                    },
+                    "sourceNote": {
+                      "type": "string"
+                    },
+                    "sourceOrganization": {
+                      "type": "string"
+                    },
+                    "topics": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Indicator not found"
+          }
+        }
+      }
+    },
+    "/topic": {
+      "get": {
+        "summary": "Get Topics",
+        "description": "Retrieve a list of all development topics used to categorize indicators.",
+        "operationId": "getTopics",
+        "tags": [
+          "Topic"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Response format (json or xml)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json",
+                "xml"
+              ],
+              "default": "json"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of results per page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with topic list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "sourceNote": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/topic/{topicId}/indicator": {
+      "get": {
+        "summary": "Get Indicators by Topic",
+        "description": "Retrieve all indicators associated with a specific development topic.",
+        "operationId": "getIndicatorsByTopic",
+        "tags": [
+          "Topic"
+        ],
+        "parameters": [
+          {
+            "name": "topicId",
+            "in": "path",
+            "required": true,
+            "description": "Topic ID (e.g., 1 for Agriculture, 3 for Economy)",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Response format (json or xml)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json",
+                "xml"
+              ],
+              "default": "json"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of results per page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 32500,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with indicators for the topic",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Topic not found"
+          }
+        }
+      }
+    },
+    "/source": {
+      "get": {
+        "summary": "Get Data Sources",
+        "description": "Retrieve a list of all data sources available in the World Bank API.",
+        "operationId": "getSources",
+        "tags": [
+          "Metadata"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Response format (json or xml)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json",
+                "xml"
+              ],
+              "default": "json"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of results per page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with source list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "lastupdated": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "code": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/source/{sourceId}/indicator": {
+      "get": {
+        "summary": "Get Indicators by Source",
+        "description": "Retrieve all indicators from a specific data source.",
+        "operationId": "getIndicatorsBySource",
+        "tags": [
+          "Metadata"
+        ],
+        "parameters": [
+          {
+            "name": "sourceId",
+            "in": "path",
+            "required": true,
+            "description": "Source ID (e.g., 2 for World Development Indicators)",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Response format (json or xml)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json",
+                "xml"
+              ],
+              "default": "json"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of results per page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 32500,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with indicators from the source",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Source not found"
+          }
+        }
+      }
+    },
+    "/region": {
+      "get": {
+        "summary": "Get Regions",
+        "description": "Retrieve a list of all World Bank regions and regional aggregates.",
+        "operationId": "getRegions",
+        "tags": [
+          "Metadata"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Response format (json or xml)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json",
+                "xml"
+              ],
+              "default": "json"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of results per page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with region list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "code": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/incomelevel": {
+      "get": {
+        "summary": "Get Income Levels",
+        "description": "Retrieve a list of all income level classifications used by the World Bank.",
+        "operationId": "getIncomeLevels",
+        "tags": [
+          "Metadata"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Response format (json or xml)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json",
+                "xml"
+              ],
+              "default": "json"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of results per page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with income level list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "iso2code": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lendingtype": {
+      "get": {
+        "summary": "Get Lending Types",
+        "description": "Retrieve a list of all lending type classifications used by the World Bank.",
+        "operationId": "getLendingTypes",
+        "tags": [
+          "Metadata"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Response format (json or xml)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json",
+                "xml"
+              ],
+              "default": "json"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of results per page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with lending type list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "iso2code": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Country",
+      "description": "Access country-level metadata and classifications"
+    },
+    {
+      "name": "Indicator",
+      "description": "Access development indicators and their data"
+    },
+    {
+      "name": "Topic",
+      "description": "Browse indicators by development topics"
+    },
+    {
+      "name": "Metadata",
+      "description": "Access metadata about data sources, regions, and classifications"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Country": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Three-letter country code"
+          },
+          "iso2Code": {
+            "type": "string",
+            "description": "Two-letter ISO country code"
+          },
+          "name": {
+            "type": "string",
+            "description": "Country name"
+          },
+          "region": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "iso2code": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          },
+          "adminregion": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "iso2code": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          },
+          "incomeLevel": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "iso2code": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          },
+          "lendingType": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "iso2code": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          },
+          "capitalCity": {
+            "type": "string",
+            "description": "Capital city name"
+          },
+          "longitude": {
+            "type": "string",
+            "description": "Longitude coordinate"
+          },
+          "latitude": {
+            "type": "string",
+            "description": "Latitude coordinate"
+          }
+        }
+      },
+      "Indicator": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Indicator code"
+          },
+          "name": {
+            "type": "string",
+            "description": "Indicator name"
+          },
+          "source": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          },
+          "sourceNote": {
+            "type": "string",
+            "description": "Description of the indicator"
+          },
+          "sourceOrganization": {
+            "type": "string",
+            "description": "Organization that provides the data"
+          },
+          "topics": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "IndicatorData": {
+        "type": "object",
+        "properties": {
+          "indicator": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          },
+          "country": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          },
+          "countryiso3code": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "description": "Year or date of the data point"
+          },
+          "value": {
+            "type": "number",
+            "nullable": true,
+            "description": "Data value"
+          },
+          "unit": {
+            "type": "string",
+            "description": "Unit of measurement"
+          },
+          "obs_status": {
+            "type": "string",
+            "description": "Observation status"
+          },
+          "decimal": {
+            "type": "integer",
+            "description": "Number of decimal places"
+          }
+        }
+      },
+      "Topic": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Topic ID"
+          },
+          "value": {
+            "type": "string",
+            "description": "Topic name"
+          },
+          "sourceNote": {
+            "type": "string",
+            "description": "Description of the topic"
+          }
+        }
+      },
+      "Source": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Source ID"
+          },
+          "lastupdated": {
+            "type": "string",
+            "description": "Last update date"
+          },
+          "name": {
+            "type": "string",
+            "description": "Source name"
+          },
+          "code": {
+            "type": "string",
+            "description": "Source code"
+          },
+          "description": {
+            "type": "string",
+            "description": "Source description"
+          },
+          "url": {
+            "type": "string",
+            "description": "Source URL"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

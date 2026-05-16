@@ -1,0 +1,25 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        name: "World Bank Data Help Desk"
+        url: "https://datahelpdesk.worldbank.org/knowledgebase/topics/125589"
+      }
+      description: "The World Bank Data API provides access to a wide array of economic, financial, and social data from over 200 countries. It allows developers to integrate World Bank datasets into their applications and services, facilitating data-driven decision-making for research and policy development."
+      servers: [
+        {
+          description: "World Bank Data API V2"
+          url: "https://api.worldbank.org/v2"
+        }
+      ]
+      termsOfService: "https://www.worldbank.org/en/about/legal"
+      title: "World Bank Data API"
+      version: "2.0.0"
+    }
+  }
+}
+
+}

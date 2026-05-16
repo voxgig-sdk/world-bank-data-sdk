@@ -1,0 +1,44 @@
+# BasicIndicatorFlow
+
+main: kit: flow: BasicIndicatorFlow:
+{
+  entity: "indicator",
+  kind: "basic",
+  name: "BasicIndicatorFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "indicator_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "indicator_ref01",
+        srcdatavar: "indicator_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "indicator01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-indicator_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicIndicatorFlow"
+}

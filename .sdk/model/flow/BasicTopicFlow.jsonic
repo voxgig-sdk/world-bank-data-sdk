@@ -1,0 +1,22 @@
+# BasicTopicFlow
+
+main: kit: flow: BasicTopicFlow:
+{
+  entity: "topic",
+  kind: "basic",
+  name: "BasicTopicFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "topic_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicTopicFlow"
+}

@@ -1,0 +1,52 @@
+{
+  "existing": {
+    "metadata": {
+      "METADATA00": {
+        "code": "s50",
+        "description": "s51",
+        "id": "METADATA00",
+        "iso2code": "s53",
+        "lastupdated": "s54",
+        "name": "s55",
+        "url": "s56",
+        "value": "s57",
+        "source_id": "SOURCE01"
+      },
+      "METADATA01": {
+        "code": "sa0",
+        "description": "sa1",
+        "id": "METADATA01",
+        "iso2code": "sa3",
+        "lastupdated": "sa4",
+        "name": "sa5",
+        "url": "sa6",
+        "value": "sa7",
+        "source_id": "SOURCE01"
+      },
+      "METADATA02": {
+        "code": "sf0",
+        "description": "sf1",
+        "id": "METADATA02",
+        "iso2code": "sf3",
+        "lastupdated": "sf4",
+        "name": "sf5",
+        "url": "sf6",
+        "value": "sf7",
+        "source_id": "SOURCE01"
+      }
+    }
+  },
+  "new": {
+    "metadata": {
+      "metadata_ref01": {
+        "code": "s140",
+        "description": "s141",
+        "iso2code": "s143",
+        "lastupdated": "s144",
+        "name": "s145",
+        "url": "s146",
+        "value": "s147"
+      }
+    }
+  }
+}
