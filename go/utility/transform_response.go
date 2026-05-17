@@ -1,9 +1,9 @@
 package utility
 
 import (
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/world-bank-data-sdk/go/utility/struct"
 
-	"github.com/voxgig-sdk/world-bank-data-sdk/core"
+	"github.com/voxgig-sdk/world-bank-data-sdk/go/core"
 )
 
 func transformResponseUtil(ctx *core.Context) any {

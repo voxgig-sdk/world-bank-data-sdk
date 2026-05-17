@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/world-bank-data-sdk"
-	"github.com/voxgig-sdk/world-bank-data-sdk/core"
+	sdk "github.com/voxgig-sdk/world-bank-data-sdk/go"
+	"github.com/voxgig-sdk/world-bank-data-sdk/go/core"
 )
 
 func TestIndicatorDirect(t *testing.T) {

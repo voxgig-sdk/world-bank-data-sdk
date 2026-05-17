@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/voxgig-sdk/world-bank-data-sdk/core"
+	"github.com/voxgig-sdk/world-bank-data-sdk/go/core"
 )
 
 type LogFeature struct {
