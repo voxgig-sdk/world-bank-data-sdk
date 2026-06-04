@@ -86,14 +86,12 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'WORLDBANKDATA_TEST_METADATA_ENTID': {},
     'WORLDBANKDATA_TEST_LIVE': 'FALSE',
-    'WORLDBANKDATA_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.WORLDBANKDATA_TEST_LIVE
 
   if (live) {
     const client = new WorldBankDataSDK({
-      apikey: env.WORLDBANKDATA_APIKEY,
     })
 
     let idmap: any = env['WORLDBANKDATA_TEST_METADATA_ENTID']

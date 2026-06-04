@@ -102,7 +102,6 @@ function country_basic_setup(extra)
     ["WORLDBANKDATA_TEST_COUNTRY_ENTID"] = idmap,
     ["WORLDBANKDATA_TEST_LIVE"] = "FALSE",
     ["WORLDBANKDATA_TEST_EXPLAIN"] = "FALSE",
-    ["WORLDBANKDATA_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -114,7 +113,6 @@ function country_basic_setup(extra)
   if env["WORLDBANKDATA_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
-        apikey = env["WORLDBANKDATA_APIKEY"],
       },
       extra or {},
     })

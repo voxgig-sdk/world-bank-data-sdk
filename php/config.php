@@ -20,9 +20,6 @@ class WorldBankDataConfig
             ],
             "options" => [
                 "base" => "https://api.worldbank.org/v2",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],

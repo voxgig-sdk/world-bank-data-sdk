@@ -18,7 +18,20 @@
         ],
         "termsOfService": "https://www.worldbank.org/en/about/legal",
         "title": "World Bank Data API",
-        "version": "2.0.0"
+        "version": "2.0.0",
+        "tagline": "Query economic, financial, and social indicators for 200+ countries from the World Bank's open data catalogue",
+        "homepage": "https://data.worldbank.org",
+        "docs_url": "https://datahelpdesk.worldbank.org/knowledgebase/topics/125589-developer-information",
+        "license_short": "World Bank Open Data is generally released under CC BY 4.0; review the Bank's Terms of Use for dataset-specific conditions.",
+        "license_md": "- Most World Bank datasets are published as open data, typically under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).\n- Attribution to The World Bank is required; some datasets carry their own terms inherited from third-party sources.\n- Review the [World Bank Terms of Use](https://www.worldbank.org/en/about/legal/terms-of-use-for-datasets) before redistributing or commercialising data.",
+        "about_md": "The World Bank Data API is the public HTTP interface to the [World Bank's Open Data catalogue](https://data.worldbank.org), maintained by [The World Bank](https://www.worldbank.org). It exposes development indicators and reference data covering more than 200 countries and economies, sourced from World Development Indicators and dozens of partner datasets.\n\nWhat you get from the API:\n\n- Country, region, income-level, and lending-type reference lists\n- Thousands of development indicators (GDP, population, health, education, environment, finance, etc.) with historical time series\n- Topic and source catalogues that group indicators by theme and provider\n- Metadata describing indicators, sources, and footnotes\n\nThe service is served from `https://api.worldbank.org/v2` and supports JSON and XML output via a `format` query parameter. It is open and does not require an API key; CORS is enabled, and queries can be filtered by date range, country code, and indicator code as described in the [developer knowledge base](https://datahelpdesk.worldbank.org/knowledgebase/topics/125589-developer-information).",
+        "entity_desc": {
+          "country": "Reference resources for countries, regions, income levels, and lending types — see the [Country API Queries](https://datahelpdesk.worldbank.org/knowledgebase/articles/898590-country-api-queries) docs, typically under `/country` paths.",
+          "indicator": "Catalogue of World Bank development indicators and their time-series values — see the [Indicator API Queries](https://datahelpdesk.worldbank.org/knowledgebase/articles/898599-indicator-api-queries) docs, typically under `/indicator` paths.",
+          "metadata": "Descriptive metadata, footnotes, and source documentation attached to indicators and observations — see the [Metadata API Queries](https://datahelpdesk.worldbank.org/knowledgebase/articles/1886686-advanced-data-api-queries) docs.",
+          "topic": "Thematic groupings (e.g. Health, Education, Environment) used to organise indicators — see the [Topic API Queries](https://datahelpdesk.worldbank.org/knowledgebase/articles/898614-topic-api-queries) docs, typically under `/topic` paths."
+        },
+        "auth": false
       },
       "config": {
         "auth": {
@@ -26,7 +39,15 @@
         },
         "headers": {
           "content-type": "application/json"
-        }
+        },
+        "docs_order": [
+          "ts",
+          "py",
+          "php",
+          "go",
+          "rb",
+          "lua"
+        ]
       },
       "entity": {
         "country": {

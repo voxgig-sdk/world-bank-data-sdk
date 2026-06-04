@@ -118,14 +118,12 @@ func metadataDirectSetup(mockres any) *metadataDirectSetupResult {
 	env := envOverride(map[string]any{
 		"WORLDBANKDATA_TEST_METADATA_ENTID": map[string]any{},
 		"WORLDBANKDATA_TEST_LIVE":    "FALSE",
-		"WORLDBANKDATA_APIKEY":       "NONE",
 	})
 
 	live := env["WORLDBANKDATA_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["WORLDBANKDATA_APIKEY"],
 		}
 		client := sdk.NewWorldBankDataSDK(mergedOpts)
 

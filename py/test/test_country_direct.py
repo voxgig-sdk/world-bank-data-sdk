@@ -109,14 +109,12 @@ def _country_direct_setup(mockres):
     env = runner.env_override({
         "WORLDBANKDATA_TEST_COUNTRY_ENTID": {},
         "WORLDBANKDATA_TEST_LIVE": "FALSE",
-        "WORLDBANKDATA_APIKEY": "NONE",
     })
 
     live = env.get("WORLDBANKDATA_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("WORLDBANKDATA_APIKEY"),
         }
         client = WorldBankDataSDK(merged_opts)
         return {
