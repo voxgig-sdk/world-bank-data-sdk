@@ -10,7 +10,7 @@ The Lua SDK for the WorldBankData API — an entity-oriented client using Lua co
 
 ## Install
 ```bash
-luarocks install world-bank-data-sdk
+luarocks install voxgig-sdk-world-bank-data
 ```
 
 If the module is not yet published, add the source directory to

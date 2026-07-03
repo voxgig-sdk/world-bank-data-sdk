@@ -10,7 +10,7 @@ The PHP SDK for the WorldBankData API — an entity-oriented client using PHP co
 
 ## Install
 ```bash
-composer require voxgig/world-bank-data-sdk
+composer require voxgig-sdk/world-bank-data
 ```
 
 

@@ -10,7 +10,7 @@ The TypeScript SDK for the WorldBankData API — a type-safe, entity-oriented cl
 
 ## Install
 ```bash
-npm install world-bank-data
+npm install @voxgig-sdk/world-bank-data
 ```
 ## Tutorial: your first API call
 

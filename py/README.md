@@ -10,7 +10,7 @@ The Python SDK for the WorldBankData API — an entity-oriented client following
 
 ## Install
 ```bash
-pip install world-bank-data-sdk
+pip install voxgig-sdk-world-bank-data
 ```
 
 Or install from source:

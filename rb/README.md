@@ -10,13 +10,13 @@ The Ruby SDK for the WorldBankData API — an entity-oriented client using idiom
 
 ## Install
 ```bash
-gem install world-bank-data-sdk
+gem install voxgig-sdk-world-bank-data
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "world-bank-data-sdk"
+gem "voxgig-sdk-world-bank-data"
 ```
 
 Then run:
