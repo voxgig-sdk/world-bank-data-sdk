@@ -1,21 +1,8 @@
 # WorldBankData SDK
 
-Query economic, financial, and social indicators for 200+ countries from the World Bank's open data catalogue
+World Bank Data API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About World Bank Data API
-
-The World Bank Data API is the public HTTP interface to the [World Bank's Open Data catalogue](https://data.worldbank.org), maintained by [The World Bank](https://www.worldbank.org). It exposes development indicators and reference data covering more than 200 countries and economies, sourced from World Development Indicators and dozens of partner datasets.
-
-What you get from the API:
-
-- Country, region, income-level, and lending-type reference lists
-- Thousands of development indicators (GDP, population, health, education, environment, finance, etc.) with historical time series
-- Topic and source catalogues that group indicators by theme and provider
-- Metadata describing indicators, sources, and footnotes
-
-The service is served from `https://api.worldbank.org/v2` and supports JSON and XML output via a `format` query parameter. It is open and does not require an API key; CORS is enabled, and queries can be filtered by date range, country code, and indicator code as described in the [developer knowledge base](https://datahelpdesk.worldbank.org/knowledgebase/topics/125589-developer-information).
 
 ## Try it
 
@@ -49,29 +36,31 @@ gem install world-bank-data-sdk
 luarocks install world-bank-data-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { WorldBankDataSDK } from 'world-bank-data'
 
-const client = new WorldBankDataSDK({})
+const client = new WorldBankDataSDK({
+  apikey: process.env.WORLD-BANK-DATA_APIKEY,
+})
 
 // List all countrys
 const countrys = await client.Country().list()
+console.log(countrys.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -101,10 +90,10 @@ The API exposes 4 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Country** | Reference resources for countries, regions, income levels, and lending types — see the [Country API Queries](https://datahelpdesk.worldbank.org/knowledgebase/articles/898590-country-api-queries) docs, typically under `/country` paths. | `/country` |
-| **Indicator** | Catalogue of World Bank development indicators and their time-series values — see the [Indicator API Queries](https://datahelpdesk.worldbank.org/knowledgebase/articles/898599-indicator-api-queries) docs, typically under `/indicator` paths. | `/indicator` |
-| **Metadata** | Descriptive metadata, footnotes, and source documentation attached to indicators and observations — see the [Metadata API Queries](https://datahelpdesk.worldbank.org/knowledgebase/articles/1886686-advanced-data-api-queries) docs. | `/source/{sourceId}/indicator` |
-| **Topic** | Thematic groupings (e.g. Health, Education, Environment) used to organise indicators — see the [Topic API Queries](https://datahelpdesk.worldbank.org/knowledgebase/articles/898614-topic-api-queries) docs, typically under `/topic` paths. | `/topic/{topicId}/indicator` |
+| **Country** |  | `/country` |
+| **Indicator** |  | `/indicator` |
+| **Metadata** |  | `/source/{sourceId}/indicator` |
+| **Topic** |  | `/topic/{topicId}/indicator` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -114,17 +103,20 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from worldbankdata_sdk import WorldBankDataSDK
 
-client = WorldBankDataSDK({})
+client = WorldBankDataSDK({
+    "apikey": os.environ.get("WORLD-BANK-DATA_APIKEY"),
+})
 
 # List all countrys
-countrys, err = client.Country(None).list(None, None)
+countrys, err = client.Country().list()
+print(countrys)
 
 # Load a specific country
-country, err = client.Country(None).load(
-    {"id": "example_id"}, None
-)
+country, err = client.Country().load({"id": "example_id"})
+print(country)
 ```
 
 ### PHP
@@ -133,15 +125,17 @@ country, err = client.Country(None).load(
 <?php
 require_once 'worldbankdata_sdk.php';
 
-$client = new WorldBankDataSDK([]);
+$client = new WorldBankDataSDK([
+    "apikey" => getenv("WORLD-BANK-DATA_APIKEY"),
+]);
 
 // List all countrys
-[$countrys, $err] = $client->Country(null)->list(null, null);
+[$countrys, $err] = $client->Country()->list();
+print_r($countrys);
 
 // Load a specific country
-[$country, $err] = $client->Country(null)->load(
-    ["id" => "example_id"], null
-);
+[$country, $err] = $client->Country()->load(["id" => "example_id"]);
+print_r($country);
 ```
 
 ### Golang
@@ -149,10 +143,13 @@ $client = new WorldBankDataSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/world-bank-data-sdk/go"
 
-client := sdk.NewWorldBankDataSDK(map[string]any{})
+client := sdk.NewWorldBankDataSDK(map[string]any{
+    "apikey": os.Getenv("WORLD-BANK-DATA_APIKEY"),
+})
 
 // List all countrys
 countrys, err := client.Country(nil).List(nil, nil)
+fmt.Println(countrys)
 ```
 
 ### Ruby
@@ -160,15 +157,17 @@ countrys, err := client.Country(nil).List(nil, nil)
 ```ruby
 require_relative "WorldBankData_sdk"
 
-client = WorldBankDataSDK.new({})
+client = WorldBankDataSDK.new({
+  "apikey" => ENV["WORLD-BANK-DATA_APIKEY"],
+})
 
 # List all countrys
-countrys, err = client.Country(nil).list(nil, nil)
+countrys, err = client.Country().list
+puts countrys
 
 # Load a specific country
-country, err = client.Country(nil).load(
-  { "id" => "example_id" }, nil
-)
+country, err = client.Country().load({ "id" => "example_id" })
+puts country
 ```
 
 ### Lua
@@ -176,15 +175,17 @@ country, err = client.Country(nil).load(
 ```lua
 local sdk = require("world-bank-data_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("WORLD-BANK-DATA_APIKEY"),
+})
 
 -- List all countrys
-local countrys, err = client:Country(nil):list(nil, nil)
+local countrys, err = client:Country():list()
+print(countrys)
 
 -- Load a specific country
-local country, err = client:Country(nil):load(
-  { id = "example_id" }, nil
-)
+local country, err = client:Country():load({ id = "example_id" })
+print(country)
 ```
 
 ## Unit testing in offline mode
@@ -203,25 +204,21 @@ const result = await client.Country().load({ id: 'test01' })
 ### Python
 
 ```python
-client = WorldBankDataSDK.test(None, None)
-result, err = client.Country(None).load(
-    {"id": "test01"}, None
-)
+client = WorldBankDataSDK.test()
+result, err = client.Country().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = WorldBankDataSDK::test(null, null);
-[$result, $err] = $client->Country(null)->load(
-    ["id" => "test01"], null
-);
+$client = WorldBankDataSDK::test();
+[$result, $err] = $client->Country()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Country(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -230,19 +227,15 @@ result, err := client.Country(nil).Load(
 ### Ruby
 
 ```ruby
-client = WorldBankDataSDK.test(nil, nil)
-result, err = client.Country(nil).load(
-  { "id" => "test01" }, nil
-)
+client = WorldBankDataSDK.test
+result, err = client.Country().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Country(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Country():load({ id = "test01" })
 ```
 
 ## How it works
@@ -346,15 +339,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the World Bank Data API
-
-- Upstream: [https://data.worldbank.org](https://data.worldbank.org)
-- API docs: [https://datahelpdesk.worldbank.org/knowledgebase/topics/125589-developer-information](https://datahelpdesk.worldbank.org/knowledgebase/topics/125589-developer-information)
-
-- Most World Bank datasets are published as open data, typically under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-- Attribution to The World Bank is required; some datasets carry their own terms inherited from third-party sources.
-- Review the [World Bank Terms of Use](https://www.worldbank.org/en/about/legal/terms-of-use-for-datasets) before redistributing or commercialising data.
 
 ---
 

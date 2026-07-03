@@ -194,12 +194,14 @@ func countryDirectSetup(mockres any) *countryDirectSetupResult {
 	env := envOverride(map[string]any{
 		"WORLDBANKDATA_TEST_COUNTRY_ENTID": map[string]any{},
 		"WORLDBANKDATA_TEST_LIVE":    "FALSE",
+		"WORLDBANKDATA_APIKEY":       "NONE",
 	})
 
 	live := env["WORLDBANKDATA_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["WORLDBANKDATA_APIKEY"],
 		}
 		client := sdk.NewWorldBankDataSDK(mergedOpts)
 
