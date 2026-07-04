@@ -26,9 +26,11 @@ import { WorldBankDataSDK } from '@voxgig-sdk/world-bank-data'
 
 const client = new WorldBankDataSDK()
 
-// List all countrys
-const countrys = await client.country.list()
-console.log(countrys.data)
+// List all countrys (returns Country[])
+const countrys = await client.Country().list()
+for (const country of countrys) {
+  console.log(country)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -86,12 +88,13 @@ from worldbankdata_sdk import WorldBankDataSDK
 
 client = WorldBankDataSDK()
 
-# List all countrys
-countrys = client.country.list()
-print(countrys)
+# List all countrys (returns a list, raises on error)
+countrys = client.Country().list({})
+for country in countrys:
+    print(country)
 
-# Load a specific country
-country = client.country.load({"id": "example_id"})
+# Load a specific country (returns the record, raises on error)
+country = client.Country().load({"id": "example_id"})
 print(country)
 ```
 
@@ -103,12 +106,12 @@ require_once 'worldbankdata_sdk.php';
 
 $client = new WorldBankDataSDK();
 
-// List all countrys (throws on error)
-$countrys = $client->country()->list();
+// List all countrys (returns an array; throws on error)
+$countrys = $client->Country()->list();
 print_r($countrys);
 
-// Load a specific country
-$country = $client->country()->load(["id" => "example_id"]);
+// Load a specific country (returns the bare record; throws on error)
+$country = $client->Country()->load(["id" => "example_id"]);
 print_r($country);
 ```
 
@@ -131,12 +134,12 @@ require_relative "WorldBankData_sdk"
 
 client = WorldBankDataSDK.new
 
-# List all countrys
-countrys = client.country.list
+# List all countrys (returns an Array; raises on error)
+countrys = client.Country.list
 puts countrys
 
-# Load a specific country
-country = client.country.load({ "id" => "example_id" })
+# Load a specific country (returns the bare record; raises on error)
+country = client.Country.load({ "id" => "example_id" })
 puts country
 ```
 
@@ -148,11 +151,11 @@ local sdk = require("world-bank-data_sdk")
 local client = sdk.new()
 
 -- List all countrys
-local countrys, err = client:country():list()
+local countrys, err = client:Country():list()
 print(countrys)
 
 -- Load a specific country
-local country, err = client:country():load({ id = "example_id" })
+local country, err = client:Country():load({ id = "example_id" })
 print(country)
 ```
 
@@ -165,22 +168,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = WorldBankDataSDK.test()
-const result = await client.country.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const country = await client.Country().load({ id: 'test01' })
+// country is a bare Country populated with mock data
+console.log(country)
 ```
 
 ### Python
 
 ```python
 client = WorldBankDataSDK.test()
-result = client.country.load({"id": "test01"})
+country = client.Country().load({"id": "test01"})
+print(country)
 ```
 
 ### PHP
 
 ```php
-$client = WorldBankDataSDK::test();
-$result = $client->country()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = WorldBankDataSDK::test([
+    "entity" => ["country" => ["test01" => ["id" => "test01"]]],
+]);
+$country = $client->Country()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -195,15 +203,18 @@ result, err := client.Country(nil).Load(
 ### Ruby
 
 ```ruby
-client = WorldBankDataSDK.test
-result = client.country.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = WorldBankDataSDK.test({
+  "entity" => { "country" => { "test01" => { "id" => "test01" } } },
+})
+country = client.Country.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:country():load({ id = "test01" })
+local result, err = client:Country():load({ id = "test01" })
 ```
 
 ## How it works
@@ -251,6 +262,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

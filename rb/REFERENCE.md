@@ -98,7 +98,7 @@ same parameters as `direct()`. Raises on error.
 ## CountryEntity
 
 ```ruby
-country = client.country
+country = client.Country
 ```
 
 ### Fields
@@ -126,7 +126,7 @@ country = client.country
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.country.list(nil)
+results = client.Country.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -134,7 +134,7 @@ results = client.country.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.country.load({ "id" => "country_id" })
+result = client.Country.load({ "id" => "country_id" })
 ```
 
 ### Common Methods
@@ -170,7 +170,7 @@ Return the entity name.
 ## IndicatorEntity
 
 ```ruby
-indicator = client.indicator
+indicator = client.Indicator
 ```
 
 ### Fields
@@ -199,7 +199,7 @@ indicator = client.indicator
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.indicator.list(nil)
+results = client.Indicator.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -207,7 +207,7 @@ results = client.indicator.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.indicator.load({ "id" => "indicator_id" })
+result = client.Indicator.load({ "id" => "indicator_id" })
 ```
 
 ### Common Methods
@@ -243,7 +243,7 @@ Return the entity name.
 ## MetadataEntity
 
 ```ruby
-metadata = client.metadata
+metadata = client.Metadata
 ```
 
 ### Fields
@@ -266,7 +266,7 @@ metadata = client.metadata
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.metadata.list(nil)
+results = client.Metadata.list(nil)
 ```
 
 ### Common Methods
@@ -302,7 +302,7 @@ Return the entity name.
 ## TopicEntity
 
 ```ruby
-topic = client.topic
+topic = client.Topic
 ```
 
 ### Fields
@@ -320,7 +320,7 @@ topic = client.topic
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.topic.list(nil)
+results = client.Topic.list(nil)
 ```
 
 ### Common Methods

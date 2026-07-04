@@ -28,25 +28,28 @@ import { WorldBankDataSDK } from '@voxgig-sdk/world-bank-data'
 const client = new WorldBankDataSDK()
 ```
 
-### 2. List countrys
+### 2. List country records
+
+`list()` resolves to an array of Country objects — iterate it directly:
 
 ```ts
-const result = await client.country.list()
+const countrys = await client.Country().list()
 
-if (result.ok) {
-  for (const item of result.data) {
-    console.log(item.id, item.name)
-  }
+for (const country of countrys) {
+  console.log(country)
 }
 ```
 
 ### 3. Load a country
 
-```ts
-const result = await client.country.load({ id: 'example_id' })
+`load()` returns the entity directly and throws on failure:
 
-if (result.ok) {
-  console.log(result.data)
+```ts
+try {
+  const country = await client.Country().load({ id: 'example_id' })
+  console.log(country)
+} catch (err) {
+  console.error('load failed:', err)
 }
 ```
 
@@ -64,6 +67,9 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
+if (result instanceof Error) {
+  throw result
+}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -92,9 +98,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = WorldBankDataSDK.test()
 
-const result = await client.country.load({ id: 'test01' })
-// result.ok === true
-// result.data contains mock response data
+const country = await client.Country().load({ id: 'test01' })
+// country is a bare entity populated with mock response data
+console.log(country)
 ```
 
 You can also use the instance method:
@@ -109,7 +115,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.country
+const entity = client.Country()
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -188,7 +194,7 @@ new WorldBankDataSDK(options?: {
 | `prepare(fetchargs?)` | `Promise<FetchDef>` | Build an HTTP request definition without sending it. |
 | `direct(fetchargs?)` | `Promise<DirectResult>` | Build and send an HTTP request. |
 | `Country(data?)` | `CountryEntity` | Create a Country entity instance. |
-| `Indicator(data?)` | `IndicatorEntity` | Create a Indicator entity instance. |
+| `Indicator(data?)` | `IndicatorEntity` | Create an Indicator entity instance. |
 | `Metadata(data?)` | `MetadataEntity` | Create a Metadata entity instance. |
 | `Topic(data?)` | `TopicEntity` | Create a Topic entity instance. |
 | `tester(testopts?, sdkopts?)` | `WorldBankDataSDK` | Create a test-mode client instance. |
@@ -207,29 +213,30 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Result>` | Load a single entity by match criteria. |
-| `list` | `list(reqmatch?, ctrl?): Promise<Result>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Result>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Result>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<Result>` | Remove an entity. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
+| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
+| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
+| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
+| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
 | `data` | `data(data?): any` | Get or set entity data. |
 | `match` | `match(match?): any` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): WorldBankDataSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
 
-#### Result shape
+#### Return values
 
-All entity operations return a Result object:
+Entity operations resolve to the entity data directly — there is no
+result envelope:
 
-```ts
-{
-  ok: boolean      // true if the HTTP status is 2xx
-  status: number   // HTTP status code
-  headers: object  // response headers
-  data: any        // parsed JSON response body
-}
-```
+- `load`, `create` and `update` resolve to a single entity object.
+- `list` resolves to an **array** of entity objects (iterate it directly;
+  there is no `.data` and no `.ok`).
+- `remove` resolves to `void`.
+
+On a failed request these methods **throw**, so wrap calls in
+`try`/`catch` to handle errors. Only `direct()` returns the result
+envelope described below.
 
 ### DirectResult shape
 
@@ -342,7 +349,7 @@ API path: `/topic/{topicId}/indicator`
 
 ### Country
 
-Create an instance: `const country = client.country`
+Create an instance: `const country = client.Country()`
 
 #### Operations
 
@@ -372,19 +379,19 @@ Create an instance: `const country = client.country`
 #### Example: Load
 
 ```ts
-const country = await client.country.load({ id: 'country_id' })
+const country = await client.Country().load({ id: 'country_id' })
 ```
 
 #### Example: List
 
 ```ts
-const countrys = await client.country.list()
+const countrys = await client.Country().list()
 ```
 
 
 ### Indicator
 
-Create an instance: `const indicator = client.indicator`
+Create an instance: `const indicator = client.Indicator()`
 
 #### Operations
 
@@ -415,19 +422,19 @@ Create an instance: `const indicator = client.indicator`
 #### Example: Load
 
 ```ts
-const indicator = await client.indicator.load({ id: 'indicator_id' })
+const indicator = await client.Indicator().load({ id: 'indicator_id' })
 ```
 
 #### Example: List
 
 ```ts
-const indicators = await client.indicator.list()
+const indicators = await client.Indicator().list()
 ```
 
 
 ### Metadata
 
-Create an instance: `const metadata = client.metadata`
+Create an instance: `const metadata = client.Metadata()`
 
 #### Operations
 
@@ -451,13 +458,13 @@ Create an instance: `const metadata = client.metadata`
 #### Example: List
 
 ```ts
-const metadatas = await client.metadata.list()
+const metadatas = await client.Metadata().list()
 ```
 
 
 ### Topic
 
-Create an instance: `const topic = client.topic`
+Create an instance: `const topic = client.Topic()`
 
 #### Operations
 
@@ -476,7 +483,7 @@ Create an instance: `const topic = client.topic`
 #### Example: List
 
 ```ts
-const topics = await client.topic.list()
+const topics = await client.Topic().list()
 ```
 
 
@@ -547,7 +554,7 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const country = client.country
+const country = client.Country()
 await country.load({ id: "example_id" })
 
 // country.data() now returns the loaded country data

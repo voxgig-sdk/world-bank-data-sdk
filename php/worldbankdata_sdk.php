@@ -233,10 +233,10 @@ class WorldBankDataSDK
 
     private $_country = null;
 
-    // Idiomatic facade: $client->country()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Country() (PHP method
-    // names are case-insensitive).
-    public function country($data = null)
+    // Canonical facade: $client->Country()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->country()
+    // resolves here too.
+    public function Country($data = null)
     {
         require_once __DIR__ . '/entity/country_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class WorldBankDataSDK
 
     private $_indicator = null;
 
-    // Idiomatic facade: $client->indicator()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Indicator() (PHP method
-    // names are case-insensitive).
-    public function indicator($data = null)
+    // Canonical facade: $client->Indicator()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->indicator()
+    // resolves here too.
+    public function Indicator($data = null)
     {
         require_once __DIR__ . '/entity/indicator_entity.php';
         if ($data === null) {
@@ -269,10 +269,10 @@ class WorldBankDataSDK
 
     private $_metadata = null;
 
-    // Idiomatic facade: $client->metadata()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Metadata() (PHP method
-    // names are case-insensitive).
-    public function metadata($data = null)
+    // Canonical facade: $client->Metadata()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->metadata()
+    // resolves here too.
+    public function Metadata($data = null)
     {
         require_once __DIR__ . '/entity/metadata_entity.php';
         if ($data === null) {
@@ -287,10 +287,10 @@ class WorldBankDataSDK
 
     private $_topic = null;
 
-    // Idiomatic facade: $client->topic()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Topic() (PHP method
-    // names are case-insensitive).
-    public function topic($data = null)
+    // Canonical facade: $client->Topic()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->topic()
+    // resolves here too.
+    public function Topic($data = null)
     {
         require_once __DIR__ . '/entity/topic_entity.php';
         if ($data === null) {

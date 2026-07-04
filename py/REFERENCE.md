@@ -92,7 +92,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## CountryEntity
 
 ```python
-country = client.country
+country = client.Country()
 ```
 
 ### Fields
@@ -120,7 +120,9 @@ country = client.country
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.country.list({})
+results = client.Country().list({})
+for country in results:
+    print(country)
 ```
 
 #### `load(reqmatch, ctrl=None) -> dict`
@@ -128,7 +130,7 @@ results = client.country.list({})
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.country.load({"id": "country_id"})
+result = client.Country().load({"id": "country_id"})
 ```
 
 ### Common Methods
@@ -163,7 +165,7 @@ Return the entity name.
 ## IndicatorEntity
 
 ```python
-indicator = client.indicator
+indicator = client.Indicator()
 ```
 
 ### Fields
@@ -192,7 +194,9 @@ indicator = client.indicator
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.indicator.list({})
+results = client.Indicator().list({})
+for indicator in results:
+    print(indicator)
 ```
 
 #### `load(reqmatch, ctrl=None) -> dict`
@@ -200,7 +204,7 @@ results = client.indicator.list({})
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.indicator.load({"id": "indicator_id"})
+result = client.Indicator().load({"id": "indicator_id"})
 ```
 
 ### Common Methods
@@ -235,7 +239,7 @@ Return the entity name.
 ## MetadataEntity
 
 ```python
-metadata = client.metadata
+metadata = client.Metadata()
 ```
 
 ### Fields
@@ -258,7 +262,9 @@ metadata = client.metadata
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.metadata.list({})
+results = client.Metadata().list({})
+for metadata in results:
+    print(metadata)
 ```
 
 ### Common Methods
@@ -293,7 +299,7 @@ Return the entity name.
 ## TopicEntity
 
 ```python
-topic = client.topic
+topic = client.Topic()
 ```
 
 ### Fields
@@ -311,7 +317,9 @@ topic = client.topic
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.topic.list({})
+results = client.Topic().list({})
+for topic in results:
+    print(topic)
 ```
 
 ### Common Methods

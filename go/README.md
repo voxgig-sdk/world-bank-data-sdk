@@ -30,53 +30,39 @@ go mod edit -replace github.com/voxgig-sdk/world-bank-data-sdk/go=../world-bank-
 This tutorial walks through creating a client, listing entities, and
 loading a specific record.
 
-### 1. Create a client
+### Quickstart
+
+A complete program: create a client, then call the entity operations.
+Each operation returns `(value, error)` — the value is the data itself
+(there is no `{ok, data}` wrapper), so check `err` and use the value
+directly.
 
 ```go
 package main
 
 import (
     "fmt"
-
     sdk "github.com/voxgig-sdk/world-bank-data-sdk/go"
-    "github.com/voxgig-sdk/world-bank-data-sdk/go/core"
 )
 
 func main() {
     client := sdk.New()
-```
 
-### 2. List countrys
-
-```go
-    result, err := client.Country(nil).List(nil, nil)
+    // List country records — the value is the array of records itself.
+    countrys, err := client.Country(nil).List(nil, nil)
     if err != nil {
         panic(err)
     }
-
-    rm := core.ToMapAny(result)
-    if rm["ok"] == true {
-        for _, item := range rm["data"].([]any) {
-            p := core.ToMapAny(item)
-            fmt.Println(p["id"], p["name"])
-        }
+    for _, item := range countrys.([]any) {
+        fmt.Println(item)
     }
-```
 
-### 3. Load a country
-
-```go
-    result, err = client.Country(nil).Load(
-        map[string]any{"id": "example_id"}, nil,
-    )
+    // Load a single country — the value is the loaded record.
+    country, err := client.Country(nil).Load(map[string]any{"id": "example_id"}, nil)
     if err != nil {
         panic(err)
     }
-
-    rm = core.ToMapAny(result)
-    if rm["ok"] == true {
-        fmt.Println(rm["data"])
-    }
+    fmt.Println(country)
 }
 ```
 
@@ -127,10 +113,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-result, err := client.Country(nil).Load(
+country, err := client.Country(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
-// result contains mock response data
+if err != nil {
+    panic(err)
+}
+fmt.Println(country) // the loaded mock data
 ```
 
 ### Use a custom fetch function
@@ -208,7 +197,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `Prepare` | `(fetchargs map[string]any) (map[string]any, error)` | Build an HTTP request definition without sending. |
 | `Direct` | `(fetchargs map[string]any) (map[string]any, error)` | Build and send an HTTP request. |
 | `Country` | `(data map[string]any) WorldBankDataEntity` | Create a Country entity instance. |
-| `Indicator` | `(data map[string]any) WorldBankDataEntity` | Create a Indicator entity instance. |
+| `Indicator` | `(data map[string]any) WorldBankDataEntity` | Create an Indicator entity instance. |
 | `Metadata` | `(data map[string]any) WorldBankDataEntity` | Create a Metadata entity instance. |
 | `Topic` | `(data map[string]any) WorldBankDataEntity` | Create a Topic entity instance. |
 
@@ -230,17 +219,24 @@ All entities implement the `WorldBankDataEntity` interface.
 
 ### Result shape
 
-Entity operations return `(any, error)`. The `any` value is a
-`map[string]any` with these keys:
+Entity operations return `(value, error)`. The `value` is the
+operation's data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `"ok"` | `bool` | `true` if the HTTP status is 2xx. |
-| `"status"` | `int` | HTTP status code. |
-| `"headers"` | `map[string]any` | Response headers. |
-| `"data"` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
+| `List` | a `[]any` of entity records |
 
-On error, `"ok"` is `false` and `"err"` contains the error value.
+Check `err` first, then use the value directly (or the typed
+`...Typed` variants, which return the entity's model struct and a typed
+slice):
+
+    country, err := client.Country(nil).Load(map[string]any{"id": "example_id"}, nil)
+    if err != nil { /* handle */ }
+    // country is the loaded record
+
+Only `Direct()` returns a response envelope — a `map[string]any` with
+`"ok"`, `"status"`, `"headers"`, and `"data"` keys.
 
 ### Entities
 
@@ -355,13 +351,21 @@ Create an instance: `country := client.Country(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Country(nil).Load(map[string]any{"id": "country_id"}, nil)
+country, err := client.Country(nil).Load(map[string]any{"id": "country_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(country) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-results, err := client.Country(nil).List(nil, nil)
+countrys, err := client.Country(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(countrys) // the array of records
 ```
 
 
@@ -398,13 +402,21 @@ Create an instance: `indicator := client.Indicator(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Indicator(nil).Load(map[string]any{"id": "indicator_id"}, nil)
+indicator, err := client.Indicator(nil).Load(map[string]any{"id": "indicator_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(indicator) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-results, err := client.Indicator(nil).List(nil, nil)
+indicators, err := client.Indicator(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(indicators) // the array of records
 ```
 
 
@@ -434,7 +446,11 @@ Create an instance: `metadata := client.Metadata(nil)`
 #### Example: List
 
 ```go
-results, err := client.Metadata(nil).List(nil, nil)
+metadatas, err := client.Metadata(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(metadatas) // the array of records
 ```
 
 
@@ -459,7 +475,11 @@ Create an instance: `topic := client.Topic(nil)`
 #### Example: List
 
 ```go
-results, err := client.Topic(nil).List(nil, nil)
+topics, err := client.Topic(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(topics) // the array of records
 ```
 
 

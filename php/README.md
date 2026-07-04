@@ -29,18 +29,16 @@ require_once 'worldbankdata_sdk.php';
 $client = new WorldBankDataSDK();
 ```
 
-### 2. List countrys
+### 2. List country records
 
 ```php
 try {
-    $result = $client->country()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of Country records — iterate directly.
+    $countrys = $client->Country()->list();
+    foreach ($countrys as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -49,9 +47,10 @@ try {
 
 ```php
 try {
-    $result = $client->country()->load(["id" => "example_id"]);
-    print_r($result);
-} catch (\Exception $err) {
+    // load() returns the bare Country record (throws on error).
+    $country = $client->Country()->load(["id" => "example_id"]);
+    print_r($country);
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -97,13 +96,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = WorldBankDataSDK::test();
+$client = WorldBankDataSDK::test([
+    "entity" => ["country" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->country()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$country = $client->Country()->load(["id" => "test01"]);
+print_r($country);
 ```
 
 ### Use a custom fetch function
@@ -183,7 +186,7 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `prepare` | `(array $fetchargs): array` | Build an HTTP request definition without sending. |
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
 | `Country` | `($data): CountryEntity` | Create a Country entity instance. |
-| `Indicator` | `($data): IndicatorEntity` | Create a Indicator entity instance. |
+| `Indicator` | `($data): IndicatorEntity` | Create an Indicator entity instance. |
 | `Metadata` | `($data): MetadataEntity` | Create a Metadata entity instance. |
 | `Topic` | `($data): TopicEntity` | Create a Topic entity instance. |
 
@@ -306,7 +309,7 @@ API path: `/topic/{topicId}/indicator`
 
 ### Country
 
-Create an instance: `const country = client.country`
+Create an instance: `$country = $client->Country();`
 
 #### Operations
 
@@ -335,20 +338,22 @@ Create an instance: `const country = client.country`
 
 #### Example: Load
 
-```ts
-const country = await client.country.load({ id: 'country_id' })
+```php
+// load() returns the bare Country record (throws on error).
+$country = $client->Country()->load(["id" => "country_id"]);
 ```
 
 #### Example: List
 
-```ts
-const countrys = await client.country.list()
+```php
+// list() returns an array of Country records (throws on error).
+$countrys = $client->Country()->list();
 ```
 
 
 ### Indicator
 
-Create an instance: `const indicator = client.indicator`
+Create an instance: `$indicator = $client->Indicator();`
 
 #### Operations
 
@@ -378,20 +383,22 @@ Create an instance: `const indicator = client.indicator`
 
 #### Example: Load
 
-```ts
-const indicator = await client.indicator.load({ id: 'indicator_id' })
+```php
+// load() returns the bare Indicator record (throws on error).
+$indicator = $client->Indicator()->load(["id" => "indicator_id"]);
 ```
 
 #### Example: List
 
-```ts
-const indicators = await client.indicator.list()
+```php
+// list() returns an array of Indicator records (throws on error).
+$indicators = $client->Indicator()->list();
 ```
 
 
 ### Metadata
 
-Create an instance: `const metadata = client.metadata`
+Create an instance: `$metadata = $client->Metadata();`
 
 #### Operations
 
@@ -414,14 +421,15 @@ Create an instance: `const metadata = client.metadata`
 
 #### Example: List
 
-```ts
-const metadatas = await client.metadata.list()
+```php
+// list() returns an array of Metadata records (throws on error).
+$metadatas = $client->Metadata()->list();
 ```
 
 
 ### Topic
 
-Create an instance: `const topic = client.topic`
+Create an instance: `$topic = $client->Topic();`
 
 #### Operations
 
@@ -439,8 +447,9 @@ Create an instance: `const topic = client.topic`
 
 #### Example: List
 
-```ts
-const topics = await client.topic.list()
+```php
+// list() returns an array of Topic records (throws on error).
+$topics = $client->Topic()->list();
 ```
 
 
@@ -515,7 +524,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$country = $client->country();
+$country = $client->Country();
 $country->load(["id" => "example_id"]);
 
 // $country->dataGet() now returns the loaded country data

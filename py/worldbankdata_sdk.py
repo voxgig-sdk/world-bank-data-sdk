@@ -220,73 +220,33 @@ class WorldBankDataSDK:
         }
 
 
-    @property
-    def country(self):
-        """Idiomatic facade: client.country.list() / client.country.load({"id": ...})."""
-        from entity.country_entity import CountryEntity
-        cached = getattr(self, "_country", None)
-        if cached is None:
-            cached = CountryEntity(self, None)
-            self._country = cached
-        return cached
-
-    def Country(self, data=None):
-        # Deprecated: use client.country instead.
+    def Country(self, data=None) -> "CountryEntity":
+        """Entity factory: client.Country().list({}) / client.Country().load({"id": ...})."""
         from entity.country_entity import CountryEntity
         return CountryEntity(self, data)
 
 
-    @property
-    def indicator(self):
-        """Idiomatic facade: client.indicator.list() / client.indicator.load({"id": ...})."""
-        from entity.indicator_entity import IndicatorEntity
-        cached = getattr(self, "_indicator", None)
-        if cached is None:
-            cached = IndicatorEntity(self, None)
-            self._indicator = cached
-        return cached
-
-    def Indicator(self, data=None):
-        # Deprecated: use client.indicator instead.
+    def Indicator(self, data=None) -> "IndicatorEntity":
+        """Entity factory: client.Indicator().list({}) / client.Indicator().load({"id": ...})."""
         from entity.indicator_entity import IndicatorEntity
         return IndicatorEntity(self, data)
 
 
-    @property
-    def metadata(self):
-        """Idiomatic facade: client.metadata.list() / client.metadata.load({"id": ...})."""
-        from entity.metadata_entity import MetadataEntity
-        cached = getattr(self, "_metadata", None)
-        if cached is None:
-            cached = MetadataEntity(self, None)
-            self._metadata = cached
-        return cached
-
-    def Metadata(self, data=None):
-        # Deprecated: use client.metadata instead.
+    def Metadata(self, data=None) -> "MetadataEntity":
+        """Entity factory: client.Metadata().list({}) / client.Metadata().load({"id": ...})."""
         from entity.metadata_entity import MetadataEntity
         return MetadataEntity(self, data)
 
 
-    @property
-    def topic(self):
-        """Idiomatic facade: client.topic.list() / client.topic.load({"id": ...})."""
-        from entity.topic_entity import TopicEntity
-        cached = getattr(self, "_topic", None)
-        if cached is None:
-            cached = TopicEntity(self, None)
-            self._topic = cached
-        return cached
-
-    def Topic(self, data=None):
-        # Deprecated: use client.topic instead.
+    def Topic(self, data=None) -> "TopicEntity":
+        """Entity factory: client.Topic().list({}) / client.Topic().load({"id": ...})."""
         from entity.topic_entity import TopicEntity
         return TopicEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "WorldBankDataSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -306,3 +266,12 @@ class WorldBankDataSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.country_entity import CountryEntity
+    from entity.indicator_entity import IndicatorEntity
+    from entity.metadata_entity import MetadataEntity
+    from entity.topic_entity import TopicEntity

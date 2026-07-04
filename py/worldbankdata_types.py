@@ -4,119 +4,113 @@
 # params (op.<name>.points[].args.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Any
+from typing import TypedDict, Any
 
 
-@dataclass
-class Country:
-    adminregion: Optional[dict] = None
-    capital_city: Optional[str] = None
-    id: Optional[str] = None
-    income_level: Optional[dict] = None
-    iso2_code: Optional[str] = None
-    latitude: Optional[str] = None
-    lending_type: Optional[dict] = None
-    longitude: Optional[str] = None
-    name: Optional[str] = None
-    page: Optional[int] = None
-    per_page: Optional[int] = None
-    region: Optional[dict] = None
-    total: Optional[int] = None
+class Country(TypedDict, total=False):
+    adminregion: dict
+    capital_city: str
+    id: str
+    income_level: dict
+    iso2_code: str
+    latitude: str
+    lending_type: dict
+    longitude: str
+    name: str
+    page: int
+    per_page: int
+    region: dict
+    total: int
 
 
-@dataclass
-class CountryLoadMatch:
+class CountryLoadMatch(TypedDict):
     id: str
 
 
-@dataclass
-class CountryListMatch:
-    adminregion: Optional[dict] = None
-    capital_city: Optional[str] = None
-    id: Optional[str] = None
-    income_level: Optional[dict] = None
-    iso2_code: Optional[str] = None
-    latitude: Optional[str] = None
-    lending_type: Optional[dict] = None
-    longitude: Optional[str] = None
-    name: Optional[str] = None
-    page: Optional[int] = None
-    per_page: Optional[int] = None
-    region: Optional[dict] = None
-    total: Optional[int] = None
+class CountryListMatch(TypedDict, total=False):
+    adminregion: dict
+    capital_city: str
+    id: str
+    income_level: dict
+    iso2_code: str
+    latitude: str
+    lending_type: dict
+    longitude: str
+    name: str
+    page: int
+    per_page: int
+    region: dict
+    total: int
 
 
-@dataclass
-class Indicator:
-    country: Optional[dict] = None
-    countryiso3code: Optional[str] = None
-    date: Optional[str] = None
-    decimal: Optional[int] = None
-    id: Optional[str] = None
-    indicator: Optional[dict] = None
-    name: Optional[str] = None
-    obs_status: Optional[str] = None
-    source: Optional[dict] = None
-    source_note: Optional[str] = None
-    source_organization: Optional[str] = None
-    topic: Optional[list] = None
-    unit: Optional[str] = None
-    value: Optional[float] = None
+class Indicator(TypedDict, total=False):
+    country: dict
+    countryiso3code: str
+    date: str
+    decimal: int
+    id: str
+    indicator: dict
+    name: str
+    obs_status: str
+    source: dict
+    source_note: str
+    source_organization: str
+    topic: list
+    unit: str
+    value: float
 
 
-@dataclass
-class IndicatorLoadMatch:
+class IndicatorLoadMatch(TypedDict):
     country_code: str
     id: str
 
 
-@dataclass
-class IndicatorListMatch:
-    country: Optional[dict] = None
-    countryiso3code: Optional[str] = None
-    date: Optional[str] = None
-    decimal: Optional[int] = None
-    id: Optional[str] = None
-    indicator: Optional[dict] = None
-    name: Optional[str] = None
-    obs_status: Optional[str] = None
-    source: Optional[dict] = None
-    source_note: Optional[str] = None
-    source_organization: Optional[str] = None
-    topic: Optional[list] = None
-    unit: Optional[str] = None
-    value: Optional[float] = None
+class IndicatorListMatch(TypedDict, total=False):
+    country: dict
+    countryiso3code: str
+    date: str
+    decimal: int
+    id: str
+    indicator: dict
+    name: str
+    obs_status: str
+    source: dict
+    source_note: str
+    source_organization: str
+    topic: list
+    unit: str
+    value: float
 
 
-@dataclass
-class Metadata:
-    code: Optional[str] = None
-    description: Optional[str] = None
-    id: Optional[str] = None
-    iso2code: Optional[str] = None
-    lastupdated: Optional[str] = None
-    name: Optional[str] = None
-    url: Optional[str] = None
-    value: Optional[str] = None
+class Metadata(TypedDict, total=False):
+    code: str
+    description: str
+    id: str
+    iso2code: str
+    lastupdated: str
+    name: str
+    url: str
+    value: str
 
 
-@dataclass
-class MetadataListMatch:
+class MetadataListMatch(TypedDict):
     source_id: int
 
 
-@dataclass
-class Topic:
-    id: Optional[str] = None
-    source_note: Optional[str] = None
-    value: Optional[str] = None
+class Topic(TypedDict, total=False):
+    id: str
+    source_note: str
+    value: str
 
 
-@dataclass
-class TopicListMatch:
+class TopicListMatch(TypedDict):
     id: int
-

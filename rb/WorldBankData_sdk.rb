@@ -208,52 +208,28 @@ class WorldBankDataSDK
   end
 
 
-  # Idiomatic facade: client.country.list / client.country.load({ "id" => ... })
-  def country
-    require_relative 'entity/country_entity'
-    @country ||= CountryEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.country instead.
+  # Canonical facade: client.Country.list / client.Country.load({ "id" => ... })
   def Country(data = nil)
     require_relative 'entity/country_entity'
     CountryEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.indicator.list / client.indicator.load({ "id" => ... })
-  def indicator
-    require_relative 'entity/indicator_entity'
-    @indicator ||= IndicatorEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.indicator instead.
+  # Canonical facade: client.Indicator.list / client.Indicator.load({ "id" => ... })
   def Indicator(data = nil)
     require_relative 'entity/indicator_entity'
     IndicatorEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.metadata.list / client.metadata.load({ "id" => ... })
-  def metadata
-    require_relative 'entity/metadata_entity'
-    @metadata ||= MetadataEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.metadata instead.
+  # Canonical facade: client.Metadata.list / client.Metadata.load({ "id" => ... })
   def Metadata(data = nil)
     require_relative 'entity/metadata_entity'
     MetadataEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.topic.list / client.topic.load({ "id" => ... })
-  def topic
-    require_relative 'entity/topic_entity'
-    @topic ||= TopicEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.topic instead.
+  # Canonical facade: client.Topic.list / client.Topic.load({ "id" => ... })
   def Topic(data = nil)
     require_relative 'entity/topic_entity'
     TopicEntity.new(self, data)

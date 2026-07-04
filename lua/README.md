@@ -31,26 +31,26 @@ local sdk = require("world-bank-data_sdk")
 local client = sdk.new()
 ```
 
-### 2. List countrys
+### 2. List country records
+
+Entity operations return `(value, err)`. For `list`, `value` is the
+array of records itself — iterate it directly (there is no wrapper).
 
 ```lua
-local result, err = client:country():list()
+local countrys, err = client:Country():list()
 if err then error(err) end
 
-if type(result) == "table" then
-  for _, item in ipairs(result) do
-    local d = item:data_get()
-    print(d["id"], d["name"])
-  end
+for _, item in ipairs(countrys) do
+  print(item["id"], item["name"])
 end
 ```
 
 ### 3. Load a country
 
 ```lua
-local result, err = client:country():load({ id = "example_id" })
+local country, err = client:Country():load({ id = "example_id" })
 if err then error(err) end
-print(result)
+print(country)
 ```
 
 
@@ -96,8 +96,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:country():load({ id = "test01" })
--- result contains mock response data
+local result, err = client:Country():load({ id = "test01" })
+-- result is the loaded data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -176,7 +176,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `prepare` | `(fetchargs) -> table, err` | Build an HTTP request definition without sending. |
 | `direct` | `(fetchargs) -> table, err` | Build and send an HTTP request. |
 | `Country` | `(data) -> CountryEntity` | Create a Country entity instance. |
-| `Indicator` | `(data) -> IndicatorEntity` | Create a Indicator entity instance. |
+| `Indicator` | `(data) -> IndicatorEntity` | Create an Indicator entity instance. |
 | `Metadata` | `(data) -> MetadataEntity` | Create a Metadata entity instance. |
 | `Topic` | `(data) -> TopicEntity` | Create a Topic entity instance. |
 
@@ -200,17 +200,22 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`table` with these keys:
+Entity operations return `(value, err)`. The `value` is the operation's
+data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `ok` | `boolean` | `true` if the HTTP status is 2xx. |
-| `status` | `number` | HTTP status code. |
-| `headers` | `table` | Response headers. |
-| `data` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `list` | an array (`table`) of entity records |
 
-On error, `ok` is `false` and `err` contains the error value.
+Check `err` first (it is non-`nil` on failure), then use `value`:
+
+    local country, err = client:Country():load({ id = "example_id" })
+    if err then error(err) end
+    -- country is the loaded record
+
+Only `direct()` returns a response envelope — a `table` with `ok`,
+`status`, `headers`, and `data` keys.
 
 ### Entities
 
@@ -295,7 +300,7 @@ API path: `/topic/{topicId}/indicator`
 
 ### Country
 
-Create an instance: `const country = client.country`
+Create an instance: `local country = client:Country(nil)`
 
 #### Operations
 
@@ -324,20 +329,20 @@ Create an instance: `const country = client.country`
 
 #### Example: Load
 
-```ts
-const country = await client.country.load({ id: 'country_id' })
+```lua
+local country, err = client:Country():load({ id = "country_id" })
 ```
 
 #### Example: List
 
-```ts
-const countrys = await client.country.list()
+```lua
+local countrys, err = client:Country():list()
 ```
 
 
 ### Indicator
 
-Create an instance: `const indicator = client.indicator`
+Create an instance: `local indicator = client:Indicator(nil)`
 
 #### Operations
 
@@ -367,20 +372,20 @@ Create an instance: `const indicator = client.indicator`
 
 #### Example: Load
 
-```ts
-const indicator = await client.indicator.load({ id: 'indicator_id' })
+```lua
+local indicator, err = client:Indicator():load({ id = "indicator_id" })
 ```
 
 #### Example: List
 
-```ts
-const indicators = await client.indicator.list()
+```lua
+local indicators, err = client:Indicator():list()
 ```
 
 
 ### Metadata
 
-Create an instance: `const metadata = client.metadata`
+Create an instance: `local metadata = client:Metadata(nil)`
 
 #### Operations
 
@@ -403,14 +408,14 @@ Create an instance: `const metadata = client.metadata`
 
 #### Example: List
 
-```ts
-const metadatas = await client.metadata.list()
+```lua
+local metadatas, err = client:Metadata():list()
 ```
 
 
 ### Topic
 
-Create an instance: `const topic = client.topic`
+Create an instance: `local topic = client:Topic(nil)`
 
 #### Operations
 
@@ -428,8 +433,8 @@ Create an instance: `const topic = client.topic`
 
 #### Example: List
 
-```ts
-const topics = await client.topic.list()
+```lua
+local topics, err = client:Topic():list()
 ```
 
 
@@ -504,7 +509,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local country = client:country()
+local country = client:Country()
 country:load({ id = "example_id" })
 
 -- country:data_get() now returns the loaded country data

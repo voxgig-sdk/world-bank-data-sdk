@@ -31,24 +31,28 @@ from worldbankdata_sdk import WorldBankDataSDK
 client = WorldBankDataSDK()
 ```
 
-### 2. List countrys
+### 2. List country records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.country.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    countrys = client.Country().list({})
+    for country in countrys:
+        print(country)
 except Exception as err:
     print(f"list failed: {err}")
 ```
 
 ### 3. Load a country
 
+`load()` returns the bare record (a `dict`) and raises on error.
+
 ```python
 try:
-    result = client.country.load({"id": "example_id"})
-    print(result)
+    country = client.Country().load({"id": "example_id"})
+    print(country)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -96,8 +100,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = WorldBankDataSDK.test()
 
-result = client.country.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+country = client.Country().load({"id": "test01"})
+# country contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -174,7 +179,7 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
 | `Country` | `(data) -> CountryEntity` | Create a Country entity instance. |
-| `Indicator` | `(data) -> IndicatorEntity` | Create a Indicator entity instance. |
+| `Indicator` | `(data) -> IndicatorEntity` | Create an Indicator entity instance. |
 | `Metadata` | `(data) -> MetadataEntity` | Create a Metadata entity instance. |
 | `Topic` | `(data) -> TopicEntity` | Create a Topic entity instance. |
 
@@ -297,7 +302,7 @@ API path: `/topic/{topicId}/indicator`
 
 ### Country
 
-Create an instance: `const country = client.country`
+Create an instance: `country = client.Country()`
 
 #### Operations
 
@@ -326,20 +331,20 @@ Create an instance: `const country = client.country`
 
 #### Example: Load
 
-```ts
-const country = await client.country.load({ id: 'country_id' })
+```python
+country = client.Country().load({"id": "country_id"})
 ```
 
 #### Example: List
 
-```ts
-const countrys = await client.country.list()
+```python
+countrys = client.Country().list({})
 ```
 
 
 ### Indicator
 
-Create an instance: `const indicator = client.indicator`
+Create an instance: `indicator = client.Indicator()`
 
 #### Operations
 
@@ -369,20 +374,20 @@ Create an instance: `const indicator = client.indicator`
 
 #### Example: Load
 
-```ts
-const indicator = await client.indicator.load({ id: 'indicator_id' })
+```python
+indicator = client.Indicator().load({"id": "indicator_id"})
 ```
 
 #### Example: List
 
-```ts
-const indicators = await client.indicator.list()
+```python
+indicators = client.Indicator().list({})
 ```
 
 
 ### Metadata
 
-Create an instance: `const metadata = client.metadata`
+Create an instance: `metadata = client.Metadata()`
 
 #### Operations
 
@@ -405,14 +410,14 @@ Create an instance: `const metadata = client.metadata`
 
 #### Example: List
 
-```ts
-const metadatas = await client.metadata.list()
+```python
+metadatas = client.Metadata().list({})
 ```
 
 
 ### Topic
 
-Create an instance: `const topic = client.topic`
+Create an instance: `topic = client.Topic()`
 
 #### Operations
 
@@ -430,8 +435,8 @@ Create an instance: `const topic = client.topic`
 
 #### Example: List
 
-```ts
-const topics = await client.topic.list()
+```python
+topics = client.Topic().list({})
 ```
 
 
@@ -505,7 +510,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-country = client.country
+country = client.Country()
 country.load({"id": "example_id"})
 
 # country.data_get() now returns the loaded country data

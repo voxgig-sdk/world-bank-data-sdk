@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:country():list() / client:country():load({ id = ... })
-function WorldBankDataSDK:country(data)
+-- Idiomatic facade: client:Country():list() / client:Country():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function WorldBankDataSDK:Country(data)
   local EntityMod = require("entity.country_entity")
   if data == nil then
     if self._country == nil then
@@ -256,15 +257,10 @@ function WorldBankDataSDK:country(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:country() instead.
-function WorldBankDataSDK:Country(data)
-  local EntityMod = require("entity.country_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:indicator():list() / client:indicator():load({ id = ... })
-function WorldBankDataSDK:indicator(data)
+-- Idiomatic facade: client:Indicator():list() / client:Indicator():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function WorldBankDataSDK:Indicator(data)
   local EntityMod = require("entity.indicator_entity")
   if data == nil then
     if self._indicator == nil then
@@ -275,15 +271,10 @@ function WorldBankDataSDK:indicator(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:indicator() instead.
-function WorldBankDataSDK:Indicator(data)
-  local EntityMod = require("entity.indicator_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:metadata():list() / client:metadata():load({ id = ... })
-function WorldBankDataSDK:metadata(data)
+-- Idiomatic facade: client:Metadata():list() / client:Metadata():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function WorldBankDataSDK:Metadata(data)
   local EntityMod = require("entity.metadata_entity")
   if data == nil then
     if self._metadata == nil then
@@ -294,15 +285,10 @@ function WorldBankDataSDK:metadata(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:metadata() instead.
-function WorldBankDataSDK:Metadata(data)
-  local EntityMod = require("entity.metadata_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:topic():list() / client:topic():load({ id = ... })
-function WorldBankDataSDK:topic(data)
+-- Idiomatic facade: client:Topic():list() / client:Topic():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function WorldBankDataSDK:Topic(data)
   local EntityMod = require("entity.topic_entity")
   if data == nil then
     if self._topic == nil then
@@ -310,12 +296,6 @@ function WorldBankDataSDK:topic(data)
     end
     return self._topic
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:topic() instead.
-function WorldBankDataSDK:Topic(data)
-  local EntityMod = require("entity.topic_entity")
   return EntityMod.new(self, data)
 end
 

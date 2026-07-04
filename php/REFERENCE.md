@@ -97,7 +97,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## CountryEntity
 
 ```php
-$country = $client->country();
+$country = $client->Country();
 ```
 
 ### Fields
@@ -125,7 +125,7 @@ $country = $client->country();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->country()->list([]);
+$results = $client->Country()->list([]);
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -133,7 +133,7 @@ $results = $client->country()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->country()->load(["id" => "country_id"]);
+$result = $client->Country()->load(["id" => "country_id"]);
 ```
 
 ### Common Methods
@@ -169,7 +169,7 @@ Return the entity name.
 ## IndicatorEntity
 
 ```php
-$indicator = $client->indicator();
+$indicator = $client->Indicator();
 ```
 
 ### Fields
@@ -198,7 +198,7 @@ $indicator = $client->indicator();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->indicator()->list([]);
+$results = $client->Indicator()->list([]);
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -206,7 +206,7 @@ $results = $client->indicator()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->indicator()->load(["id" => "indicator_id"]);
+$result = $client->Indicator()->load(["id" => "indicator_id"]);
 ```
 
 ### Common Methods
@@ -242,7 +242,7 @@ Return the entity name.
 ## MetadataEntity
 
 ```php
-$metadata = $client->metadata();
+$metadata = $client->Metadata();
 ```
 
 ### Fields
@@ -265,7 +265,7 @@ $metadata = $client->metadata();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->metadata()->list([]);
+$results = $client->Metadata()->list([]);
 ```
 
 ### Common Methods
@@ -301,7 +301,7 @@ Return the entity name.
 ## TopicEntity
 
 ```php
-$topic = $client->topic();
+$topic = $client->Topic();
 ```
 
 ### Fields
@@ -319,7 +319,7 @@ $topic = $client->topic();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->topic()->list([]);
+$results = $client->Topic()->list([]);
 ```
 
 ### Common Methods

@@ -95,7 +95,7 @@ same parameters as `direct()`.
 ## CountryEntity
 
 ```lua
-local country = client:country(nil)
+local country = client:Country(nil)
 ```
 
 ### Fields
@@ -123,7 +123,7 @@ local country = client:country(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:country():list()
+local results, err = client:Country():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -131,7 +131,7 @@ local results, err = client:country():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:country():load({ id = "country_id" })
+local result, err = client:Country():load({ id = "country_id" })
 ```
 
 ### Common Methods
@@ -167,7 +167,7 @@ Return the entity name.
 ## IndicatorEntity
 
 ```lua
-local indicator = client:indicator(nil)
+local indicator = client:Indicator(nil)
 ```
 
 ### Fields
@@ -196,7 +196,7 @@ local indicator = client:indicator(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:indicator():list()
+local results, err = client:Indicator():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -204,7 +204,7 @@ local results, err = client:indicator():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:indicator():load({ id = "indicator_id" })
+local result, err = client:Indicator():load({ id = "indicator_id" })
 ```
 
 ### Common Methods
@@ -240,7 +240,7 @@ Return the entity name.
 ## MetadataEntity
 
 ```lua
-local metadata = client:metadata(nil)
+local metadata = client:Metadata(nil)
 ```
 
 ### Fields
@@ -263,7 +263,7 @@ local metadata = client:metadata(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:metadata():list()
+local results, err = client:Metadata():list()
 ```
 
 ### Common Methods
@@ -299,7 +299,7 @@ Return the entity name.
 ## TopicEntity
 
 ```lua
-local topic = client:topic(nil)
+local topic = client:Topic(nil)
 ```
 
 ### Fields
@@ -317,7 +317,7 @@ local topic = client:topic(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:topic():list()
+local results, err = client:Topic():list()
 ```
 
 ### Common Methods

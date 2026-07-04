@@ -207,56 +207,28 @@ class WorldBankDataSDK {
 
 
 
-  _country?: CountryEntity
-
-  // Idiomatic facade: `client.country.list()` / `client.country.load({ id })`.
-  get country(): CountryEntity {
-    return (this._country ??= new CountryEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.country` instead. */
+  // Entity access: `client.Country().list()` / `client.Country().load({ id })`.
   Country(data?: any) {
     const self = this
     return new CountryEntity(self,data)
   }
 
 
-  _indicator?: IndicatorEntity
-
-  // Idiomatic facade: `client.indicator.list()` / `client.indicator.load({ id })`.
-  get indicator(): IndicatorEntity {
-    return (this._indicator ??= new IndicatorEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.indicator` instead. */
+  // Entity access: `client.Indicator().list()` / `client.Indicator().load({ id })`.
   Indicator(data?: any) {
     const self = this
     return new IndicatorEntity(self,data)
   }
 
 
-  _metadata?: MetadataEntity
-
-  // Idiomatic facade: `client.metadata.list()` / `client.metadata.load({ id })`.
-  get metadata(): MetadataEntity {
-    return (this._metadata ??= new MetadataEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.metadata` instead. */
+  // Entity access: `client.Metadata().list()` / `client.Metadata().load({ id })`.
   Metadata(data?: any) {
     const self = this
     return new MetadataEntity(self,data)
   }
 
 
-  _topic?: TopicEntity
-
-  // Idiomatic facade: `client.topic.list()` / `client.topic.load({ id })`.
-  get topic(): TopicEntity {
-    return (this._topic ??= new TopicEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.topic` instead. */
+  // Entity access: `client.Topic().list()` / `client.Topic().load({ id })`.
   Topic(data?: any) {
     const self = this
     return new TopicEntity(self,data)

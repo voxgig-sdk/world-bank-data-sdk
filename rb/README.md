@@ -28,16 +28,14 @@ require_relative "WorldBankData_sdk"
 client = WorldBankDataSDK.new
 ```
 
-### 2. List countrys
+### 2. List country records
 
 ```ruby
 begin
-  result = client.country.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of Country records — iterate directly.
+  countrys = client.Country.list
+  countrys.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -48,8 +46,9 @@ end
 
 ```ruby
 begin
-  result = client.country.load({ "id" => "example_id" })
-  puts result
+  # load returns the bare Country record (raises on error).
+  country = client.Country.load({ "id" => "example_id" })
+  puts country
 rescue => err
   warn "load failed: #{err}"
 end
@@ -96,13 +95,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = WorldBankDataSDK.test
+client = WorldBankDataSDK.test({
+  "entity" => { "country" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.country.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+country = client.Country.load({ "id" => "test01" })
+puts country
 ```
 
 ### Use a custom fetch function
@@ -179,7 +182,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
 | `Country` | `(data) -> CountryEntity` | Create a Country entity instance. |
-| `Indicator` | `(data) -> IndicatorEntity` | Create a Indicator entity instance. |
+| `Indicator` | `(data) -> IndicatorEntity` | Create an Indicator entity instance. |
 | `Metadata` | `(data) -> MetadataEntity` | Create a Metadata entity instance. |
 | `Topic` | `(data) -> TopicEntity` | Create a Topic entity instance. |
 
@@ -301,7 +304,7 @@ API path: `/topic/{topicId}/indicator`
 
 ### Country
 
-Create an instance: `const country = client.country`
+Create an instance: `country = client.Country`
 
 #### Operations
 
@@ -330,20 +333,22 @@ Create an instance: `const country = client.country`
 
 #### Example: Load
 
-```ts
-const country = await client.country.load({ id: 'country_id' })
+```ruby
+# load returns the bare Country record (raises on error).
+country = client.Country.load({ "id" => "country_id" })
 ```
 
 #### Example: List
 
-```ts
-const countrys = await client.country.list()
+```ruby
+# list returns an Array of Country records (raises on error).
+countrys = client.Country.list
 ```
 
 
 ### Indicator
 
-Create an instance: `const indicator = client.indicator`
+Create an instance: `indicator = client.Indicator`
 
 #### Operations
 
@@ -373,20 +378,22 @@ Create an instance: `const indicator = client.indicator`
 
 #### Example: Load
 
-```ts
-const indicator = await client.indicator.load({ id: 'indicator_id' })
+```ruby
+# load returns the bare Indicator record (raises on error).
+indicator = client.Indicator.load({ "id" => "indicator_id" })
 ```
 
 #### Example: List
 
-```ts
-const indicators = await client.indicator.list()
+```ruby
+# list returns an Array of Indicator records (raises on error).
+indicators = client.Indicator.list
 ```
 
 
 ### Metadata
 
-Create an instance: `const metadata = client.metadata`
+Create an instance: `metadata = client.Metadata`
 
 #### Operations
 
@@ -409,14 +416,15 @@ Create an instance: `const metadata = client.metadata`
 
 #### Example: List
 
-```ts
-const metadatas = await client.metadata.list()
+```ruby
+# list returns an Array of Metadata records (raises on error).
+metadatas = client.Metadata.list
 ```
 
 
 ### Topic
 
-Create an instance: `const topic = client.topic`
+Create an instance: `topic = client.Topic`
 
 #### Operations
 
@@ -434,8 +442,9 @@ Create an instance: `const topic = client.topic`
 
 #### Example: List
 
-```ts
-const topics = await client.topic.list()
+```ruby
+# list returns an Array of Topic records (raises on error).
+topics = client.Topic.list
 ```
 
 
@@ -510,7 +519,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-country = client.country
+country = client.Country
 country.load({ "id" => "example_id" })
 
 # country.data_get now returns the loaded country data

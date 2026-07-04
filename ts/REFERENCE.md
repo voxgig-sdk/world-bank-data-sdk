@@ -145,7 +145,7 @@ Alias for `WorldBankDataSDK.test()`.
 ## CountryEntity
 
 ```ts
-const country = client.country
+const country = client.Country()
 ```
 
 ### Fields
@@ -173,7 +173,7 @@ const country = client.country
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.country.list()
+const results = await client.Country().list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -181,7 +181,7 @@ const results = await client.country.list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.country.load({ id: 'country_id' })
+const result = await client.Country().load({ id: 'country_id' })
 ```
 
 ### Common Methods
@@ -215,7 +215,7 @@ Return a copy of the entity options.
 ## IndicatorEntity
 
 ```ts
-const indicator = client.indicator
+const indicator = client.Indicator()
 ```
 
 ### Fields
@@ -244,7 +244,7 @@ const indicator = client.indicator
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.indicator.list()
+const results = await client.Indicator().list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -252,7 +252,7 @@ const results = await client.indicator.list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.indicator.load({ id: 'indicator_id' })
+const result = await client.Indicator().load({ id: 'indicator_id' })
 ```
 
 ### Common Methods
@@ -286,7 +286,7 @@ Return a copy of the entity options.
 ## MetadataEntity
 
 ```ts
-const metadata = client.metadata
+const metadata = client.Metadata()
 ```
 
 ### Fields
@@ -309,7 +309,7 @@ const metadata = client.metadata
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.metadata.list()
+const results = await client.Metadata().list()
 ```
 
 ### Common Methods
@@ -343,7 +343,7 @@ Return a copy of the entity options.
 ## TopicEntity
 
 ```ts
-const topic = client.topic
+const topic = client.Topic()
 ```
 
 ### Fields
@@ -361,7 +361,7 @@ const topic = client.topic
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.topic.list()
+const results = await client.Topic().list()
 ```
 
 ### Common Methods
