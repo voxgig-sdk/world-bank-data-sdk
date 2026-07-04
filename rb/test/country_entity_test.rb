@@ -43,16 +43,14 @@ class CountryEntityTest < Minitest::Test
     country_ref01_ent = client.Country(nil)
     country_ref01_match = {}
 
-    country_ref01_list_result, err = country_ref01_ent.list(country_ref01_match, nil)
-    assert_nil err
+    country_ref01_list_result = country_ref01_ent.list(country_ref01_match, nil)
     assert country_ref01_list_result.is_a?(Array)
 
     # LOAD
     country_ref01_match_dt0 = {
       "id" => country_ref01_data["id"],
     }
-    country_ref01_data_dt0_loaded, err = country_ref01_ent.load(country_ref01_match_dt0, nil)
-    assert_nil err
+    country_ref01_data_dt0_loaded = country_ref01_ent.load(country_ref01_match_dt0, nil)
     country_ref01_data_dt0_load_result = Helpers.to_map(country_ref01_data_dt0_loaded)
     assert !country_ref01_data_dt0_load_result.nil?
     assert_equal country_ref01_data_dt0_load_result["id"], country_ref01_data["id"]
@@ -93,7 +91,6 @@ def country_basic_setup(extra)
     "WORLDBANKDATA_TEST_COUNTRY_ENTID" => idmap,
     "WORLDBANKDATA_TEST_LIVE" => "FALSE",
     "WORLDBANKDATA_TEST_EXPLAIN" => "FALSE",
-    "WORLDBANKDATA_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -105,7 +102,6 @@ def country_basic_setup(extra)
   if env["WORLDBANKDATA_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["WORLDBANKDATA_APIKEY"],
       },
       extra || {},
     ])

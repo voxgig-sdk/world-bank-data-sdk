@@ -14,9 +14,14 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Indicator,
+  IndicatorLoadMatch,
+  IndicatorListMatch,
+} from '../WorldBankDataTypes'
 
 // TODO: needs Entity superclass
-class IndicatorEntity extends WorldBankDataEntityBase {
+class IndicatorEntity extends WorldBankDataEntityBase<Indicator> {
 
   constructor(client: WorldBankDataSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +37,7 @@ class IndicatorEntity extends WorldBankDataEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: IndicatorLoadMatch, ctrl?: Control): Promise<Indicator> {
 
     const utility = this._utility
 
@@ -136,14 +141,16 @@ class IndicatorEntity extends WorldBankDataEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Indicator> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: IndicatorListMatch, ctrl?: Control): Promise<Indicator[]> {
 
     const utility = this._utility
 
@@ -243,7 +250,9 @@ class IndicatorEntity extends WorldBankDataEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Indicator[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

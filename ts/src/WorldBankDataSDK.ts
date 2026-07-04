@@ -5,6 +5,8 @@ import { IndicatorEntity } from './entity/IndicatorEntity'
 import { MetadataEntity } from './entity/MetadataEntity'
 import { TopicEntity } from './entity/TopicEntity'
 
+export type * from './WorldBankDataTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -205,24 +207,56 @@ class WorldBankDataSDK {
 
 
 
+  _country?: CountryEntity
+
+  // Idiomatic facade: `client.country.list()` / `client.country.load({ id })`.
+  get country(): CountryEntity {
+    return (this._country ??= new CountryEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.country` instead. */
   Country(data?: any) {
     const self = this
     return new CountryEntity(self,data)
   }
 
 
+  _indicator?: IndicatorEntity
+
+  // Idiomatic facade: `client.indicator.list()` / `client.indicator.load({ id })`.
+  get indicator(): IndicatorEntity {
+    return (this._indicator ??= new IndicatorEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.indicator` instead. */
   Indicator(data?: any) {
     const self = this
     return new IndicatorEntity(self,data)
   }
 
 
+  _metadata?: MetadataEntity
+
+  // Idiomatic facade: `client.metadata.list()` / `client.metadata.load({ id })`.
+  get metadata(): MetadataEntity {
+    return (this._metadata ??= new MetadataEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.metadata` instead. */
   Metadata(data?: any) {
     const self = this
     return new MetadataEntity(self,data)
   }
 
 
+  _topic?: TopicEntity
+
+  // Idiomatic facade: `client.topic.list()` / `client.topic.load({ id })`.
+  get topic(): TopicEntity {
+    return (this._topic ??= new TopicEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.topic` instead. */
   Topic(data?: any) {
     const self = this
     return new TopicEntity(self,data)

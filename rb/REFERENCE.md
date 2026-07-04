@@ -20,7 +20,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `Hash` | SDK configuration options. |
-| `options["apikey"]` | `String` | API key for authentication. |
 | `options["base"]` | `String` | Base URL for API requests. |
 | `options["prefix"]` | `String` | URL prefix appended after base. |
 | `options["suffix"]` | `String` | URL suffix appended after path. |
@@ -66,9 +65,11 @@ Return a deep copy of the current SDK options.
 
 Return a copy of the SDK utility object.
 
-#### `direct(fetchargs = {}) -> Hash, err`
+#### `direct(fetchargs = {}) -> Hash`
 
-Make a direct HTTP request to any API endpoint.
+Make a direct HTTP request to any API endpoint. Returns a result hash
+(`{ "ok" => ..., "status" => ..., "data" => ..., "err" => ... }`); it
+does not raise — inspect `result["ok"]`.
 
 **Parameters:**
 
@@ -82,14 +83,14 @@ Make a direct HTTP request to any API endpoint.
 | `fetchargs["body"]` | `any` | Request body (hashes are JSON-serialized). |
 | `fetchargs["ctrl"]` | `Hash` | Control options (e.g. `{ "explain" => true }`). |
 
-**Returns:** `Hash, err`
+**Returns:** `Hash`
 
-#### `prepare(fetchargs = {}) -> Hash, err`
+#### `prepare(fetchargs = {}) -> Hash`
 
 Prepare a fetch definition without sending the request. Accepts the
-same parameters as `direct()`.
+same parameters as `direct()`. Raises on error.
 
-**Returns:** `Hash, err`
+**Returns:** `Hash` (the fetch definition; raises on error)
 
 
 ---
@@ -97,7 +98,7 @@ same parameters as `direct()`.
 ## CountryEntity
 
 ```ruby
-country = client.Country
+country = client.country
 ```
 
 ### Fields
@@ -120,20 +121,20 @@ country = client.Country
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.Country.list(nil)
+results = client.country.list(nil)
 ```
 
-#### `load(reqmatch, ctrl = nil) -> result, err`
+#### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result, err = client.Country.load({ "id" => "country_id" })
+result = client.country.load({ "id" => "country_id" })
 ```
 
 ### Common Methods
@@ -169,7 +170,7 @@ Return the entity name.
 ## IndicatorEntity
 
 ```ruby
-indicator = client.Indicator
+indicator = client.indicator
 ```
 
 ### Fields
@@ -193,20 +194,20 @@ indicator = client.Indicator
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.Indicator.list(nil)
+results = client.indicator.list(nil)
 ```
 
-#### `load(reqmatch, ctrl = nil) -> result, err`
+#### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result, err = client.Indicator.load({ "id" => "indicator_id" })
+result = client.indicator.load({ "id" => "indicator_id" })
 ```
 
 ### Common Methods
@@ -242,7 +243,7 @@ Return the entity name.
 ## MetadataEntity
 
 ```ruby
-metadata = client.Metadata
+metadata = client.metadata
 ```
 
 ### Fields
@@ -260,12 +261,12 @@ metadata = client.Metadata
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.Metadata.list(nil)
+results = client.metadata.list(nil)
 ```
 
 ### Common Methods
@@ -301,7 +302,7 @@ Return the entity name.
 ## TopicEntity
 
 ```ruby
-topic = client.Topic
+topic = client.topic
 ```
 
 ### Fields
@@ -314,12 +315,12 @@ topic = client.Topic
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.Topic.list(nil)
+results = client.topic.list(nil)
 ```
 
 ### Common Methods

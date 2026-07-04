@@ -4,6 +4,7 @@
 main: {
   kit: {
     info: {
+      auth: false
       contact: {
         name: "World Bank Data Help Desk"
         url: "https://datahelpdesk.worldbank.org/knowledgebase/topics/125589"

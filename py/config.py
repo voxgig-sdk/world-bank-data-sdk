@@ -15,9 +15,6 @@ def make_config():
         },
         "options": {
             "base": "https://api.worldbank.org/v2",
-            "auth": {
-                "prefix": "Bearer",
-            },
             "headers": {
         "content-type": "application/json",
       },
@@ -198,6 +195,7 @@ def make_config():
                       "orig": "country_code",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                   ],
                   "query": [
@@ -428,6 +426,7 @@ def make_config():
                       "orig": "country_code",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                     {
                       "active": True,
@@ -436,6 +435,7 @@ def make_config():
                       "orig": "indicator_code",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 1,
                     },
                   ],
                   "query": [
@@ -545,6 +545,7 @@ def make_config():
                       "orig": "indicator_code",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                   ],
                   "query": [
@@ -670,6 +671,7 @@ def make_config():
                       "orig": "source_id",
                       "reqd": True,
                       "type": "`$INTEGER`",
+                      "index$": 0,
                     },
                   ],
                   "query": [
@@ -985,6 +987,7 @@ def make_config():
                       "orig": "topic_id",
                       "reqd": True,
                       "type": "`$INTEGER`",
+                      "index$": 0,
                     },
                   ],
                   "query": [

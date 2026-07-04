@@ -50,8 +50,7 @@ class TestTopicEntity:
         topic_ref01_ent = client.Topic(None)
         topic_ref01_match = {}
 
-        topic_ref01_list_result, err = topic_ref01_ent.list(topic_ref01_match, None)
-        assert err is None
+        topic_ref01_list_result = topic_ref01_ent.list(topic_ref01_match, None)
         assert isinstance(topic_ref01_list_result, list)
 
 
@@ -92,7 +91,6 @@ def _topic_basic_setup(extra):
         "WORLDBANKDATA_TEST_TOPIC_ENTID": idmap,
         "WORLDBANKDATA_TEST_LIVE": "FALSE",
         "WORLDBANKDATA_TEST_EXPLAIN": "FALSE",
-        "WORLDBANKDATA_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +101,6 @@ def _topic_basic_setup(extra):
     if env.get("WORLDBANKDATA_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("WORLDBANKDATA_APIKEY"),
             },
             extra or {},
         ])

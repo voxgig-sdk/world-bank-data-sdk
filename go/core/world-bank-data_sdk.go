@@ -245,21 +245,33 @@ func (sdk *WorldBankDataSDK) Direct(fetchargs map[string]any) (map[string]any, e
 }
 
 
+// Country returns a Country entity bound to this client.
+// Idiomatic usage: client.Country(nil).List(nil, nil) or
+// client.Country(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *WorldBankDataSDK) Country(data map[string]any) WorldBankDataEntity {
 	return NewCountryEntityFunc(sdk, data)
 }
 
 
+// Indicator returns a Indicator entity bound to this client.
+// Idiomatic usage: client.Indicator(nil).List(nil, nil) or
+// client.Indicator(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *WorldBankDataSDK) Indicator(data map[string]any) WorldBankDataEntity {
 	return NewIndicatorEntityFunc(sdk, data)
 }
 
 
+// Metadata returns a Metadata entity bound to this client.
+// Idiomatic usage: client.Metadata(nil).List(nil, nil) or
+// client.Metadata(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *WorldBankDataSDK) Metadata(data map[string]any) WorldBankDataEntity {
 	return NewMetadataEntityFunc(sdk, data)
 }
 
 
+// Topic returns a Topic entity bound to this client.
+// Idiomatic usage: client.Topic(nil).List(nil, nil) or
+// client.Topic(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *WorldBankDataSDK) Topic(data map[string]any) WorldBankDataEntity {
 	return NewTopicEntityFunc(sdk, data)
 }

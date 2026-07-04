@@ -45,6 +45,7 @@ class IndicatorEntity
     end
   end
 
+  # @return [Indicator, Hash] the current Indicator data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class IndicatorEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Indicator fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single Indicator.
+  #
+  # @param reqmatch [IndicatorLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Indicator, Hash] the loaded Indicator; raises WorldBankDataError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -86,6 +93,11 @@ class IndicatorEntity
 
 
   
+  # List Indicator items matching the given filter.
+  #
+  # @param reqmatch [IndicatorListMatch, Hash, nil] match filter (any subset of Indicator fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Indicator>, Array] the matching Indicator items; raises WorldBankDataError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

@@ -120,7 +120,6 @@ function basicSetup(extra?: any) {
     'WORLD_BANK_DATA_TEST_INDICATOR_ENTID': idmap,
     'WORLD_BANK_DATA_TEST_LIVE': 'FALSE',
     'WORLD_BANK_DATA_TEST_EXPLAIN': 'FALSE',
-    'WORLD_BANK_DATA_APIKEY': 'NONE',
   })
 
   idmap = env['WORLD_BANK_DATA_TEST_INDICATOR_ENTID']
@@ -130,7 +129,6 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new WorldBankDataSDK(merge([
       {
-        apikey: env.WORLD_BANK_DATA_APIKEY,
       },
       extra
     ]))

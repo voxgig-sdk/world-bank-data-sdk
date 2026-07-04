@@ -55,6 +55,9 @@ class IndicatorEntity
         return new IndicatorEntity($this->_client, $opts);
     }
 
+    /**
+     * @param Indicator|array $args Indicator data (assoc-array) to store.
+     */
     public function data_set($args): void
     {
         if ($args) {
@@ -63,12 +66,18 @@ class IndicatorEntity
         }
     }
 
+    /**
+     * @return Indicator|array The current Indicator data as an assoc-array.
+     */
     public function data_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetData");
         return Struct::clone($this->_data);
     }
 
+    /**
+     * @param array $args Match filter (any subset of Indicator fields).
+     */
     public function match_set($args): void
     {
         if ($args) {
@@ -77,6 +86,9 @@ class IndicatorEntity
         }
     }
 
+    /**
+     * @return array The current match filter (any subset of Indicator fields).
+     */
     public function match_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetMatch");
@@ -84,7 +96,16 @@ class IndicatorEntity
     }
 
     
-    public function load($reqmatch, $ctrl = null): array
+    /**
+     * Load a single Indicator.
+     *
+     * @param IndicatorLoadMatch|array|null $reqmatch Match criteria (id/query
+     *   fields) as an assoc-array; a typed IndicatorLoadMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Indicator|array The loaded Indicator as an assoc-array at the
+     *   SDK boundary; throws WorldBankDataError on failure (item-5 convention).
+     */
+    public function load(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -110,7 +131,16 @@ class IndicatorEntity
 
 
     
-    public function list($reqmatch, $ctrl = null): array
+    /**
+     * List Indicator items matching the given filter.
+     *
+     * @param IndicatorListMatch|array|null $reqmatch Match filter (any subset
+     *   of Indicator fields) as an assoc-array; IndicatorListMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Indicator[]|array A list of Indicator items as assoc-arrays at
+     *   the SDK boundary; throws WorldBankDataError on failure (item-5 convention).
+     */
+    public function list(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -138,7 +168,7 @@ class IndicatorEntity
 
     
 
-    private function _run_op($ctx, callable $post_done): array
+    private function _run_op($ctx, callable $post_done): mixed
     {
         $utility = $this->_utility;
 

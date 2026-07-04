@@ -9,12 +9,9 @@ The Lua SDK for the WorldBankData API — an entity-oriented client using Lua co
 
 
 ## Install
-```bash
-luarocks install voxgig-sdk-world-bank-data
-```
-
-If the module is not yet published, add the source directory to
-your `LUA_PATH`:
+This package is not yet published to LuaRocks. Install it from the
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/world-bank-data-sdk/releases)),
+or add the source directory to your `LUA_PATH`:
 
 ```bash
 export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
@@ -31,15 +28,13 @@ loading a specific record.
 ```lua
 local sdk = require("world-bank-data_sdk")
 
-local client = sdk.new({
-  apikey = os.getenv("WORLD-BANK-DATA_APIKEY"),
-})
+local client = sdk.new()
 ```
 
 ### 2. List countrys
 
 ```lua
-local result, err = client:Country():list()
+local result, err = client:country():list()
 if err then error(err) end
 
 if type(result) == "table" then
@@ -53,7 +48,7 @@ end
 ### 3. Load a country
 
 ```lua
-local result, err = client:Country():load({ id = "example_id" })
+local result, err = client:country():load({ id = "example_id" })
 if err then error(err) end
 print(result)
 ```
@@ -101,7 +96,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:WorldBankData():load({ id = "test01" })
+local result, err = client:country():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -134,8 +129,7 @@ local client = sdk.new({
 Create a `.env.local` file at the project root:
 
 ```
-WORLD-BANK-DATA_TEST_LIVE=TRUE
-WORLD-BANK-DATA_APIKEY=<your-key>
+WORLD_BANK_DATA_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -158,7 +152,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -302,7 +295,7 @@ API path: `/topic/{topicId}/indicator`
 
 ### Country
 
-Create an instance: `const country = client.Country()`
+Create an instance: `const country = client.country`
 
 #### Operations
 
@@ -332,19 +325,19 @@ Create an instance: `const country = client.Country()`
 #### Example: Load
 
 ```ts
-const country = await client.Country().load({ id: 'country_id' })
+const country = await client.country.load({ id: 'country_id' })
 ```
 
 #### Example: List
 
 ```ts
-const countrys = await client.Country().list()
+const countrys = await client.country.list()
 ```
 
 
 ### Indicator
 
-Create an instance: `const indicator = client.Indicator()`
+Create an instance: `const indicator = client.indicator`
 
 #### Operations
 
@@ -375,19 +368,19 @@ Create an instance: `const indicator = client.Indicator()`
 #### Example: Load
 
 ```ts
-const indicator = await client.Indicator().load({ id: 'indicator_id' })
+const indicator = await client.indicator.load({ id: 'indicator_id' })
 ```
 
 #### Example: List
 
 ```ts
-const indicators = await client.Indicator().list()
+const indicators = await client.indicator.list()
 ```
 
 
 ### Metadata
 
-Create an instance: `const metadata = client.Metadata()`
+Create an instance: `const metadata = client.metadata`
 
 #### Operations
 
@@ -411,13 +404,13 @@ Create an instance: `const metadata = client.Metadata()`
 #### Example: List
 
 ```ts
-const metadatas = await client.Metadata().list()
+const metadatas = await client.metadata.list()
 ```
 
 
 ### Topic
 
-Create an instance: `const topic = client.Topic()`
+Create an instance: `const topic = client.topic`
 
 #### Operations
 
@@ -436,7 +429,7 @@ Create an instance: `const topic = client.Topic()`
 #### Example: List
 
 ```ts
-const topics = await client.Topic().list()
+const topics = await client.topic.list()
 ```
 
 
@@ -511,11 +504,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local moon = client:Moon(nil)
-moon:load({ planet_id = "earth", id = "luna" }, nil)
+local country = client:country()
+country:load({ id = "example_id" })
 
--- moon:data_get() now returns the loaded moon data
--- moon:match_get() returns the last match criteria
+-- country:data_get() now returns the loaded country data
+-- country:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

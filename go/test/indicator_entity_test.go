@@ -135,7 +135,6 @@ func indicatorBasicSetup(extra map[string]any) *entityTestSetup {
 		"WORLDBANKDATA_TEST_INDICATOR_ENTID": idmap,
 		"WORLDBANKDATA_TEST_LIVE":      "FALSE",
 		"WORLDBANKDATA_TEST_EXPLAIN":   "FALSE",
-		"WORLDBANKDATA_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["WORLDBANKDATA_TEST_INDICATOR_ENTID"])
@@ -146,7 +145,6 @@ func indicatorBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["WORLDBANKDATA_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["WORLDBANKDATA_APIKEY"],
 			},
 			extra,
 		})

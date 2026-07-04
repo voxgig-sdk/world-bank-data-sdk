@@ -43,16 +43,14 @@ class IndicatorEntityTest < Minitest::Test
     indicator_ref01_ent = client.Indicator(nil)
     indicator_ref01_match = {}
 
-    indicator_ref01_list_result, err = indicator_ref01_ent.list(indicator_ref01_match, nil)
-    assert_nil err
+    indicator_ref01_list_result = indicator_ref01_ent.list(indicator_ref01_match, nil)
     assert indicator_ref01_list_result.is_a?(Array)
 
     # LOAD
     indicator_ref01_match_dt0 = {
       "id" => indicator_ref01_data["id"],
     }
-    indicator_ref01_data_dt0_loaded, err = indicator_ref01_ent.load(indicator_ref01_match_dt0, nil)
-    assert_nil err
+    indicator_ref01_data_dt0_loaded = indicator_ref01_ent.load(indicator_ref01_match_dt0, nil)
     indicator_ref01_data_dt0_load_result = Helpers.to_map(indicator_ref01_data_dt0_loaded)
     assert !indicator_ref01_data_dt0_load_result.nil?
     assert_equal indicator_ref01_data_dt0_load_result["id"], indicator_ref01_data["id"]
@@ -93,7 +91,6 @@ def indicator_basic_setup(extra)
     "WORLDBANKDATA_TEST_INDICATOR_ENTID" => idmap,
     "WORLDBANKDATA_TEST_LIVE" => "FALSE",
     "WORLDBANKDATA_TEST_EXPLAIN" => "FALSE",
-    "WORLDBANKDATA_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -105,7 +102,6 @@ def indicator_basic_setup(extra)
   if env["WORLDBANKDATA_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["WORLDBANKDATA_APIKEY"],
       },
       extra || {},
     ])

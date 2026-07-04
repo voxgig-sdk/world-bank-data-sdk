@@ -9,9 +9,12 @@ The TypeScript SDK for the WorldBankData API — a type-safe, entity-oriented cl
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/world-bank-data
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/world-bank-data-sdk/releases](https://github.com/voxgig-sdk/world-bank-data-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,15 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { WorldBankDataSDK } from 'world-bank-data'
+import { WorldBankDataSDK } from '@voxgig-sdk/world-bank-data'
 
-const client = new WorldBankDataSDK({
-  apikey: process.env.WORLD-BANK-DATA_APIKEY,
-})
+const client = new WorldBankDataSDK()
 ```
 
 ### 2. List countrys
 
 ```ts
-const result = await client.Country().list()
+const result = await client.country.list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -42,7 +43,7 @@ if (result.ok) {
 ### 3. Load a country
 
 ```ts
-const result = await client.Country().load({ id: 'example_id' })
+const result = await client.country.load({ id: 'example_id' })
 
 if (result.ok) {
   console.log(result.data)
@@ -91,7 +92,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = WorldBankDataSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.country.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -99,7 +100,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new WorldBankDataSDK({ apikey: '...' })
+const client = new WorldBankDataSDK()
 const testClient = client.tester()
 ```
 
@@ -108,7 +109,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.country
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -135,7 +136,6 @@ const logger = {
 }
 
 const client = new WorldBankDataSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -145,8 +145,7 @@ const client = new WorldBankDataSDK({
 Create a `.env.local` file at the project root:
 
 ```
-WORLD-BANK-DATA_TEST_LIVE=TRUE
-WORLD-BANK-DATA_APIKEY=<your-key>
+WORLD_BANK_DATA_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -164,7 +163,6 @@ cd ts && npm test
 
 ```ts
 new WorldBankDataSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -175,7 +173,6 @@ new WorldBankDataSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -345,7 +342,7 @@ API path: `/topic/{topicId}/indicator`
 
 ### Country
 
-Create an instance: `const country = client.Country()`
+Create an instance: `const country = client.country`
 
 #### Operations
 
@@ -375,19 +372,19 @@ Create an instance: `const country = client.Country()`
 #### Example: Load
 
 ```ts
-const country = await client.Country().load({ id: 'country_id' })
+const country = await client.country.load({ id: 'country_id' })
 ```
 
 #### Example: List
 
 ```ts
-const countrys = await client.Country().list()
+const countrys = await client.country.list()
 ```
 
 
 ### Indicator
 
-Create an instance: `const indicator = client.Indicator()`
+Create an instance: `const indicator = client.indicator`
 
 #### Operations
 
@@ -418,19 +415,19 @@ Create an instance: `const indicator = client.Indicator()`
 #### Example: Load
 
 ```ts
-const indicator = await client.Indicator().load({ id: 'indicator_id' })
+const indicator = await client.indicator.load({ id: 'indicator_id' })
 ```
 
 #### Example: List
 
 ```ts
-const indicators = await client.Indicator().list()
+const indicators = await client.indicator.list()
 ```
 
 
 ### Metadata
 
-Create an instance: `const metadata = client.Metadata()`
+Create an instance: `const metadata = client.metadata`
 
 #### Operations
 
@@ -454,13 +451,13 @@ Create an instance: `const metadata = client.Metadata()`
 #### Example: List
 
 ```ts
-const metadatas = await client.Metadata().list()
+const metadatas = await client.metadata.list()
 ```
 
 
 ### Topic
 
-Create an instance: `const topic = client.Topic()`
+Create an instance: `const topic = client.topic`
 
 #### Operations
 
@@ -479,7 +476,7 @@ Create an instance: `const topic = client.Topic()`
 #### Example: List
 
 ```ts
-const topics = await client.Topic().list()
+const topics = await client.topic.list()
 ```
 
 
@@ -540,7 +537,7 @@ world-bank-data/
 Import the SDK from the package root:
 
 ```ts
-import { WorldBankDataSDK } from 'world-bank-data'
+import { WorldBankDataSDK } from '@voxgig-sdk/world-bank-data'
 ```
 
 ### Entity state
@@ -550,11 +547,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const country = client.country
+await country.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// country.data() now returns the loaded country data
+// country.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

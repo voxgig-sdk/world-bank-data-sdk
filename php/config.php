@@ -20,9 +20,6 @@ class WorldBankDataConfig
             ],
             "options" => [
                 "base" => "https://api.worldbank.org/v2",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],
@@ -203,6 +200,7 @@ class WorldBankDataConfig
                         'orig' => 'country_code',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                     ],
                     'query' => [
@@ -433,6 +431,7 @@ class WorldBankDataConfig
                         'orig' => 'country_code',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                       [
                         'active' => true,
@@ -441,6 +440,7 @@ class WorldBankDataConfig
                         'orig' => 'indicator_code',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 1,
                       ],
                     ],
                     'query' => [
@@ -550,6 +550,7 @@ class WorldBankDataConfig
                         'orig' => 'indicator_code',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                     ],
                     'query' => [
@@ -675,6 +676,7 @@ class WorldBankDataConfig
                         'orig' => 'source_id',
                         'reqd' => true,
                         'type' => '`$INTEGER`',
+                        'index$' => 0,
                       ],
                     ],
                     'query' => [
@@ -990,6 +992,7 @@ class WorldBankDataConfig
                         'orig' => 'topic_id',
                         'reqd' => true,
                         'type' => '`$INTEGER`',
+                        'index$' => 0,
                       ],
                     ],
                     'query' => [

@@ -50,16 +50,14 @@ class TestCountryEntity:
         country_ref01_ent = client.Country(None)
         country_ref01_match = {}
 
-        country_ref01_list_result, err = country_ref01_ent.list(country_ref01_match, None)
-        assert err is None
+        country_ref01_list_result = country_ref01_ent.list(country_ref01_match, None)
         assert isinstance(country_ref01_list_result, list)
 
         # LOAD
         country_ref01_match_dt0 = {
             "id": country_ref01_data["id"],
         }
-        country_ref01_data_dt0_loaded, err = country_ref01_ent.load(country_ref01_match_dt0, None)
-        assert err is None
+        country_ref01_data_dt0_loaded = country_ref01_ent.load(country_ref01_match_dt0, None)
         country_ref01_data_dt0_load_result = helpers.to_map(country_ref01_data_dt0_loaded)
         assert country_ref01_data_dt0_load_result is not None
         assert country_ref01_data_dt0_load_result["id"] == country_ref01_data["id"]
@@ -102,7 +100,6 @@ def _country_basic_setup(extra):
         "WORLDBANKDATA_TEST_COUNTRY_ENTID": idmap,
         "WORLDBANKDATA_TEST_LIVE": "FALSE",
         "WORLDBANKDATA_TEST_EXPLAIN": "FALSE",
-        "WORLDBANKDATA_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -113,7 +110,6 @@ def _country_basic_setup(extra):
     if env.get("WORLDBANKDATA_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("WORLDBANKDATA_APIKEY"),
             },
             extra or {},
         ])

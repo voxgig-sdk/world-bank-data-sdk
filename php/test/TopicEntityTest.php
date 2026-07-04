@@ -50,8 +50,7 @@ class TopicEntityTest extends TestCase
         $topic_ref01_ent = $client->Topic(null);
         $topic_ref01_match = [];
 
-        [$topic_ref01_list_result, $err] = $topic_ref01_ent->list($topic_ref01_match, null);
-        $this->assertNull($err);
+        $topic_ref01_list_result = $topic_ref01_ent->list($topic_ref01_match, null);
         $this->assertIsArray($topic_ref01_list_result);
 
     }
@@ -86,7 +85,6 @@ function topic_basic_setup($extra)
         "WORLDBANKDATA_TEST_TOPIC_ENTID" => $idmap,
         "WORLDBANKDATA_TEST_LIVE" => "FALSE",
         "WORLDBANKDATA_TEST_EXPLAIN" => "FALSE",
-        "WORLDBANKDATA_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -98,7 +96,6 @@ function topic_basic_setup($extra)
     if ($env["WORLDBANKDATA_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["WORLDBANKDATA_APIKEY"],
             ],
             $extra ?? [],
         ]);

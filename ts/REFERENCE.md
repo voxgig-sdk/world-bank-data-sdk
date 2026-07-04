@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -146,7 +145,7 @@ Alias for `WorldBankDataSDK.test()`.
 ## CountryEntity
 
 ```ts
-const country = client.Country()
+const country = client.country
 ```
 
 ### Fields
@@ -174,7 +173,7 @@ const country = client.Country()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Country().list()
+const results = await client.country.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -182,7 +181,7 @@ const results = await client.Country().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Country().load({ id: 'country_id' })
+const result = await client.country.load({ id: 'country_id' })
 ```
 
 ### Common Methods
@@ -216,7 +215,7 @@ Return a copy of the entity options.
 ## IndicatorEntity
 
 ```ts
-const indicator = client.Indicator()
+const indicator = client.indicator
 ```
 
 ### Fields
@@ -245,7 +244,7 @@ const indicator = client.Indicator()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Indicator().list()
+const results = await client.indicator.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -253,7 +252,7 @@ const results = await client.Indicator().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Indicator().load({ id: 'indicator_id' })
+const result = await client.indicator.load({ id: 'indicator_id' })
 ```
 
 ### Common Methods
@@ -287,7 +286,7 @@ Return a copy of the entity options.
 ## MetadataEntity
 
 ```ts
-const metadata = client.Metadata()
+const metadata = client.metadata
 ```
 
 ### Fields
@@ -310,7 +309,7 @@ const metadata = client.Metadata()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Metadata().list()
+const results = await client.metadata.list()
 ```
 
 ### Common Methods
@@ -344,7 +343,7 @@ Return a copy of the entity options.
 ## TopicEntity
 
 ```ts
-const topic = client.Topic()
+const topic = client.topic
 ```
 
 ### Fields
@@ -362,7 +361,7 @@ const topic = client.Topic()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Topic().list()
+const results = await client.topic.list()
 ```
 
 ### Common Methods

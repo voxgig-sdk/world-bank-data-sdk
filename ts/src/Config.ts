@@ -38,10 +38,6 @@ class Config {
   options = {
     base: 'https://api.worldbank.org/v2',
 
-    auth: {
-      prefix: 'Bearer',
-    },
-
     headers: {
       "content-type": "application/json"
     },
@@ -233,7 +229,8 @@ class Config {
                     "name": "id",
                     "orig": "country_code",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ],
                 "query": [
@@ -463,7 +460,8 @@ class Config {
                     "name": "country_code",
                     "orig": "country_code",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -471,7 +469,8 @@ class Config {
                     "name": "id",
                     "orig": "indicator_code",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ],
                 "query": [
@@ -580,7 +579,8 @@ class Config {
                     "name": "id",
                     "orig": "indicator_code",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ],
                 "query": [
@@ -705,7 +705,8 @@ class Config {
                     "name": "source_id",
                     "orig": "source_id",
                     "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "index$": 0
                   }
                 ],
                 "query": [
@@ -1020,7 +1021,8 @@ class Config {
                     "name": "id",
                     "orig": "topic_id",
                     "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "index$": 0
                   }
                 ],
                 "query": [

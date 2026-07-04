@@ -50,16 +50,14 @@ class TestIndicatorEntity:
         indicator_ref01_ent = client.Indicator(None)
         indicator_ref01_match = {}
 
-        indicator_ref01_list_result, err = indicator_ref01_ent.list(indicator_ref01_match, None)
-        assert err is None
+        indicator_ref01_list_result = indicator_ref01_ent.list(indicator_ref01_match, None)
         assert isinstance(indicator_ref01_list_result, list)
 
         # LOAD
         indicator_ref01_match_dt0 = {
             "id": indicator_ref01_data["id"],
         }
-        indicator_ref01_data_dt0_loaded, err = indicator_ref01_ent.load(indicator_ref01_match_dt0, None)
-        assert err is None
+        indicator_ref01_data_dt0_loaded = indicator_ref01_ent.load(indicator_ref01_match_dt0, None)
         indicator_ref01_data_dt0_load_result = helpers.to_map(indicator_ref01_data_dt0_loaded)
         assert indicator_ref01_data_dt0_load_result is not None
         assert indicator_ref01_data_dt0_load_result["id"] == indicator_ref01_data["id"]
@@ -102,7 +100,6 @@ def _indicator_basic_setup(extra):
         "WORLDBANKDATA_TEST_INDICATOR_ENTID": idmap,
         "WORLDBANKDATA_TEST_LIVE": "FALSE",
         "WORLDBANKDATA_TEST_EXPLAIN": "FALSE",
-        "WORLDBANKDATA_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -113,7 +110,6 @@ def _indicator_basic_setup(extra):
     if env.get("WORLDBANKDATA_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("WORLDBANKDATA_APIKEY"),
             },
             extra or {},
         ])

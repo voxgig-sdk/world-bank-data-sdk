@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch IndicatorLoadMatch
+---@param ctrl? table
+---@return Indicator
+---@return string? err
 function IndicatorEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -104,6 +108,10 @@ end
 
 
 
+---@param reqmatch IndicatorListMatch
+---@param ctrl? table
+---@return Indicator[]
+---@return string? err
 function IndicatorEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

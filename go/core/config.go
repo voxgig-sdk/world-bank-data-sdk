@@ -14,9 +14,6 @@ func MakeConfig() map[string]any {
 		},
 		"options": map[string]any{
 			"base": "https://api.worldbank.org/v2",
-			"auth": map[string]any{
-				"prefix": "Bearer",
-			},
 			"headers": map[string]any{
 				"content-type": "application/json",
 			},
@@ -197,6 +194,7 @@ func MakeConfig() map[string]any {
 											"orig": "country_code",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 									},
 									"query": []any{
@@ -427,6 +425,7 @@ func MakeConfig() map[string]any {
 											"orig": "country_code",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 										map[string]any{
 											"active": true,
@@ -435,6 +434,7 @@ func MakeConfig() map[string]any {
 											"orig": "indicator_code",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 1,
 										},
 									},
 									"query": []any{
@@ -544,6 +544,7 @@ func MakeConfig() map[string]any {
 											"orig": "indicator_code",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 									},
 									"query": []any{
@@ -669,6 +670,7 @@ func MakeConfig() map[string]any {
 											"orig": "source_id",
 											"reqd": true,
 											"type": "`$INTEGER`",
+											"index$": 0,
 										},
 									},
 									"query": []any{
@@ -984,6 +986,7 @@ func MakeConfig() map[string]any {
 											"orig": "topic_id",
 											"reqd": true,
 											"type": "`$INTEGER`",
+											"index$": 0,
 										},
 									},
 									"query": []any{

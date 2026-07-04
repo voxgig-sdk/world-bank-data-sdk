@@ -45,6 +45,7 @@ class TopicEntity
     end
   end
 
+  # @return [Topic, Hash] the current Topic data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class TopicEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Topic fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class TopicEntity
   
 
   
+  # List Topic items matching the given filter.
+  #
+  # @param reqmatch [TopicListMatch, Hash, nil] match filter (any subset of Topic fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Topic>, Array] the matching Topic items; raises WorldBankDataError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

@@ -144,16 +144,23 @@ class WorldBankDataSDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class WorldBankDataSDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,30 +212,74 @@ class WorldBankDataSDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def country(self):
+        """Idiomatic facade: client.country.list() / client.country.load({"id": ...})."""
+        from entity.country_entity import CountryEntity
+        cached = getattr(self, "_country", None)
+        if cached is None:
+            cached = CountryEntity(self, None)
+            self._country = cached
+        return cached
 
     def Country(self, data=None):
+        # Deprecated: use client.country instead.
         from entity.country_entity import CountryEntity
         return CountryEntity(self, data)
 
 
+    @property
+    def indicator(self):
+        """Idiomatic facade: client.indicator.list() / client.indicator.load({"id": ...})."""
+        from entity.indicator_entity import IndicatorEntity
+        cached = getattr(self, "_indicator", None)
+        if cached is None:
+            cached = IndicatorEntity(self, None)
+            self._indicator = cached
+        return cached
+
     def Indicator(self, data=None):
+        # Deprecated: use client.indicator instead.
         from entity.indicator_entity import IndicatorEntity
         return IndicatorEntity(self, data)
 
 
+    @property
+    def metadata(self):
+        """Idiomatic facade: client.metadata.list() / client.metadata.load({"id": ...})."""
+        from entity.metadata_entity import MetadataEntity
+        cached = getattr(self, "_metadata", None)
+        if cached is None:
+            cached = MetadataEntity(self, None)
+            self._metadata = cached
+        return cached
+
     def Metadata(self, data=None):
+        # Deprecated: use client.metadata instead.
         from entity.metadata_entity import MetadataEntity
         return MetadataEntity(self, data)
 
 
+    @property
+    def topic(self):
+        """Idiomatic facade: client.topic.list() / client.topic.load({"id": ...})."""
+        from entity.topic_entity import TopicEntity
+        cached = getattr(self, "_topic", None)
+        if cached is None:
+            cached = TopicEntity(self, None)
+            self._topic = cached
+        return cached
+
     def Topic(self, data=None):
+        # Deprecated: use client.topic instead.
         from entity.topic_entity import TopicEntity
         return TopicEntity(self, data)
 

@@ -15,9 +15,6 @@ module WorldBankDataConfig
       },
       "options" => {
         "base" => "https://api.worldbank.org/v2",
-        "auth" => {
-          "prefix" => "Bearer",
-        },
         "headers" => {
           "content-type" => "application/json",
         },
@@ -198,6 +195,7 @@ module WorldBankDataConfig
                         "orig" => "country_code",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                     "query" => [
@@ -428,6 +426,7 @@ module WorldBankDataConfig
                         "orig" => "country_code",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                       {
                         "active" => true,
@@ -436,6 +435,7 @@ module WorldBankDataConfig
                         "orig" => "indicator_code",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 1,
                       },
                     ],
                     "query" => [
@@ -545,6 +545,7 @@ module WorldBankDataConfig
                         "orig" => "indicator_code",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                     "query" => [
@@ -670,6 +671,7 @@ module WorldBankDataConfig
                         "orig" => "source_id",
                         "reqd" => true,
                         "type" => "`$INTEGER`",
+                        "index$" => 0,
                       },
                     ],
                     "query" => [
@@ -985,6 +987,7 @@ module WorldBankDataConfig
                         "orig" => "topic_id",
                         "reqd" => true,
                         "type" => "`$INTEGER`",
+                        "index$" => 0,
                       },
                     ],
                     "query" => [

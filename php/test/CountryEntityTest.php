@@ -50,16 +50,14 @@ class CountryEntityTest extends TestCase
         $country_ref01_ent = $client->Country(null);
         $country_ref01_match = [];
 
-        [$country_ref01_list_result, $err] = $country_ref01_ent->list($country_ref01_match, null);
-        $this->assertNull($err);
+        $country_ref01_list_result = $country_ref01_ent->list($country_ref01_match, null);
         $this->assertIsArray($country_ref01_list_result);
 
         // LOAD
         $country_ref01_match_dt0 = [
             "id" => $country_ref01_data["id"],
         ];
-        [$country_ref01_data_dt0_loaded, $err] = $country_ref01_ent->load($country_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $country_ref01_data_dt0_loaded = $country_ref01_ent->load($country_ref01_match_dt0, null);
         $country_ref01_data_dt0_load_result = Helpers::to_map($country_ref01_data_dt0_loaded);
         $this->assertNotNull($country_ref01_data_dt0_load_result);
         $this->assertEquals($country_ref01_data_dt0_load_result["id"], $country_ref01_data["id"]);
@@ -96,7 +94,6 @@ function country_basic_setup($extra)
         "WORLDBANKDATA_TEST_COUNTRY_ENTID" => $idmap,
         "WORLDBANKDATA_TEST_LIVE" => "FALSE",
         "WORLDBANKDATA_TEST_EXPLAIN" => "FALSE",
-        "WORLDBANKDATA_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -108,7 +105,6 @@ function country_basic_setup($extra)
     if ($env["WORLDBANKDATA_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["WORLDBANKDATA_APIKEY"],
             ],
             $extra ?? [],
         ]);

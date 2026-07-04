@@ -43,8 +43,7 @@ class MetadataEntityTest < Minitest::Test
     metadata_ref01_ent = client.Metadata(nil)
     metadata_ref01_match = {}
 
-    metadata_ref01_list_result, err = metadata_ref01_ent.list(metadata_ref01_match, nil)
-    assert_nil err
+    metadata_ref01_list_result = metadata_ref01_ent.list(metadata_ref01_match, nil)
     assert metadata_ref01_list_result.is_a?(Array)
 
   end
@@ -83,7 +82,6 @@ def metadata_basic_setup(extra)
     "WORLDBANKDATA_TEST_METADATA_ENTID" => idmap,
     "WORLDBANKDATA_TEST_LIVE" => "FALSE",
     "WORLDBANKDATA_TEST_EXPLAIN" => "FALSE",
-    "WORLDBANKDATA_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -95,7 +93,6 @@ def metadata_basic_setup(extra)
   if env["WORLDBANKDATA_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["WORLDBANKDATA_APIKEY"],
       },
       extra || {},
     ])

@@ -50,16 +50,14 @@ class IndicatorEntityTest extends TestCase
         $indicator_ref01_ent = $client->Indicator(null);
         $indicator_ref01_match = [];
 
-        [$indicator_ref01_list_result, $err] = $indicator_ref01_ent->list($indicator_ref01_match, null);
-        $this->assertNull($err);
+        $indicator_ref01_list_result = $indicator_ref01_ent->list($indicator_ref01_match, null);
         $this->assertIsArray($indicator_ref01_list_result);
 
         // LOAD
         $indicator_ref01_match_dt0 = [
             "id" => $indicator_ref01_data["id"],
         ];
-        [$indicator_ref01_data_dt0_loaded, $err] = $indicator_ref01_ent->load($indicator_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $indicator_ref01_data_dt0_loaded = $indicator_ref01_ent->load($indicator_ref01_match_dt0, null);
         $indicator_ref01_data_dt0_load_result = Helpers::to_map($indicator_ref01_data_dt0_loaded);
         $this->assertNotNull($indicator_ref01_data_dt0_load_result);
         $this->assertEquals($indicator_ref01_data_dt0_load_result["id"], $indicator_ref01_data["id"]);
@@ -96,7 +94,6 @@ function indicator_basic_setup($extra)
         "WORLDBANKDATA_TEST_INDICATOR_ENTID" => $idmap,
         "WORLDBANKDATA_TEST_LIVE" => "FALSE",
         "WORLDBANKDATA_TEST_EXPLAIN" => "FALSE",
-        "WORLDBANKDATA_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -108,7 +105,6 @@ function indicator_basic_setup($extra)
     if ($env["WORLDBANKDATA_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["WORLDBANKDATA_APIKEY"],
             ],
             $extra ?? [],
         ]);

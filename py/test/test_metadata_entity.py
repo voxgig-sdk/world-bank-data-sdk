@@ -50,8 +50,7 @@ class TestMetadataEntity:
         metadata_ref01_ent = client.Metadata(None)
         metadata_ref01_match = {}
 
-        metadata_ref01_list_result, err = metadata_ref01_ent.list(metadata_ref01_match, None)
-        assert err is None
+        metadata_ref01_list_result = metadata_ref01_ent.list(metadata_ref01_match, None)
         assert isinstance(metadata_ref01_list_result, list)
 
 
@@ -92,7 +91,6 @@ def _metadata_basic_setup(extra):
         "WORLDBANKDATA_TEST_METADATA_ENTID": idmap,
         "WORLDBANKDATA_TEST_LIVE": "FALSE",
         "WORLDBANKDATA_TEST_EXPLAIN": "FALSE",
-        "WORLDBANKDATA_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +101,6 @@ def _metadata_basic_setup(extra):
     if env.get("WORLDBANKDATA_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("WORLDBANKDATA_APIKEY"),
             },
             extra or {},
         ])

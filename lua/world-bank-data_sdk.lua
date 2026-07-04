@@ -244,24 +244,76 @@ end
 
 
 
+-- Idiomatic facade: client:country():list() / client:country():load({ id = ... })
+function WorldBankDataSDK:country(data)
+  local EntityMod = require("entity.country_entity")
+  if data == nil then
+    if self._country == nil then
+      self._country = EntityMod.new(self, nil)
+    end
+    return self._country
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:country() instead.
 function WorldBankDataSDK:Country(data)
   local EntityMod = require("entity.country_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:indicator():list() / client:indicator():load({ id = ... })
+function WorldBankDataSDK:indicator(data)
+  local EntityMod = require("entity.indicator_entity")
+  if data == nil then
+    if self._indicator == nil then
+      self._indicator = EntityMod.new(self, nil)
+    end
+    return self._indicator
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:indicator() instead.
 function WorldBankDataSDK:Indicator(data)
   local EntityMod = require("entity.indicator_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:metadata():list() / client:metadata():load({ id = ... })
+function WorldBankDataSDK:metadata(data)
+  local EntityMod = require("entity.metadata_entity")
+  if data == nil then
+    if self._metadata == nil then
+      self._metadata = EntityMod.new(self, nil)
+    end
+    return self._metadata
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:metadata() instead.
 function WorldBankDataSDK:Metadata(data)
   local EntityMod = require("entity.metadata_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:topic():list() / client:topic():load({ id = ... })
+function WorldBankDataSDK:topic(data)
+  local EntityMod = require("entity.topic_entity")
+  if data == nil then
+    if self._topic == nil then
+      self._topic = EntityMod.new(self, nil)
+    end
+    return self._topic
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:topic() instead.
 function WorldBankDataSDK:Topic(data)
   local EntityMod = require("entity.topic_entity")
   return EntityMod.new(self, data)

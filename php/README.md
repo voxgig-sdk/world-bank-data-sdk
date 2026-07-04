@@ -9,9 +9,10 @@ The PHP SDK for the WorldBankData API — an entity-oriented client using PHP co
 
 
 ## Install
-```bash
-composer require voxgig-sdk/world-bank-data
-```
+This package is not yet published to Packagist. Install it from the
+GitHub release tag (`php/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/world-bank-data-sdk/releases](https://github.com/voxgig-sdk/world-bank-data-sdk/releases)
 
 
 ## Tutorial: your first API call
@@ -25,31 +26,34 @@ loading a specific record.
 <?php
 require_once 'worldbankdata_sdk.php';
 
-$client = new WorldBankDataSDK([
-    "apikey" => getenv("WORLD-BANK-DATA_APIKEY"),
-]);
+$client = new WorldBankDataSDK();
 ```
 
 ### 2. List countrys
 
 ```php
-[$result, $err] = $client->Country()->list();
-if ($err) { throw new \Exception($err); }
-
-if (is_array($result)) {
-    foreach ($result as $item) {
-        $d = $item->data_get();
-        echo $d["id"] . " " . $d["name"] . "\n";
+try {
+    $result = $client->country()->list();
+    if (is_array($result)) {
+        foreach ($result as $item) {
+            $d = $item->data_get();
+            echo $d["id"] . " " . $d["name"] . "\n";
+        }
     }
+} catch (\Exception $err) {
+    echo "Error: " . $err->getMessage();
 }
 ```
 
 ### 3. Load a country
 
 ```php
-[$result, $err] = $client->Country()->load(["id" => "example_id"]);
-if ($err) { throw new \Exception($err); }
-print_r($result);
+try {
+    $result = $client->country()->load(["id" => "example_id"]);
+    print_r($result);
+} catch (\Exception $err) {
+    echo "Error: " . $err->getMessage();
+}
 ```
 
 
@@ -60,28 +64,31 @@ print_r($result);
 For endpoints not covered by entity methods:
 
 ```php
-[$result, $err] = $client->direct([
+// direct() is the raw-HTTP escape hatch: it returns a result array
+// (it does not throw). Branch on $result["ok"].
+$result = $client->direct([
     "path" => "/api/resource/{id}",
     "method" => "GET",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
+} else {
+    echo "Error: " . $result["err"]->getMessage();
 }
 ```
 
 ### Prepare a request without sending it
 
 ```php
-[$fetchdef, $err] = $client->prepare([
+// prepare() throws on error and returns the fetch definition.
+$fetchdef = $client->prepare([
     "path" => "/api/resource/{id}",
     "method" => "DELETE",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 echo $fetchdef["url"];
 echo $fetchdef["method"];
@@ -95,7 +102,7 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = WorldBankDataSDK::test();
 
-[$result, $err] = $client->WorldBankData()->load(["id" => "test01"]);
+$result = $client->country()->load(["id" => "test01"]);
 // $result contains mock response data
 ```
 
@@ -129,8 +136,7 @@ $client = new WorldBankDataSDK([
 Create a `.env.local` file at the project root:
 
 ```
-WORLD-BANK-DATA_TEST_LIVE=TRUE
-WORLD-BANK-DATA_APIKEY=<your-key>
+WORLD_BANK_DATA_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -153,7 +159,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -202,8 +207,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `[$result, $err]`. The first value is an
-`array` with these keys:
+Entity operations return the bare result data (an `array` for single-entity
+ops, a `list` for `list`) and throw on error. Wrap calls in
+`try`/`catch` to handle failures.
+
+The `direct()` escape hatch never throws — it returns a result `array`
+you branch on via `$result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -297,7 +306,7 @@ API path: `/topic/{topicId}/indicator`
 
 ### Country
 
-Create an instance: `const country = client.Country()`
+Create an instance: `const country = client.country`
 
 #### Operations
 
@@ -327,19 +336,19 @@ Create an instance: `const country = client.Country()`
 #### Example: Load
 
 ```ts
-const country = await client.Country().load({ id: 'country_id' })
+const country = await client.country.load({ id: 'country_id' })
 ```
 
 #### Example: List
 
 ```ts
-const countrys = await client.Country().list()
+const countrys = await client.country.list()
 ```
 
 
 ### Indicator
 
-Create an instance: `const indicator = client.Indicator()`
+Create an instance: `const indicator = client.indicator`
 
 #### Operations
 
@@ -370,19 +379,19 @@ Create an instance: `const indicator = client.Indicator()`
 #### Example: Load
 
 ```ts
-const indicator = await client.Indicator().load({ id: 'indicator_id' })
+const indicator = await client.indicator.load({ id: 'indicator_id' })
 ```
 
 #### Example: List
 
 ```ts
-const indicators = await client.Indicator().list()
+const indicators = await client.indicator.list()
 ```
 
 
 ### Metadata
 
-Create an instance: `const metadata = client.Metadata()`
+Create an instance: `const metadata = client.metadata`
 
 #### Operations
 
@@ -406,13 +415,13 @@ Create an instance: `const metadata = client.Metadata()`
 #### Example: List
 
 ```ts
-const metadatas = await client.Metadata().list()
+const metadatas = await client.metadata.list()
 ```
 
 
 ### Topic
 
-Create an instance: `const topic = client.Topic()`
+Create an instance: `const topic = client.topic`
 
 #### Operations
 
@@ -431,7 +440,7 @@ Create an instance: `const topic = client.Topic()`
 #### Example: List
 
 ```ts
-const topics = await client.Topic().list()
+const topics = await client.topic.list()
 ```
 
 
@@ -506,11 +515,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$moon = $client->Moon();
-[$result, $err] = $moon->load(["planet_id" => "earth", "id" => "luna"]);
+$country = $client->country();
+$country->load(["id" => "example_id"]);
 
-// $moon->dataGet() now returns the loaded moon data
-// $moon->matchGet() returns the last match criteria
+// $country->dataGet() now returns the loaded country data
+// $country->matchGet() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

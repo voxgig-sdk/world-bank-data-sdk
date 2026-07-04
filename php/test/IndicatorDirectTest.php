@@ -24,7 +24,7 @@ class IndicatorDirectTest extends TestCase
         $client = $setup["client"];
 
 
-        [$result, $err] = $client->direct([
+        $result = $client->direct([
             "path" => "indicator",
             "method" => "GET",
             "params" => [],
@@ -33,8 +33,8 @@ class IndicatorDirectTest extends TestCase
             // Live mode is lenient: synthetic IDs frequently 4xx and the
             // list-response shape varies wildly across public APIs. Skip
             // rather than fail when the call doesn't return a usable list.
-            if ($err !== null) {
-                $this->markTestSkipped("list call failed (likely synthetic IDs against live API): " . (string)$err);
+            if (!empty($result["err"])) {
+                $this->markTestSkipped("list call failed (likely synthetic IDs against live API): " . (string)$result["err"]);
                 return;
             }
             if (empty($result["ok"])) {
@@ -47,7 +47,7 @@ class IndicatorDirectTest extends TestCase
                 return;
             }
         } else {
-            $this->assertNull($err);
+            $this->assertArrayNotHasKey("err", $result);
             $this->assertTrue($result["ok"]);
             $this->assertEquals(200, Helpers::to_int($result["status"]));
             $this->assertIsArray($result["data"]);
@@ -77,7 +77,7 @@ class IndicatorDirectTest extends TestCase
             $params["id"] = "direct02";
         }
 
-        [$result, $err] = $client->direct([
+        $result = $client->direct([
             "path" => "countries/{country_code}/indicators/{id}",
             "method" => "GET",
             "params" => $params,
@@ -87,8 +87,8 @@ class IndicatorDirectTest extends TestCase
             // Live mode is lenient: synthetic IDs frequently 4xx. Skip
             // rather than fail when the load endpoint isn't reachable
             // with the IDs we can construct from setup.idmap.
-            if ($err !== null) {
-                $this->markTestSkipped("load call failed (likely synthetic IDs against live API): " . (string)$err);
+            if (!empty($result["err"])) {
+                $this->markTestSkipped("load call failed (likely synthetic IDs against live API): " . (string)$result["err"]);
                 return;
             }
             if (empty($result["ok"])) {
@@ -101,7 +101,7 @@ class IndicatorDirectTest extends TestCase
                 return;
             }
         } else {
-            $this->assertNull($err);
+            $this->assertArrayNotHasKey("err", $result);
             $this->assertTrue($result["ok"]);
             $this->assertEquals(200, Helpers::to_int($result["status"]));
             $this->assertNotNull($result["data"]);
@@ -124,14 +124,12 @@ function indicator_direct_setup($mockres)
     $env = Runner::env_override([
         "WORLDBANKDATA_TEST_INDICATOR_ENTID" => [],
         "WORLDBANKDATA_TEST_LIVE" => "FALSE",
-        "WORLDBANKDATA_APIKEY" => "NONE",
     ]);
 
     $live = $env["WORLDBANKDATA_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["WORLDBANKDATA_APIKEY"],
         ];
         $client = new WorldBankDataSDK($merged_opts);
         return [

@@ -19,7 +19,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `table` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -96,7 +95,7 @@ same parameters as `direct()`.
 ## CountryEntity
 
 ```lua
-local country = client:Country(nil)
+local country = client:country(nil)
 ```
 
 ### Fields
@@ -124,7 +123,7 @@ local country = client:Country(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Country():list()
+local results, err = client:country():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -132,7 +131,7 @@ local results, err = client:Country():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Country():load({ id = "country_id" })
+local result, err = client:country():load({ id = "country_id" })
 ```
 
 ### Common Methods
@@ -168,7 +167,7 @@ Return the entity name.
 ## IndicatorEntity
 
 ```lua
-local indicator = client:Indicator(nil)
+local indicator = client:indicator(nil)
 ```
 
 ### Fields
@@ -197,7 +196,7 @@ local indicator = client:Indicator(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Indicator():list()
+local results, err = client:indicator():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -205,7 +204,7 @@ local results, err = client:Indicator():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Indicator():load({ id = "indicator_id" })
+local result, err = client:indicator():load({ id = "indicator_id" })
 ```
 
 ### Common Methods
@@ -241,7 +240,7 @@ Return the entity name.
 ## MetadataEntity
 
 ```lua
-local metadata = client:Metadata(nil)
+local metadata = client:metadata(nil)
 ```
 
 ### Fields
@@ -264,7 +263,7 @@ local metadata = client:Metadata(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Metadata():list()
+local results, err = client:metadata():list()
 ```
 
 ### Common Methods
@@ -300,7 +299,7 @@ Return the entity name.
 ## TopicEntity
 
 ```lua
-local topic = client:Topic(nil)
+local topic = client:topic(nil)
 ```
 
 ### Fields
@@ -318,7 +317,7 @@ local topic = client:Topic(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Topic():list()
+local results, err = client:topic():list()
 ```
 
 ### Common Methods
