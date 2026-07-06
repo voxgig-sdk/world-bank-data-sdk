@@ -30,8 +30,7 @@ type CountryLoadMatch struct {
 	Id string `json:"id"`
 }
 
-// CountryListMatch mirrors the country fields as an all-optional match
-// filter (Go analog of Partial<Country>).
+// CountryListMatch is the typed request payload for Country.ListTyped.
 type CountryListMatch struct {
 	Adminregion *map[string]any `json:"adminregion,omitempty"`
 	CapitalCity *string `json:"capital_city,omitempty"`
@@ -72,8 +71,7 @@ type IndicatorLoadMatch struct {
 	Id string `json:"id"`
 }
 
-// IndicatorListMatch mirrors the indicator fields as an all-optional match
-// filter (Go analog of Partial<Indicator>).
+// IndicatorListMatch is the typed request payload for Indicator.ListTyped.
 type IndicatorListMatch struct {
 	Country *map[string]any `json:"country,omitempty"`
 	Countryiso3code *string `json:"countryiso3code,omitempty"`

@@ -74,7 +74,7 @@ CountryLoadMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Country#list (any subset of Country fields).
+# Request payload for Country#list.
 #
 # @!attribute [rw] adminregion
 #   @return [Hash, nil]
@@ -205,7 +205,7 @@ IndicatorLoadMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Indicator#list (any subset of Indicator fields).
+# Request payload for Indicator#list.
 #
 # @!attribute [rw] country
 #   @return [Hash, nil]

@@ -4,6 +4,8 @@
 
 The Golang SDK for the WorldBankData API — an entity-oriented client using standard Go conventions. No generics required; data flows as `map[string]any`.
 
+It exposes the API as capitalised, semantic **Entities** — e.g. `client.Country(nil)` — each with the same small set of operations (`List`, `Load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -58,12 +60,41 @@ func main() {
     }
 
     // Load a single country — the value is the loaded record.
-    country, err := client.Country(nil).Load(map[string]any{"id": "example_id"}, nil)
+    country, err := client.Country(nil).Load(map[string]any{"id": "example"}, nil)
     if err != nil {
         panic(err)
     }
     fmt.Println(country)
 }
+```
+
+
+## Error handling
+
+Every entity operation returns `(value, error)`. Check `err` before
+using the value — there is no exception to catch:
+
+```go
+countrys, err := client.Country(nil).List(nil, nil)
+if err != nil {
+    // handle err
+    return
+}
+_ = countrys
+```
+
+`Direct` follows the same `(value, error)` convention:
+
+```go
+result, err := client.Direct(map[string]any{
+    "path":   "/api/resource/{id}",
+    "method": "GET",
+    "params": map[string]any{"id": "example_id"},
+})
+if err != nil {
+    // handle err
+}
+_ = result
 ```
 
 
@@ -113,13 +144,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-country, err := client.Country(nil).Load(
-    map[string]any{"id": "test01"}, nil,
+country, err := client.Country(nil).List(
+    nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(country) // the loaded mock data
+fmt.Println(country) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -209,9 +240,6 @@ All entities implement the `WorldBankDataEntity` interface.
 | --- | --- | --- |
 | `Load` | `(reqmatch, ctrl map[string]any) (any, error)` | Load a single entity by match criteria. |
 | `List` | `(reqmatch, ctrl map[string]any) (any, error)` | List entities matching the criteria. |
-| `Create` | `(reqdata, ctrl map[string]any) (any, error)` | Create a new entity. |
-| `Update` | `(reqdata, ctrl map[string]any) (any, error)` | Update an existing entity. |
-| `Remove` | `(reqmatch, ctrl map[string]any) (any, error)` | Remove an entity. |
 | `Data` | `(args ...any) any` | Get or set entity data. |
 | `Match` | `(args ...any) any` | Get or set entity match criteria. |
 | `Make` | `() Entity` | Create a new instance with the same options. |
@@ -224,16 +252,16 @@ operation's data **directly** — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
+| `Load` | the entity record (`map[string]any`) |
 | `List` | a `[]any` of entity records |
 
 Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    country, err := client.Country(nil).Load(map[string]any{"id": "example_id"}, nil)
+    country, err := client.Country(nil).List(map[string]any{/* fields */}, nil)
     if err != nil { /* handle */ }
-    // country is the loaded record
+    // country is the returned record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -334,19 +362,19 @@ Create an instance: `country := client.Country(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `adminregion` | ``$OBJECT`` |  |
-| `capital_city` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `income_level` | ``$OBJECT`` |  |
-| `iso2_code` | ``$STRING`` |  |
-| `latitude` | ``$STRING`` |  |
-| `lending_type` | ``$OBJECT`` |  |
-| `longitude` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `page` | ``$INTEGER`` |  |
-| `per_page` | ``$INTEGER`` |  |
-| `region` | ``$OBJECT`` |  |
-| `total` | ``$INTEGER`` |  |
+| `adminregion` | `map[string]any` |  |
+| `capital_city` | `string` |  |
+| `id` | `string` |  |
+| `income_level` | `map[string]any` |  |
+| `iso2_code` | `string` |  |
+| `latitude` | `string` |  |
+| `lending_type` | `map[string]any` |  |
+| `longitude` | `string` |  |
+| `name` | `string` |  |
+| `page` | `int` |  |
+| `per_page` | `int` |  |
+| `region` | `map[string]any` |  |
+| `total` | `int` |  |
 
 #### Example: Load
 
@@ -384,20 +412,20 @@ Create an instance: `indicator := client.Indicator(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `country` | ``$OBJECT`` |  |
-| `countryiso3code` | ``$STRING`` |  |
-| `date` | ``$STRING`` |  |
-| `decimal` | ``$INTEGER`` |  |
-| `id` | ``$STRING`` |  |
-| `indicator` | ``$OBJECT`` |  |
-| `name` | ``$STRING`` |  |
-| `obs_status` | ``$STRING`` |  |
-| `source` | ``$OBJECT`` |  |
-| `source_note` | ``$STRING`` |  |
-| `source_organization` | ``$STRING`` |  |
-| `topic` | ``$ARRAY`` |  |
-| `unit` | ``$STRING`` |  |
-| `value` | ``$NUMBER`` |  |
+| `country` | `map[string]any` |  |
+| `countryiso3code` | `string` |  |
+| `date` | `string` |  |
+| `decimal` | `int` |  |
+| `id` | `string` |  |
+| `indicator` | `map[string]any` |  |
+| `name` | `string` |  |
+| `obs_status` | `string` |  |
+| `source` | `map[string]any` |  |
+| `source_note` | `string` |  |
+| `source_organization` | `string` |  |
+| `topic` | `[]any` |  |
+| `unit` | `string` |  |
+| `value` | `float64` |  |
 
 #### Example: Load
 
@@ -434,14 +462,14 @@ Create an instance: `metadata := client.Metadata(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `code` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `iso2code` | ``$STRING`` |  |
-| `lastupdated` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `value` | ``$STRING`` |  |
+| `code` | `string` |  |
+| `description` | `string` |  |
+| `id` | `string` |  |
+| `iso2code` | `string` |  |
+| `lastupdated` | `string` |  |
+| `name` | `string` |  |
+| `url` | `string` |  |
+| `value` | `string` |  |
 
 #### Example: List
 
@@ -468,9 +496,9 @@ Create an instance: `topic := client.Topic(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `id` | ``$STRING`` |  |
-| `source_note` | ``$STRING`` |  |
-| `value` | ``$STRING`` |  |
+| `id` | `string` |  |
+| `source_note` | `string` |  |
+| `value` | `string` |  |
 
 #### Example: List
 
@@ -483,12 +511,16 @@ fmt.Println(topics) // the array of records
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -505,9 +537,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller. An unexpected panic triggers the
-`PreUnexpected` hook.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -548,14 +580,14 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `Load`, the entity
+Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
 country := client.Country(nil)
-country.Load(map[string]any{"id": "example_id"}, nil)
+country.List(nil, nil)
 
-// country.Data() now returns the loaded country data
+// country.Data() now returns the country data from the last list
 // country.Match() returns the last match criteria
 ```
 

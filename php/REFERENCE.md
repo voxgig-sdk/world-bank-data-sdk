@@ -8,7 +8,7 @@ Complete API reference for the WorldBankData PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/world-bank-data_sdk.php';
+require_once __DIR__ . '/worldbankdata_sdk.php';
 
 $client = new WorldBankDataSDK($options);
 ```
@@ -57,11 +57,11 @@ Create a new `MetadataEntity` instance. Pass `null` for no initial data.
 
 Create a new `TopicEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): WorldBankDataUtility`
 
 Return a copy of the SDK utility object.
 
@@ -104,28 +104,28 @@ $country = $client->Country();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `adminregion` | ``$OBJECT`` | No |  |
-| `capital_city` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `income_level` | ``$OBJECT`` | No |  |
-| `iso2_code` | ``$STRING`` | No |  |
-| `latitude` | ``$STRING`` | No |  |
-| `lending_type` | ``$OBJECT`` | No |  |
-| `longitude` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `page` | ``$INTEGER`` | No |  |
-| `per_page` | ``$INTEGER`` | No |  |
-| `region` | ``$OBJECT`` | No |  |
-| `total` | ``$INTEGER`` | No |  |
+| `adminregion` | `array` | No |  |
+| `capital_city` | `string` | No |  |
+| `id` | `string` | No |  |
+| `income_level` | `array` | No |  |
+| `iso2_code` | `string` | No |  |
+| `latitude` | `string` | No |  |
+| `lending_type` | `array` | No |  |
+| `longitude` | `string` | No |  |
+| `name` | `string` | No |  |
+| `page` | `int` | No |  |
+| `per_page` | `int` | No |  |
+| `region` | `array` | No |  |
+| `total` | `int` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Country()->list([]);
+$results = $client->Country()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -138,19 +138,19 @@ $result = $client->Country()->load(["id" => "country_id"]);
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -159,7 +159,7 @@ Set the entity match criteria.
 Create a new `CountryEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -176,29 +176,29 @@ $indicator = $client->Indicator();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `country` | ``$OBJECT`` | No |  |
-| `countryiso3code` | ``$STRING`` | No |  |
-| `date` | ``$STRING`` | No |  |
-| `decimal` | ``$INTEGER`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `indicator` | ``$OBJECT`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `obs_status` | ``$STRING`` | No |  |
-| `source` | ``$OBJECT`` | No |  |
-| `source_note` | ``$STRING`` | No |  |
-| `source_organization` | ``$STRING`` | No |  |
-| `topic` | ``$ARRAY`` | No |  |
-| `unit` | ``$STRING`` | No |  |
-| `value` | ``$NUMBER`` | No |  |
+| `country` | `array` | No |  |
+| `countryiso3code` | `string` | No |  |
+| `date` | `string` | No |  |
+| `decimal` | `int` | No |  |
+| `id` | `string` | No |  |
+| `indicator` | `array` | No |  |
+| `name` | `string` | No |  |
+| `obs_status` | `string` | No |  |
+| `source` | `array` | No |  |
+| `source_note` | `string` | No |  |
+| `source_organization` | `string` | No |  |
+| `topic` | `array` | No |  |
+| `unit` | `string` | No |  |
+| `value` | `float` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Indicator()->list([]);
+$results = $client->Indicator()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -211,19 +211,19 @@ $result = $client->Indicator()->load(["id" => "indicator_id"]);
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -232,7 +232,7 @@ Set the entity match criteria.
 Create a new `IndicatorEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -249,40 +249,40 @@ $metadata = $client->Metadata();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `code` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `iso2code` | ``$STRING`` | No |  |
-| `lastupdated` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `code` | `string` | No |  |
+| `description` | `string` | No |  |
+| `id` | `string` | No |  |
+| `iso2code` | `string` | No |  |
+| `lastupdated` | `string` | No |  |
+| `name` | `string` | No |  |
+| `url` | `string` | No |  |
+| `value` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Metadata()->list([]);
+$results = $client->Metadata()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -291,7 +291,7 @@ Set the entity match criteria.
 Create a new `MetadataEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -308,35 +308,35 @@ $topic = $client->Topic();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | ``$STRING`` | No |  |
-| `source_note` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `id` | `string` | No |  |
+| `source_note` | `string` | No |  |
+| `value` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Topic()->list([]);
+$results = $client->Topic()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -345,7 +345,7 @@ Set the entity match criteria.
 Create a new `TopicEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

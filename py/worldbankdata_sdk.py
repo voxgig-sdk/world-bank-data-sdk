@@ -221,25 +221,25 @@ class WorldBankDataSDK:
 
 
     def Country(self, data=None) -> "CountryEntity":
-        """Entity factory: client.Country().list({}) / client.Country().load({"id": ...})."""
+        """Entity factory: client.Country().list() / client.Country().load({"id": ...})."""
         from entity.country_entity import CountryEntity
         return CountryEntity(self, data)
 
 
     def Indicator(self, data=None) -> "IndicatorEntity":
-        """Entity factory: client.Indicator().list({}) / client.Indicator().load({"id": ...})."""
+        """Entity factory: client.Indicator().list() / client.Indicator().load({"id": ...})."""
         from entity.indicator_entity import IndicatorEntity
         return IndicatorEntity(self, data)
 
 
     def Metadata(self, data=None) -> "MetadataEntity":
-        """Entity factory: client.Metadata().list({}) / client.Metadata().load({"id": ...})."""
+        """Entity factory: client.Metadata().list() / client.Metadata().load({"id": ...})."""
         from entity.metadata_entity import MetadataEntity
         return MetadataEntity(self, data)
 
 
     def Topic(self, data=None) -> "TopicEntity":
-        """Entity factory: client.Topic().list({}) / client.Topic().load({"id": ...})."""
+        """Entity factory: client.Topic().list() / client.Topic().load({"id": ...})."""
         from entity.topic_entity import TopicEntity
         return TopicEntity(self, data)
 

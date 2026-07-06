@@ -25,7 +25,21 @@ export interface CountryLoadMatch {
   id: string
 }
 
-export type CountryListMatch = Partial<Country>
+export interface CountryListMatch {
+  adminregion?: Record<string, any>
+  capital_city?: string
+  id?: string
+  income_level?: Record<string, any>
+  iso2_code?: string
+  latitude?: string
+  lending_type?: Record<string, any>
+  longitude?: string
+  name?: string
+  page?: number
+  per_page?: number
+  region?: Record<string, any>
+  total?: number
+}
 
 export interface Indicator {
   country?: Record<string, any>
@@ -49,7 +63,22 @@ export interface IndicatorLoadMatch {
   id: string
 }
 
-export type IndicatorListMatch = Partial<Indicator>
+export interface IndicatorListMatch {
+  country?: Record<string, any>
+  countryiso3code?: string
+  date?: string
+  decimal?: number
+  id?: string
+  indicator?: Record<string, any>
+  name?: string
+  obs_status?: string
+  source?: Record<string, any>
+  source_note?: string
+  source_organization?: string
+  topic?: any[]
+  unit?: string
+  value?: number
+}
 
 export interface Metadata {
   code?: string

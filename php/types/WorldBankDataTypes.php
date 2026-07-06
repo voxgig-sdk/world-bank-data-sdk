@@ -36,7 +36,7 @@ class CountryLoadMatch
     public string $id;
 }
 
-/** Match filter for Country#list (any subset of Country fields). */
+/** Request payload for Country#list. */
 class CountryListMatch
 {
     public ?array $adminregion = null;
@@ -80,7 +80,7 @@ class IndicatorLoadMatch
     public string $id;
 }
 
-/** Match filter for Indicator#list (any subset of Indicator fields). */
+/** Request payload for Indicator#list. */
 class IndicatorListMatch
 {
     public ?array $country = null;

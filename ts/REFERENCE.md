@@ -152,19 +152,19 @@ const country = client.Country()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `adminregion` | ``$OBJECT`` | No |  |
-| `capital_city` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `income_level` | ``$OBJECT`` | No |  |
-| `iso2_code` | ``$STRING`` | No |  |
-| `latitude` | ``$STRING`` | No |  |
-| `lending_type` | ``$OBJECT`` | No |  |
-| `longitude` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `page` | ``$INTEGER`` | No |  |
-| `per_page` | ``$INTEGER`` | No |  |
-| `region` | ``$OBJECT`` | No |  |
-| `total` | ``$INTEGER`` | No |  |
+| `adminregion` | `Record<string, any>` | No |  |
+| `capital_city` | `string` | No |  |
+| `id` | `string` | No |  |
+| `income_level` | `Record<string, any>` | No |  |
+| `iso2_code` | `string` | No |  |
+| `latitude` | `string` | No |  |
+| `lending_type` | `Record<string, any>` | No |  |
+| `longitude` | `string` | No |  |
+| `name` | `string` | No |  |
+| `page` | `number` | No |  |
+| `per_page` | `number` | No |  |
+| `region` | `Record<string, any>` | No |  |
+| `total` | `number` | No |  |
 
 ### Operations
 
@@ -222,20 +222,20 @@ const indicator = client.Indicator()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `country` | ``$OBJECT`` | No |  |
-| `countryiso3code` | ``$STRING`` | No |  |
-| `date` | ``$STRING`` | No |  |
-| `decimal` | ``$INTEGER`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `indicator` | ``$OBJECT`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `obs_status` | ``$STRING`` | No |  |
-| `source` | ``$OBJECT`` | No |  |
-| `source_note` | ``$STRING`` | No |  |
-| `source_organization` | ``$STRING`` | No |  |
-| `topic` | ``$ARRAY`` | No |  |
-| `unit` | ``$STRING`` | No |  |
-| `value` | ``$NUMBER`` | No |  |
+| `country` | `Record<string, any>` | No |  |
+| `countryiso3code` | `string` | No |  |
+| `date` | `string` | No |  |
+| `decimal` | `number` | No |  |
+| `id` | `string` | No |  |
+| `indicator` | `Record<string, any>` | No |  |
+| `name` | `string` | No |  |
+| `obs_status` | `string` | No |  |
+| `source` | `Record<string, any>` | No |  |
+| `source_note` | `string` | No |  |
+| `source_organization` | `string` | No |  |
+| `topic` | `any[]` | No |  |
+| `unit` | `string` | No |  |
+| `value` | `number` | No |  |
 
 ### Operations
 
@@ -293,14 +293,14 @@ const metadata = client.Metadata()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `code` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `iso2code` | ``$STRING`` | No |  |
-| `lastupdated` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `code` | `string` | No |  |
+| `description` | `string` | No |  |
+| `id` | `string` | No |  |
+| `iso2code` | `string` | No |  |
+| `lastupdated` | `string` | No |  |
+| `name` | `string` | No |  |
+| `url` | `string` | No |  |
+| `value` | `string` | No |  |
 
 ### Operations
 
@@ -350,9 +350,9 @@ const topic = client.Topic()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | ``$STRING`` | No |  |
-| `source_note` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `id` | `string` | No |  |
+| `source_note` | `string` | No |  |
+| `value` | `string` | No |  |
 
 ### Operations
 

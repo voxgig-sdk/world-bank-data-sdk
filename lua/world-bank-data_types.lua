@@ -25,6 +25,19 @@
 ---@field id string
 
 ---@class CountryListMatch
+---@field adminregion? table
+---@field capital_city? string
+---@field id? string
+---@field income_level? table
+---@field iso2_code? string
+---@field latitude? string
+---@field lending_type? table
+---@field longitude? string
+---@field name? string
+---@field page? number
+---@field per_page? number
+---@field region? table
+---@field total? number
 
 ---@class Indicator
 ---@field country? table
@@ -47,6 +60,20 @@
 ---@field id string
 
 ---@class IndicatorListMatch
+---@field country? table
+---@field countryiso3code? string
+---@field date? string
+---@field decimal? number
+---@field id? string
+---@field indicator? table
+---@field name? string
+---@field obs_status? string
+---@field source? table
+---@field source_note? string
+---@field source_organization? string
+---@field topic? table
+---@field unit? string
+---@field value? number
 
 ---@class Metadata
 ---@field code? string

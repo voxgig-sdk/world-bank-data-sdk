@@ -8,7 +8,7 @@ Complete API reference for the WorldBankData Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'world-bank-data_sdk'
+require_relative 'WorldBankData_sdk'
 
 client = WorldBankDataSDK.new(options)
 ```
@@ -105,28 +105,28 @@ country = client.Country
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `adminregion` | ``$OBJECT`` | No |  |
-| `capital_city` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `income_level` | ``$OBJECT`` | No |  |
-| `iso2_code` | ``$STRING`` | No |  |
-| `latitude` | ``$STRING`` | No |  |
-| `lending_type` | ``$OBJECT`` | No |  |
-| `longitude` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `page` | ``$INTEGER`` | No |  |
-| `per_page` | ``$INTEGER`` | No |  |
-| `region` | ``$OBJECT`` | No |  |
-| `total` | ``$INTEGER`` | No |  |
+| `adminregion` | `Hash` | No |  |
+| `capital_city` | `String` | No |  |
+| `id` | `String` | No |  |
+| `income_level` | `Hash` | No |  |
+| `iso2_code` | `String` | No |  |
+| `latitude` | `String` | No |  |
+| `lending_type` | `Hash` | No |  |
+| `longitude` | `String` | No |  |
+| `name` | `String` | No |  |
+| `page` | `Integer` | No |  |
+| `per_page` | `Integer` | No |  |
+| `region` | `Hash` | No |  |
+| `total` | `Integer` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Country.list(nil)
+results = client.Country.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -177,29 +177,29 @@ indicator = client.Indicator
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `country` | ``$OBJECT`` | No |  |
-| `countryiso3code` | ``$STRING`` | No |  |
-| `date` | ``$STRING`` | No |  |
-| `decimal` | ``$INTEGER`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `indicator` | ``$OBJECT`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `obs_status` | ``$STRING`` | No |  |
-| `source` | ``$OBJECT`` | No |  |
-| `source_note` | ``$STRING`` | No |  |
-| `source_organization` | ``$STRING`` | No |  |
-| `topic` | ``$ARRAY`` | No |  |
-| `unit` | ``$STRING`` | No |  |
-| `value` | ``$NUMBER`` | No |  |
+| `country` | `Hash` | No |  |
+| `countryiso3code` | `String` | No |  |
+| `date` | `String` | No |  |
+| `decimal` | `Integer` | No |  |
+| `id` | `String` | No |  |
+| `indicator` | `Hash` | No |  |
+| `name` | `String` | No |  |
+| `obs_status` | `String` | No |  |
+| `source` | `Hash` | No |  |
+| `source_note` | `String` | No |  |
+| `source_organization` | `String` | No |  |
+| `topic` | `Array` | No |  |
+| `unit` | `String` | No |  |
+| `value` | `Float` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Indicator.list(nil)
+results = client.Indicator.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -250,23 +250,23 @@ metadata = client.Metadata
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `code` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `iso2code` | ``$STRING`` | No |  |
-| `lastupdated` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `code` | `String` | No |  |
+| `description` | `String` | No |  |
+| `id` | `String` | No |  |
+| `iso2code` | `String` | No |  |
+| `lastupdated` | `String` | No |  |
+| `name` | `String` | No |  |
+| `url` | `String` | No |  |
+| `value` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Metadata.list(nil)
+results = client.Metadata.list
 ```
 
 ### Common Methods
@@ -309,18 +309,18 @@ topic = client.Topic
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | ``$STRING`` | No |  |
-| `source_note` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `id` | `String` | No |  |
+| `source_note` | `String` | No |  |
+| `value` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Topic.list(nil)
+results = client.Topic.list
 ```
 
 ### Common Methods

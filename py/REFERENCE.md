@@ -8,7 +8,7 @@ Complete API reference for the WorldBankData Python SDK.
 ### Constructor
 
 ```python
-from world-bank-data_sdk import WorldBankDataSDK
+from worldbankdata_sdk import WorldBankDataSDK
 
 client = WorldBankDataSDK(options)
 ```
@@ -99,28 +99,28 @@ country = client.Country()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `adminregion` | ``$OBJECT`` | No |  |
-| `capital_city` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `income_level` | ``$OBJECT`` | No |  |
-| `iso2_code` | ``$STRING`` | No |  |
-| `latitude` | ``$STRING`` | No |  |
-| `lending_type` | ``$OBJECT`` | No |  |
-| `longitude` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `page` | ``$INTEGER`` | No |  |
-| `per_page` | ``$INTEGER`` | No |  |
-| `region` | ``$OBJECT`` | No |  |
-| `total` | ``$INTEGER`` | No |  |
+| `adminregion` | `dict` | No |  |
+| `capital_city` | `str` | No |  |
+| `id` | `str` | No |  |
+| `income_level` | `dict` | No |  |
+| `iso2_code` | `str` | No |  |
+| `latitude` | `str` | No |  |
+| `lending_type` | `dict` | No |  |
+| `longitude` | `str` | No |  |
+| `name` | `str` | No |  |
+| `page` | `int` | No |  |
+| `per_page` | `int` | No |  |
+| `region` | `dict` | No |  |
+| `total` | `int` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Country().list({})
+results = client.Country().list()
 for country in results:
     print(country)
 ```
@@ -172,29 +172,29 @@ indicator = client.Indicator()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `country` | ``$OBJECT`` | No |  |
-| `countryiso3code` | ``$STRING`` | No |  |
-| `date` | ``$STRING`` | No |  |
-| `decimal` | ``$INTEGER`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `indicator` | ``$OBJECT`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `obs_status` | ``$STRING`` | No |  |
-| `source` | ``$OBJECT`` | No |  |
-| `source_note` | ``$STRING`` | No |  |
-| `source_organization` | ``$STRING`` | No |  |
-| `topic` | ``$ARRAY`` | No |  |
-| `unit` | ``$STRING`` | No |  |
-| `value` | ``$NUMBER`` | No |  |
+| `country` | `dict` | No |  |
+| `countryiso3code` | `str` | No |  |
+| `date` | `str` | No |  |
+| `decimal` | `int` | No |  |
+| `id` | `str` | No |  |
+| `indicator` | `dict` | No |  |
+| `name` | `str` | No |  |
+| `obs_status` | `str` | No |  |
+| `source` | `dict` | No |  |
+| `source_note` | `str` | No |  |
+| `source_organization` | `str` | No |  |
+| `topic` | `list` | No |  |
+| `unit` | `str` | No |  |
+| `value` | `float` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Indicator().list({})
+results = client.Indicator().list()
 for indicator in results:
     print(indicator)
 ```
@@ -246,23 +246,23 @@ metadata = client.Metadata()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `code` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `iso2code` | ``$STRING`` | No |  |
-| `lastupdated` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `code` | `str` | No |  |
+| `description` | `str` | No |  |
+| `id` | `str` | No |  |
+| `iso2code` | `str` | No |  |
+| `lastupdated` | `str` | No |  |
+| `name` | `str` | No |  |
+| `url` | `str` | No |  |
+| `value` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Metadata().list({})
+results = client.Metadata().list()
 for metadata in results:
     print(metadata)
 ```
@@ -306,18 +306,18 @@ topic = client.Topic()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | ``$STRING`` | No |  |
-| `source_note` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `id` | `str` | No |  |
+| `source_note` | `str` | No |  |
+| `value` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Topic().list({})
+results = client.Topic().list()
 for topic in results:
     print(topic)
 ```
