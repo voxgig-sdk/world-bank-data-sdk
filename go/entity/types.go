@@ -67,7 +67,7 @@ type Indicator struct {
 
 // IndicatorLoadMatch is the typed request payload for Indicator.LoadTyped.
 type IndicatorLoadMatch struct {
-	CountryCode string `json:"country_code"`
+	CountryCode *string `json:"country_code,omitempty"`
 	Id string `json:"id"`
 }
 
@@ -103,7 +103,7 @@ type Metadata struct {
 
 // MetadataListMatch is the typed request payload for Metadata.ListTyped.
 type MetadataListMatch struct {
-	SourceId int `json:"source_id"`
+	SourceId *int `json:"source_id,omitempty"`
 }
 
 // Topic is the typed data model for the topic entity.
@@ -115,7 +115,9 @@ type Topic struct {
 
 // TopicListMatch is the typed request payload for Topic.ListTyped.
 type TopicListMatch struct {
-	Id int `json:"id"`
+	Id *string `json:"id,omitempty"`
+	SourceNote *string `json:"source_note,omitempty"`
+	Value *string `json:"value,omitempty"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

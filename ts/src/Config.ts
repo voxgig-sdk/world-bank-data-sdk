@@ -1021,8 +1021,7 @@ class Config {
                     "name": "id",
                     "orig": "topic_id",
                     "reqd": true,
-                    "type": "`$INTEGER`",
-                    "index$": 0
+                    "type": "`$INTEGER`"
                   }
                 ],
                 "query": [

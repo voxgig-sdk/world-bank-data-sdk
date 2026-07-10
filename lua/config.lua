@@ -986,7 +986,6 @@ local function make_config()
                       ["orig"] = "topic_id",
                       ["reqd"] = true,
                       ["type"] = "`$INTEGER`",
-                      ["index$"] = 0,
                     },
                   },
                   ["query"] = {

@@ -69,9 +69,12 @@ class Indicator(TypedDict, total=False):
     value: float
 
 
-class IndicatorLoadMatch(TypedDict):
-    country_code: str
+class IndicatorLoadMatchRequired(TypedDict):
     id: str
+
+
+class IndicatorLoadMatch(IndicatorLoadMatchRequired, total=False):
+    country_code: str
 
 
 class IndicatorListMatch(TypedDict, total=False):
@@ -102,7 +105,7 @@ class Metadata(TypedDict, total=False):
     value: str
 
 
-class MetadataListMatch(TypedDict):
+class MetadataListMatch(TypedDict, total=False):
     source_id: int
 
 
@@ -112,5 +115,7 @@ class Topic(TypedDict, total=False):
     value: str
 
 
-class TopicListMatch(TypedDict):
-    id: int
+class TopicListMatch(TypedDict, total=False):
+    id: str
+    source_note: str
+    value: str

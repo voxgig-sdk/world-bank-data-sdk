@@ -76,7 +76,7 @@ class Indicator
 /** Request payload for Indicator#load. */
 class IndicatorLoadMatch
 {
-    public string $country_code;
+    public ?string $country_code = null;
     public string $id;
 }
 
@@ -115,7 +115,7 @@ class Metadata
 /** Request payload for Metadata#list. */
 class MetadataListMatch
 {
-    public int $source_id;
+    public ?int $source_id = null;
 }
 
 /** Topic entity data model. */
@@ -129,6 +129,8 @@ class Topic
 /** Request payload for Topic#list. */
 class TopicListMatch
 {
-    public int $id;
+    public ?string $id = null;
+    public ?string $source_note = null;
+    public ?string $value = null;
 }
 

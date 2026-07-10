@@ -59,7 +59,7 @@ export interface Indicator {
 }
 
 export interface IndicatorLoadMatch {
-  country_code: string
+  country_code?: string
   id: string
 }
 
@@ -92,7 +92,7 @@ export interface Metadata {
 }
 
 export interface MetadataListMatch {
-  source_id: number
+  source_id?: number
 }
 
 export interface Topic {
@@ -102,6 +102,8 @@ export interface Topic {
 }
 
 export interface TopicListMatch {
-  id: number
+  id?: string
+  source_note?: string
+  value?: string
 }
 

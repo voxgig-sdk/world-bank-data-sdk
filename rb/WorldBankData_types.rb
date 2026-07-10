@@ -195,7 +195,7 @@ Indicator = Struct.new(
 # Request payload for Indicator#load.
 #
 # @!attribute [rw] country_code
-#   @return [String]
+#   @return [String, nil]
 #
 # @!attribute [rw] id
 #   @return [String]
@@ -306,7 +306,7 @@ Metadata = Struct.new(
 # Request payload for Metadata#list.
 #
 # @!attribute [rw] source_id
-#   @return [Integer]
+#   @return [Integer, nil]
 MetadataListMatch = Struct.new(
   :source_id,
   keyword_init: true
@@ -332,9 +332,17 @@ Topic = Struct.new(
 # Request payload for Topic#list.
 #
 # @!attribute [rw] id
-#   @return [Integer]
+#   @return [String, nil]
+#
+# @!attribute [rw] source_note
+#   @return [String, nil]
+#
+# @!attribute [rw] value
+#   @return [String, nil]
 TopicListMatch = Struct.new(
   :id,
+  :source_note,
+  :value,
   keyword_init: true
 )
 

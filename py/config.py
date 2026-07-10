@@ -987,7 +987,6 @@ def make_config():
                       "orig": "topic_id",
                       "reqd": True,
                       "type": "`$INTEGER`",
-                      "index$": 0,
                     },
                   ],
                   "query": [

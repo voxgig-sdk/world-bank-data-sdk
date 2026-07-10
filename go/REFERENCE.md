@@ -103,6 +103,7 @@ same parameters as `Direct()`.
 
 ```go
 country := client.Country(nil)
+fmt.Println(country.GetName()) // "country"
 ```
 
 ### Fields
@@ -131,6 +132,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Country(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
@@ -139,6 +144,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.Country(nil).Load(map[string]any{"id": "country_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -169,6 +178,7 @@ Return the entity name.
 
 ```go
 indicator := client.Indicator(nil)
+fmt.Println(indicator.GetName()) // "indicator"
 ```
 
 ### Fields
@@ -198,6 +208,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Indicator(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
@@ -206,6 +220,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.Indicator(nil).Load(map[string]any{"id": "indicator_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -236,6 +254,7 @@ Return the entity name.
 
 ```go
 metadata := client.Metadata(nil)
+fmt.Println(metadata.GetName()) // "metadata"
 ```
 
 ### Fields
@@ -259,6 +278,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Metadata(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -289,6 +312,7 @@ Return the entity name.
 
 ```go
 topic := client.Topic(nil)
+fmt.Println(topic.GetName()) // "topic"
 ```
 
 ### Fields
@@ -307,6 +331,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Topic(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods

@@ -60,7 +60,7 @@ func main() {
     }
 
     // Load a single country — the value is the loaded record.
-    country, err := client.Country(nil).Load(map[string]any{"id": "example"}, nil)
+    country, err := client.Country(nil).Load(map[string]any{"id": "example_id"}, nil)
     if err != nil {
         panic(err)
     }

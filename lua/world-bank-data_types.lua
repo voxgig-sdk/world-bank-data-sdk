@@ -56,7 +56,7 @@
 ---@field value? number
 
 ---@class IndicatorLoadMatch
----@field country_code string
+---@field country_code? string
 ---@field id string
 
 ---@class IndicatorListMatch
@@ -86,7 +86,7 @@
 ---@field value? string
 
 ---@class MetadataListMatch
----@field source_id number
+---@field source_id? number
 
 ---@class Topic
 ---@field id? string
@@ -94,7 +94,9 @@
 ---@field value? string
 
 ---@class TopicListMatch
----@field id number
+---@field id? string
+---@field source_note? string
+---@field value? string
 
 local M = {}
 

@@ -16,10 +16,10 @@ main: {
           url: "https://api.worldbank.org/v2"
         }
       ]
+      summary: "The World Bank Data API provides access to a wide array of economic, financial, and social data from over 200 countries."
       termsOfService: "https://www.worldbank.org/en/about/legal"
       title: "World Bank Data API"
       version: "2.0.0"
+      website: "https://worldbank.org"
     }
   }
-}
-
