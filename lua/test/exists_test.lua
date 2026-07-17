@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- WorldBankData SDK exists test
 
 local sdk = require("world-bank-data_sdk")
 
