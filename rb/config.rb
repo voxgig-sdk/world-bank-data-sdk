@@ -37,7 +37,7 @@ module WorldBankDataConfig
             },
             {
               "active" => true,
-              "name" => "capital_city",
+              "name" => "capitalCity",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 1,
@@ -51,14 +51,14 @@ module WorldBankDataConfig
             },
             {
               "active" => true,
-              "name" => "income_level",
+              "name" => "incomeLevel",
               "req" => false,
               "type" => "`$OBJECT`",
               "index$" => 3,
             },
             {
               "active" => true,
-              "name" => "iso2_code",
+              "name" => "iso2Code",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 4,
@@ -72,7 +72,7 @@ module WorldBankDataConfig
             },
             {
               "active" => true,
-              "name" => "lending_type",
+              "name" => "lendingType",
               "req" => false,
               "type" => "`$OBJECT`",
               "index$" => 6,
@@ -100,24 +100,31 @@ module WorldBankDataConfig
             },
             {
               "active" => true,
-              "name" => "per_page",
+              "name" => "pages",
               "req" => false,
               "type" => "`$INTEGER`",
               "index$" => 10,
             },
             {
               "active" => true,
+              "name" => "per_page",
+              "req" => false,
+              "type" => "`$INTEGER`",
+              "index$" => 11,
+            },
+            {
+              "active" => true,
               "name" => "region",
               "req" => false,
               "type" => "`$OBJECT`",
-              "index$" => 11,
+              "index$" => 12,
             },
             {
               "active" => true,
               "name" => "total",
               "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 12,
+              "index$" => 13,
             },
           ],
           "name" => "country",
@@ -159,6 +166,7 @@ module WorldBankDataConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/country",
                   "parts" => [
@@ -210,6 +218,7 @@ module WorldBankDataConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/country/{countryCode}",
                   "parts" => [
@@ -308,21 +317,21 @@ module WorldBankDataConfig
             },
             {
               "active" => true,
-              "name" => "source_note",
+              "name" => "sourceNote",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 9,
             },
             {
               "active" => true,
-              "name" => "source_organization",
+              "name" => "sourceOrganization",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 10,
             },
             {
               "active" => true,
-              "name" => "topic",
+              "name" => "topics",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 11,
@@ -389,6 +398,7 @@ module WorldBankDataConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/indicator",
                   "parts" => [
@@ -501,6 +511,7 @@ module WorldBankDataConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/countries/{countryCode}/indicators/{indicatorCode}",
                   "parts" => [
@@ -560,6 +571,7 @@ module WorldBankDataConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/indicator/{indicatorCode}",
                   "parts" => [
@@ -704,6 +716,7 @@ module WorldBankDataConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/source/{sourceId}/indicator",
                   "parts" => [
@@ -763,6 +776,7 @@ module WorldBankDataConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/incomelevel",
                   "parts" => [
@@ -814,6 +828,7 @@ module WorldBankDataConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/lendingtype",
                   "parts" => [
@@ -865,6 +880,7 @@ module WorldBankDataConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/region",
                   "parts" => [
@@ -916,6 +932,7 @@ module WorldBankDataConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/source",
                   "parts" => [
@@ -957,7 +974,7 @@ module WorldBankDataConfig
             },
             {
               "active" => true,
-              "name" => "source_note",
+              "name" => "sourceNote",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 1,
@@ -1019,6 +1036,7 @@ module WorldBankDataConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/topic/{topicId}/indicator",
                   "parts" => [
@@ -1079,6 +1097,7 @@ module WorldBankDataConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/topic",
                   "parts" => [

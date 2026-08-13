@@ -7,15 +7,16 @@
 
 export interface Country {
   adminregion?: Record<string, any>
-  capital_city?: string
+  capitalCity?: string
   id?: string
-  income_level?: Record<string, any>
-  iso2_code?: string
+  incomeLevel?: Record<string, any>
+  iso2Code?: string
   latitude?: string
-  lending_type?: Record<string, any>
+  lendingType?: Record<string, any>
   longitude?: string
   name?: string
   page?: number
+  pages?: number
   per_page?: number
   region?: Record<string, any>
   total?: number
@@ -27,15 +28,16 @@ export interface CountryLoadMatch {
 
 export interface CountryListMatch {
   adminregion?: Record<string, any>
-  capital_city?: string
+  capitalCity?: string
   id?: string
-  income_level?: Record<string, any>
-  iso2_code?: string
+  incomeLevel?: Record<string, any>
+  iso2Code?: string
   latitude?: string
-  lending_type?: Record<string, any>
+  lendingType?: Record<string, any>
   longitude?: string
   name?: string
   page?: number
+  pages?: number
   per_page?: number
   region?: Record<string, any>
   total?: number
@@ -51,9 +53,9 @@ export interface Indicator {
   name?: string
   obs_status?: string
   source?: Record<string, any>
-  source_note?: string
-  source_organization?: string
-  topic?: any[]
+  sourceNote?: string
+  sourceOrganization?: string
+  topics?: any[]
   unit?: string
   value?: number
 }
@@ -73,9 +75,9 @@ export interface IndicatorListMatch {
   name?: string
   obs_status?: string
   source?: Record<string, any>
-  source_note?: string
-  source_organization?: string
-  topic?: any[]
+  sourceNote?: string
+  sourceOrganization?: string
+  topics?: any[]
   unit?: string
   value?: number
 }
@@ -97,13 +99,19 @@ export interface MetadataListMatch {
 
 export interface Topic {
   id?: string
-  source_note?: string
+  sourceNote?: string
   value?: string
 }
 
 export interface TopicListMatch {
   id?: string
-  source_note?: string
+  sourceNote?: string
   value?: string
+
+  // Selects a custom action instead of the plain list:
+  //   'indicator'
+  // The remaining keys are that action's own payload.
+  $action?: string
+  [action: string]: any
 }
 

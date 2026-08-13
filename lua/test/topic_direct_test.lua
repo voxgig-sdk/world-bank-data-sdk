@@ -75,11 +75,11 @@ function topic_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["WORLDBANKDATA_TEST_TOPIC_ENTID"] = {},
-    ["WORLDBANKDATA_TEST_LIVE"] = "FALSE",
+    ["WORLD_BANK_DATA_TEST_TOPIC_ENTID"] = {},
+    ["WORLD_BANK_DATA_TEST_LIVE"] = "FALSE",
   })
 
-  local live = env["WORLDBANKDATA_TEST_LIVE"] == "TRUE"
+  local live = env["WORLD_BANK_DATA_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {

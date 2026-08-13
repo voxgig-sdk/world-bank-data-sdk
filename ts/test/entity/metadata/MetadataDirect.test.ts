@@ -19,11 +19,15 @@ import {
 describe('MetadataDirect', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when WORLDBANKDATA_TEST_LIVE=TRUE.
-  afterEach(liveDelay('WORLDBANKDATA_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when WORLD_BANK_DATA_TEST_LIVE=TRUE.
+  afterEach(liveDelay('WORLD_BANK_DATA_TEST_LIVE'))
 
   test('direct-exists', async () => {
     const sdk = new WorldBankDataSDK({
+      // Concrete base: a live construction must satisfy any server
+      // variables a templated base URL declares; overriding base with a
+      // literal (as the direct flow tests do) sidesteps the requirement.
+      base: 'http://localhost:8080',
       system: { fetch: async () => ({}) }
     })
     assert('function' === typeof sdk.direct)
@@ -84,17 +88,17 @@ function directSetup(mockres?: any) {
   const calls: any[] = []
 
   const env = envOverride({
-    'WORLDBANKDATA_TEST_METADATA_ENTID': {},
-    'WORLDBANKDATA_TEST_LIVE': 'FALSE',
+    'WORLD_BANK_DATA_TEST_METADATA_ENTID': {},
+    'WORLD_BANK_DATA_TEST_LIVE': 'FALSE',
   })
 
-  const live = 'TRUE' === env.WORLDBANKDATA_TEST_LIVE
+  const live = 'TRUE' === env.WORLD_BANK_DATA_TEST_LIVE
 
   if (live) {
     const client = new WorldBankDataSDK({
     })
 
-    let idmap: any = env['WORLDBANKDATA_TEST_METADATA_ENTID']
+    let idmap: any = env['WORLD_BANK_DATA_TEST_METADATA_ENTID']
     if ('string' === typeof idmap && idmap.startsWith('{')) {
       idmap = JSON.parse(idmap)
     }

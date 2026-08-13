@@ -273,15 +273,16 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | Field | Description |
 | --- | --- |
 | `"adminregion"` |  |
-| `"capital_city"` |  |
+| `"capitalCity"` |  |
 | `"id"` |  |
-| `"income_level"` |  |
-| `"iso2_code"` |  |
+| `"incomeLevel"` |  |
+| `"iso2Code"` |  |
 | `"latitude"` |  |
-| `"lending_type"` |  |
+| `"lendingType"` |  |
 | `"longitude"` |  |
 | `"name"` |  |
 | `"page"` |  |
+| `"pages"` |  |
 | `"per_page"` |  |
 | `"region"` |  |
 | `"total"` |  |
@@ -303,9 +304,9 @@ API path: `/country`
 | `"name"` |  |
 | `"obs_status"` |  |
 | `"source"` |  |
-| `"source_note"` |  |
-| `"source_organization"` |  |
-| `"topic"` |  |
+| `"sourceNote"` |  |
+| `"sourceOrganization"` |  |
+| `"topics"` |  |
 | `"unit"` |  |
 | `"value"` |  |
 
@@ -335,7 +336,7 @@ API path: `/source/{sourceId}/indicator`
 | Field | Description |
 | --- | --- |
 | `"id"` |  |
-| `"source_note"` |  |
+| `"sourceNote"` |  |
 | `"value"` |  |
 
 Operations: List.
@@ -363,15 +364,16 @@ Create an instance: `country := client.Country(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `adminregion` | `map[string]any` |  |
-| `capital_city` | `string` |  |
+| `capitalCity` | `string` |  |
 | `id` | `string` |  |
-| `income_level` | `map[string]any` |  |
-| `iso2_code` | `string` |  |
+| `incomeLevel` | `map[string]any` |  |
+| `iso2Code` | `string` |  |
 | `latitude` | `string` |  |
-| `lending_type` | `map[string]any` |  |
+| `lendingType` | `map[string]any` |  |
 | `longitude` | `string` |  |
 | `name` | `string` |  |
 | `page` | `int` |  |
+| `pages` | `int` |  |
 | `per_page` | `int` |  |
 | `region` | `map[string]any` |  |
 | `total` | `int` |  |
@@ -421,9 +423,9 @@ Create an instance: `indicator := client.Indicator(nil)`
 | `name` | `string` |  |
 | `obs_status` | `string` |  |
 | `source` | `map[string]any` |  |
-| `source_note` | `string` |  |
-| `source_organization` | `string` |  |
-| `topic` | `[]any` |  |
+| `sourceNote` | `string` |  |
+| `sourceOrganization` | `string` |  |
+| `topics` | `[]any` |  |
 | `unit` | `string` |  |
 | `value` | `float64` |  |
 
@@ -497,7 +499,7 @@ Create an instance: `topic := client.Topic(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `id` | `string` |  |
-| `source_note` | `string` |  |
+| `sourceNote` | `string` |  |
 | `value` | `string` |  |
 
 #### Example: List

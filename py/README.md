@@ -52,7 +52,7 @@ except Exception as err:
 
 ### 3. Load a country
 
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -136,7 +136,8 @@ Create a mock client for unit testing — no server required:
 ```python
 client = WorldBankDataSDK.test()
 
-# Entity ops return the bare record and raise on error.
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
 country = client.Country().list()
 # country contains the mock response record
 ```
@@ -236,7 +237,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -259,15 +260,16 @@ On error, `ok` is `False` and `err` contains the error value.
 | Field | Description |
 | --- | --- |
 | `adminregion` |  |
-| `capital_city` |  |
+| `capitalCity` |  |
 | `id` |  |
-| `income_level` |  |
-| `iso2_code` |  |
+| `incomeLevel` |  |
+| `iso2Code` |  |
 | `latitude` |  |
-| `lending_type` |  |
+| `lendingType` |  |
 | `longitude` |  |
 | `name` |  |
 | `page` |  |
+| `pages` |  |
 | `per_page` |  |
 | `region` |  |
 | `total` |  |
@@ -289,9 +291,9 @@ API path: `/country`
 | `name` |  |
 | `obs_status` |  |
 | `source` |  |
-| `source_note` |  |
-| `source_organization` |  |
-| `topic` |  |
+| `sourceNote` |  |
+| `sourceOrganization` |  |
+| `topics` |  |
 | `unit` |  |
 | `value` |  |
 
@@ -321,7 +323,7 @@ API path: `/source/{sourceId}/indicator`
 | Field | Description |
 | --- | --- |
 | `id` |  |
-| `source_note` |  |
+| `sourceNote` |  |
 | `value` |  |
 
 Operations: List.
@@ -349,15 +351,16 @@ Create an instance: `country = client.Country()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `adminregion` | `dict` |  |
-| `capital_city` | `str` |  |
+| `capitalCity` | `str` |  |
 | `id` | `str` |  |
-| `income_level` | `dict` |  |
-| `iso2_code` | `str` |  |
+| `incomeLevel` | `dict` |  |
+| `iso2Code` | `str` |  |
 | `latitude` | `str` |  |
-| `lending_type` | `dict` |  |
+| `lendingType` | `dict` |  |
 | `longitude` | `str` |  |
 | `name` | `str` |  |
 | `page` | `int` |  |
+| `pages` | `int` |  |
 | `per_page` | `int` |  |
 | `region` | `dict` |  |
 | `total` | `int` |  |
@@ -399,9 +402,9 @@ Create an instance: `indicator = client.Indicator()`
 | `name` | `str` |  |
 | `obs_status` | `str` |  |
 | `source` | `dict` |  |
-| `source_note` | `str` |  |
-| `source_organization` | `str` |  |
-| `topic` | `list` |  |
+| `sourceNote` | `str` |  |
+| `sourceOrganization` | `str` |  |
+| `topics` | `list` |  |
 | `unit` | `str` |  |
 | `value` | `float` |  |
 
@@ -463,7 +466,7 @@ Create an instance: `topic = client.Topic()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `id` | `str` |  |
-| `source_note` | `str` |  |
+| `sourceNote` | `str` |  |
 | `value` | `str` |  |
 
 #### Example: List

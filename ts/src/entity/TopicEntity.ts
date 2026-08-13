@@ -37,7 +37,7 @@ class TopicEntity extends WorldBankDataEntityBase<Topic> {
 
 
 
-  async list(this: any, reqmatch?: TopicListMatch, ctrl?: Control): Promise<Topic[]> {
+  async list(this: any, reqmatch?: TopicListMatch, ctrl?: Control): Promise<TopicEntity[]> {
 
     const utility = this._utility
 

@@ -3,17 +3,17 @@
     "topic": {
       "TOPIC00": {
         "id": "TOPIC00",
-        "source_note": "s1f",
+        "sourceNote": "s1f",
         "value": "s20"
       },
       "TOPIC01": {
         "id": "TOPIC01",
-        "source_note": "s3d",
+        "sourceNote": "s3d",
         "value": "s3e"
       },
       "TOPIC02": {
         "id": "TOPIC02",
-        "source_note": "s5b",
+        "sourceNote": "s5b",
         "value": "s5c"
       }
     }
@@ -21,7 +21,7 @@
   "new": {
     "topic": {
       "topic_ref01": {
-        "source_note": "s79",
+        "sourceNote": "s79",
         "value": "s7a"
       }
     }

@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ WorldBankDataUtility.registrar = ->(u) {
   u.prepare_params = WorldBankDataUtilities::PrepareParams
   u.prepare_path = WorldBankDataUtilities::PreparePath
   u.prepare_query = WorldBankDataUtilities::PrepareQuery
+  u.graphql_body = WorldBankDataUtilities::GraphqlBody
+  u.graphql_errors = WorldBankDataUtilities::GraphqlErrors
   u.result_basic = WorldBankDataUtilities::ResultBasic
   u.result_body = WorldBankDataUtilities::ResultBody
   u.result_headers = WorldBankDataUtilities::ResultHeaders

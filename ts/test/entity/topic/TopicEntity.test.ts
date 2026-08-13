@@ -26,8 +26,8 @@ import {
 describe('TopicEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when WORLDBANKDATA_TEST_LIVE=TRUE.
-  afterEach(liveDelay('WORLDBANKDATA_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when WORLD_BANK_DATA_TEST_LIVE=TRUE.
+  afterEach(liveDelay('WORLD_BANK_DATA_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = WorldBankDataSDK.test()
@@ -63,7 +63,7 @@ describe('TopicEntity', async () => {
     const topic_ref01_ent = client.Topic()
     const topic_ref01_match: any = {}
 
-    const topic_ref01_list = await topic_ref01_ent.list(topic_ref01_match)
+    const topic_ref01_list = (await topic_ref01_ent.list(topic_ref01_match)).map((e: any) => e.data())
 
 
   })

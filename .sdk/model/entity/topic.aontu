@@ -11,7 +11,7 @@ main: kit: entity: topic: {
       type: "`$STRING`"
     }
     {
-      name: "source_note"
+      name: "sourceNote"
       req: false
       type: "`$STRING`"
     }

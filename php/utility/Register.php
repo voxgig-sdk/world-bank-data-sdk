@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ WorldBankDataUtility::setRegistrar(function (WorldBankDataUtility $u): void {
     $u->prepare_params = [WorldBankDataPrepareParams::class, 'call'];
     $u->prepare_path = [WorldBankDataPreparePath::class, 'call'];
     $u->prepare_query = [WorldBankDataPrepareQuery::class, 'call'];
+    $u->graphql_body = [WorldBankDataGraphql::class, 'body'];
+    $u->graphql_errors = [WorldBankDataGraphql::class, 'errors'];
     $u->result_basic = [WorldBankDataResultBasic::class, 'call'];
     $u->result_body = [WorldBankDataResultBody::class, 'call'];
     $u->result_headers = [WorldBankDataResultHeaders::class, 'call'];

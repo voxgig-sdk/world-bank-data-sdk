@@ -13,22 +13,22 @@
 # @!attribute [rw] adminregion
 #   @return [Hash, nil]
 #
-# @!attribute [rw] capital_city
+# @!attribute [rw] capitalCity
 #   @return [String, nil]
 #
 # @!attribute [rw] id
 #   @return [String, nil]
 #
-# @!attribute [rw] income_level
+# @!attribute [rw] incomeLevel
 #   @return [Hash, nil]
 #
-# @!attribute [rw] iso2_code
+# @!attribute [rw] iso2Code
 #   @return [String, nil]
 #
 # @!attribute [rw] latitude
 #   @return [String, nil]
 #
-# @!attribute [rw] lending_type
+# @!attribute [rw] lendingType
 #   @return [Hash, nil]
 #
 # @!attribute [rw] longitude
@@ -38,6 +38,9 @@
 #   @return [String, nil]
 #
 # @!attribute [rw] page
+#   @return [Integer, nil]
+#
+# @!attribute [rw] pages
 #   @return [Integer, nil]
 #
 # @!attribute [rw] per_page
@@ -50,15 +53,16 @@
 #   @return [Integer, nil]
 Country = Struct.new(
   :adminregion,
-  :capital_city,
+  :capitalCity,
   :id,
-  :income_level,
-  :iso2_code,
+  :incomeLevel,
+  :iso2Code,
   :latitude,
-  :lending_type,
+  :lendingType,
   :longitude,
   :name,
   :page,
+  :pages,
   :per_page,
   :region,
   :total,
@@ -79,22 +83,22 @@ CountryLoadMatch = Struct.new(
 # @!attribute [rw] adminregion
 #   @return [Hash, nil]
 #
-# @!attribute [rw] capital_city
+# @!attribute [rw] capitalCity
 #   @return [String, nil]
 #
 # @!attribute [rw] id
 #   @return [String, nil]
 #
-# @!attribute [rw] income_level
+# @!attribute [rw] incomeLevel
 #   @return [Hash, nil]
 #
-# @!attribute [rw] iso2_code
+# @!attribute [rw] iso2Code
 #   @return [String, nil]
 #
 # @!attribute [rw] latitude
 #   @return [String, nil]
 #
-# @!attribute [rw] lending_type
+# @!attribute [rw] lendingType
 #   @return [Hash, nil]
 #
 # @!attribute [rw] longitude
@@ -104,6 +108,9 @@ CountryLoadMatch = Struct.new(
 #   @return [String, nil]
 #
 # @!attribute [rw] page
+#   @return [Integer, nil]
+#
+# @!attribute [rw] pages
 #   @return [Integer, nil]
 #
 # @!attribute [rw] per_page
@@ -116,15 +123,16 @@ CountryLoadMatch = Struct.new(
 #   @return [Integer, nil]
 CountryListMatch = Struct.new(
   :adminregion,
-  :capital_city,
+  :capitalCity,
   :id,
-  :income_level,
-  :iso2_code,
+  :incomeLevel,
+  :iso2Code,
   :latitude,
-  :lending_type,
+  :lendingType,
   :longitude,
   :name,
   :page,
+  :pages,
   :per_page,
   :region,
   :total,
@@ -160,13 +168,13 @@ CountryListMatch = Struct.new(
 # @!attribute [rw] source
 #   @return [Hash, nil]
 #
-# @!attribute [rw] source_note
+# @!attribute [rw] sourceNote
 #   @return [String, nil]
 #
-# @!attribute [rw] source_organization
+# @!attribute [rw] sourceOrganization
 #   @return [String, nil]
 #
-# @!attribute [rw] topic
+# @!attribute [rw] topics
 #   @return [Array, nil]
 #
 # @!attribute [rw] unit
@@ -184,9 +192,9 @@ Indicator = Struct.new(
   :name,
   :obs_status,
   :source,
-  :source_note,
-  :source_organization,
-  :topic,
+  :sourceNote,
+  :sourceOrganization,
+  :topics,
   :unit,
   :value,
   keyword_init: true
@@ -234,13 +242,13 @@ IndicatorLoadMatch = Struct.new(
 # @!attribute [rw] source
 #   @return [Hash, nil]
 #
-# @!attribute [rw] source_note
+# @!attribute [rw] sourceNote
 #   @return [String, nil]
 #
-# @!attribute [rw] source_organization
+# @!attribute [rw] sourceOrganization
 #   @return [String, nil]
 #
-# @!attribute [rw] topic
+# @!attribute [rw] topics
 #   @return [Array, nil]
 #
 # @!attribute [rw] unit
@@ -258,9 +266,9 @@ IndicatorListMatch = Struct.new(
   :name,
   :obs_status,
   :source,
-  :source_note,
-  :source_organization,
-  :topic,
+  :sourceNote,
+  :sourceOrganization,
+  :topics,
   :unit,
   :value,
   keyword_init: true
@@ -317,14 +325,14 @@ MetadataListMatch = Struct.new(
 # @!attribute [rw] id
 #   @return [String, nil]
 #
-# @!attribute [rw] source_note
+# @!attribute [rw] sourceNote
 #   @return [String, nil]
 #
 # @!attribute [rw] value
 #   @return [String, nil]
 Topic = Struct.new(
   :id,
-  :source_note,
+  :sourceNote,
   :value,
   keyword_init: true
 )
@@ -334,14 +342,14 @@ Topic = Struct.new(
 # @!attribute [rw] id
 #   @return [String, nil]
 #
-# @!attribute [rw] source_note
+# @!attribute [rw] sourceNote
 #   @return [String, nil]
 #
 # @!attribute [rw] value
 #   @return [String, nil]
 TopicListMatch = Struct.new(
   :id,
-  :source_note,
+  :sourceNote,
   :value,
   keyword_init: true
 )

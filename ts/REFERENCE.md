@@ -153,15 +153,16 @@ const country = client.Country()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `adminregion` | `Record<string, any>` | No |  |
-| `capital_city` | `string` | No |  |
+| `capitalCity` | `string` | No |  |
 | `id` | `string` | No |  |
-| `income_level` | `Record<string, any>` | No |  |
-| `iso2_code` | `string` | No |  |
+| `incomeLevel` | `Record<string, any>` | No |  |
+| `iso2Code` | `string` | No |  |
 | `latitude` | `string` | No |  |
-| `lending_type` | `Record<string, any>` | No |  |
+| `lendingType` | `Record<string, any>` | No |  |
 | `longitude` | `string` | No |  |
 | `name` | `string` | No |  |
 | `page` | `number` | No |  |
+| `pages` | `number` | No |  |
 | `per_page` | `number` | No |  |
 | `region` | `Record<string, any>` | No |  |
 | `total` | `number` | No |  |
@@ -231,9 +232,9 @@ const indicator = client.Indicator()
 | `name` | `string` | No |  |
 | `obs_status` | `string` | No |  |
 | `source` | `Record<string, any>` | No |  |
-| `source_note` | `string` | No |  |
-| `source_organization` | `string` | No |  |
-| `topic` | `any[]` | No |  |
+| `sourceNote` | `string` | No |  |
+| `sourceOrganization` | `string` | No |  |
+| `topics` | `any[]` | No |  |
 | `unit` | `string` | No |  |
 | `value` | `number` | No |  |
 
@@ -351,8 +352,28 @@ const topic = client.Topic()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `id` | `string` | No |  |
-| `source_note` | `string` | No |  |
+| `sourceNote` | `string` | No |  |
 | `value` | `string` | No |  |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `indicator` | `/topic/{topicId}/indicator` | `client.Topic().list({ $action: 'indicator', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+Topic record — check the API definition for its shape.
+
+```ts
+const result = await client.Topic().list({
+  $action: 'indicator',
+  /* ...the action's own arguments */
+})
+```
 
 ### Operations
 

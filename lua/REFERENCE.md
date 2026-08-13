@@ -103,15 +103,16 @@ local country = client:Country(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `adminregion` | `table` | No |  |
-| `capital_city` | `string` | No |  |
+| `capitalCity` | `string` | No |  |
 | `id` | `string` | No |  |
-| `income_level` | `table` | No |  |
-| `iso2_code` | `string` | No |  |
+| `incomeLevel` | `table` | No |  |
+| `iso2Code` | `string` | No |  |
 | `latitude` | `string` | No |  |
-| `lending_type` | `table` | No |  |
+| `lendingType` | `table` | No |  |
 | `longitude` | `string` | No |  |
 | `name` | `string` | No |  |
 | `page` | `number` | No |  |
+| `pages` | `number` | No |  |
 | `per_page` | `number` | No |  |
 | `region` | `table` | No |  |
 | `total` | `number` | No |  |
@@ -183,9 +184,9 @@ local indicator = client:Indicator(nil)
 | `name` | `string` | No |  |
 | `obs_status` | `string` | No |  |
 | `source` | `table` | No |  |
-| `source_note` | `string` | No |  |
-| `source_organization` | `string` | No |  |
-| `topic` | `table` | No |  |
+| `sourceNote` | `string` | No |  |
+| `sourceOrganization` | `string` | No |  |
+| `topics` | `table` | No |  |
 | `unit` | `string` | No |  |
 | `value` | `number` | No |  |
 
@@ -307,7 +308,7 @@ local topic = client:Topic(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `id` | `string` | No |  |
-| `source_note` | `string` | No |  |
+| `sourceNote` | `string` | No |  |
 | `value` | `string` | No |  |
 
 ### Operations

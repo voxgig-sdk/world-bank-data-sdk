@@ -11,7 +11,7 @@ main: kit: entity: country: {
       type: "`$OBJECT`"
     }
     {
-      name: "capital_city"
+      name: "capitalCity"
       req: false
       type: "`$STRING`"
     }
@@ -21,12 +21,12 @@ main: kit: entity: country: {
       type: "`$STRING`"
     }
     {
-      name: "income_level"
+      name: "incomeLevel"
       req: false
       type: "`$OBJECT`"
     }
     {
-      name: "iso2_code"
+      name: "iso2Code"
       req: false
       type: "`$STRING`"
     }
@@ -36,7 +36,7 @@ main: kit: entity: country: {
       type: "`$STRING`"
     }
     {
-      name: "lending_type"
+      name: "lendingType"
       req: false
       type: "`$OBJECT`"
     }
@@ -52,6 +52,11 @@ main: kit: entity: country: {
     }
     {
       name: "page"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "pages"
       req: false
       type: "`$INTEGER`"
     }

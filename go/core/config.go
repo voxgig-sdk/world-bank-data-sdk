@@ -36,7 +36,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "capital_city",
+						"name": "capitalCity",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 1,
@@ -50,14 +50,14 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "income_level",
+						"name": "incomeLevel",
 						"req": false,
 						"type": "`$OBJECT`",
 						"index$": 3,
 					},
 					map[string]any{
 						"active": true,
-						"name": "iso2_code",
+						"name": "iso2Code",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 4,
@@ -71,7 +71,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "lending_type",
+						"name": "lendingType",
 						"req": false,
 						"type": "`$OBJECT`",
 						"index$": 6,
@@ -99,24 +99,31 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "per_page",
+						"name": "pages",
 						"req": false,
 						"type": "`$INTEGER`",
 						"index$": 10,
 					},
 					map[string]any{
 						"active": true,
+						"name": "per_page",
+						"req": false,
+						"type": "`$INTEGER`",
+						"index$": 11,
+					},
+					map[string]any{
+						"active": true,
 						"name": "region",
 						"req": false,
 						"type": "`$OBJECT`",
-						"index$": 11,
+						"index$": 12,
 					},
 					map[string]any{
 						"active": true,
 						"name": "total",
 						"req": false,
 						"type": "`$INTEGER`",
-						"index$": 12,
+						"index$": 13,
 					},
 				},
 				"name": "country",
@@ -158,6 +165,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/country",
 								"parts": []any{
@@ -177,7 +185,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 					"load": map[string]any{
 						"input": "data",
@@ -209,6 +216,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/country/{countryCode}",
 								"parts": []any{
@@ -233,7 +241,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "load",
 					},
 				},
 				"relations": map[string]any{
@@ -307,21 +314,21 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "source_note",
+						"name": "sourceNote",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 9,
 					},
 					map[string]any{
 						"active": true,
-						"name": "source_organization",
+						"name": "sourceOrganization",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 10,
 					},
 					map[string]any{
 						"active": true,
-						"name": "topic",
+						"name": "topics",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 11,
@@ -388,6 +395,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/indicator",
 								"parts": []any{
@@ -408,7 +416,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 					"load": map[string]any{
 						"input": "data",
@@ -500,6 +507,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/countries/{countryCode}/indicators/{indicatorCode}",
 								"parts": []any{
@@ -559,6 +567,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/indicator/{indicatorCode}",
 								"parts": []any{
@@ -583,7 +592,6 @@ func MakeConfig() map[string]any {
 								"index$": 1,
 							},
 						},
-						"key$": "load",
 					},
 				},
 				"relations": map[string]any{
@@ -703,6 +711,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/source/{sourceId}/indicator",
 								"parts": []any{
@@ -762,6 +771,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/incomelevel",
 								"parts": []any{
@@ -813,6 +823,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/lendingtype",
 								"parts": []any{
@@ -864,6 +875,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/region",
 								"parts": []any{
@@ -915,6 +927,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/source",
 								"parts": []any{
@@ -934,7 +947,6 @@ func MakeConfig() map[string]any {
 								"index$": 4,
 							},
 						},
-						"key$": "list",
 					},
 				},
 				"relations": map[string]any{
@@ -956,7 +968,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "source_note",
+						"name": "sourceNote",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 1,
@@ -1018,6 +1030,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/topic/{topicId}/indicator",
 								"parts": []any{
@@ -1078,6 +1091,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/topic",
 								"parts": []any{
@@ -1097,7 +1111,6 @@ func MakeConfig() map[string]any {
 								"index$": 1,
 							},
 						},
-						"key$": "list",
 					},
 				},
 				"relations": map[string]any{

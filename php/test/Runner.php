@@ -43,8 +43,8 @@ class WorldBankDataTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('WORLDBANKDATA_TEST_LIVE');
-        $override = self::getenv('WORLDBANKDATA_TEST_OVERRIDE');
+        $live = self::getenv('WORLD_BANK_DATA_TEST_LIVE');
+        $override = self::getenv('WORLD_BANK_DATA_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class WorldBankDataTestRunner
             }
         }
 
-        $explain = self::getenv('WORLDBANKDATA_TEST_EXPLAIN');
+        $explain = self::getenv('WORLD_BANK_DATA_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['WORLDBANKDATA_TEST_EXPLAIN'] = $explain;
+            $m['WORLD_BANK_DATA_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

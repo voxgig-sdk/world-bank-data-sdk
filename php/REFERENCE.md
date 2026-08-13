@@ -105,15 +105,16 @@ $country = $client->Country();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `adminregion` | `array` | No |  |
-| `capital_city` | `string` | No |  |
+| `capitalCity` | `string` | No |  |
 | `id` | `string` | No |  |
-| `income_level` | `array` | No |  |
-| `iso2_code` | `string` | No |  |
+| `incomeLevel` | `array` | No |  |
+| `iso2Code` | `string` | No |  |
 | `latitude` | `string` | No |  |
-| `lending_type` | `array` | No |  |
+| `lendingType` | `array` | No |  |
 | `longitude` | `string` | No |  |
 | `name` | `string` | No |  |
 | `page` | `int` | No |  |
+| `pages` | `int` | No |  |
 | `per_page` | `int` | No |  |
 | `region` | `array` | No |  |
 | `total` | `int` | No |  |
@@ -185,9 +186,9 @@ $indicator = $client->Indicator();
 | `name` | `string` | No |  |
 | `obs_status` | `string` | No |  |
 | `source` | `array` | No |  |
-| `source_note` | `string` | No |  |
-| `source_organization` | `string` | No |  |
-| `topic` | `array` | No |  |
+| `sourceNote` | `string` | No |  |
+| `sourceOrganization` | `string` | No |  |
+| `topics` | `array` | No |  |
 | `unit` | `string` | No |  |
 | `value` | `float` | No |  |
 
@@ -309,7 +310,7 @@ $topic = $client->Topic();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `id` | `string` | No |  |
-| `source_note` | `string` | No |  |
+| `sourceNote` | `string` | No |  |
 | `value` | `string` | No |  |
 
 ### Operations

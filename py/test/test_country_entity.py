@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from worldbankdata_sdk.utility.voxgig_struct import voxgig_struct as vs
 from worldbankdata_sdk import WorldBankDataSDK
-from core import helpers
+from worldbankdata_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -42,7 +42,7 @@ class TestCountryEntity:
         assert len(seen) == 3
 
         # Inbound: streaming active -> yields each item from the feature.
-        from config import make_config
+        from worldbankdata_sdk.config import make_config
         cfg = make_config()
         if isinstance(cfg.get("feature"), dict) and "streaming" in cfg["feature"]:
             sdk = WorldBankDataSDK.test(
@@ -70,7 +70,7 @@ class TestCountryEntity:
         # without an *_ENTID env override, those IDs hit the live API and 4xx.
         if setup.get("synthetic_only"):
             pytest.skip("live entity test uses synthetic IDs from fixture — "
-                        "set WORLDBANKDATA_TEST_COUNTRY_ENTID JSON to run live")
+                        "set WORLD_BANK_DATA_TEST_COUNTRY_ENTID JSON to run live")
         client = setup["client"]
 
         # Bootstrap entity data from existing test data.
@@ -92,7 +92,7 @@ class TestCountryEntity:
             "id": country_ref01_data["id"],
         }
         country_ref01_data_dt0_loaded = country_ref01_ent.load(country_ref01_match_dt0, None)
-        country_ref01_data_dt0_load_result = helpers.to_map(country_ref01_data_dt0_loaded)
+        country_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(country_ref01_data_dt0_loaded))
         assert country_ref01_data_dt0_load_result is not None
         assert country_ref01_data_dt0_load_result["id"] == country_ref01_data["id"]
 
@@ -127,21 +127,21 @@ def _country_basic_setup(extra):
     # mode is on without a real override, the basic test runs against synthetic
     # IDs from the fixture and 4xx's. We surface this so the test can skip.
     _entid_env_raw = os.environ.get(
-        "WORLDBANKDATA_TEST_COUNTRY_ENTID")
+        "WORLD_BANK_DATA_TEST_COUNTRY_ENTID")
     _idmap_overridden = _entid_env_raw is not None and _entid_env_raw.strip().startswith("{")
 
     env = runner.env_override({
-        "WORLDBANKDATA_TEST_COUNTRY_ENTID": idmap,
-        "WORLDBANKDATA_TEST_LIVE": "FALSE",
-        "WORLDBANKDATA_TEST_EXPLAIN": "FALSE",
+        "WORLD_BANK_DATA_TEST_COUNTRY_ENTID": idmap,
+        "WORLD_BANK_DATA_TEST_LIVE": "FALSE",
+        "WORLD_BANK_DATA_TEST_EXPLAIN": "FALSE",
     })
 
     idmap_resolved = helpers.to_map(
-        env.get("WORLDBANKDATA_TEST_COUNTRY_ENTID"))
+        env.get("WORLD_BANK_DATA_TEST_COUNTRY_ENTID"))
     if idmap_resolved is None:
         idmap_resolved = helpers.to_map(idmap)
 
-    if env.get("WORLDBANKDATA_TEST_LIVE") == "TRUE":
+    if env.get("WORLD_BANK_DATA_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
             },
@@ -149,13 +149,13 @@ def _country_basic_setup(extra):
         ])
         client = WorldBankDataSDK(helpers.to_map(merged_opts))
 
-    _live = env.get("WORLDBANKDATA_TEST_LIVE") == "TRUE"
+    _live = env.get("WORLD_BANK_DATA_TEST_LIVE") == "TRUE"
     return {
         "client": client,
         "data": entity_data,
         "idmap": idmap_resolved,
         "env": env,
-        "explain": env.get("WORLDBANKDATA_TEST_EXPLAIN") == "TRUE",
+        "explain": env.get("WORLD_BANK_DATA_TEST_EXPLAIN") == "TRUE",
         "live": _live,
         "synthetic_only": _live and not _idmap_overridden,
         "now": int(time.time() * 1000),

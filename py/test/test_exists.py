@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# WorldBankData SDK exists test
 
 import pytest
 from worldbankdata_sdk import WorldBankDataSDK

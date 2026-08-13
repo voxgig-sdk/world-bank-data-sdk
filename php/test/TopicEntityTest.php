@@ -72,7 +72,7 @@ class TopicEntityTest extends TestCase
         // The basic flow consumes synthetic IDs from the fixture. In live mode
         // without an *_ENTID env override, those IDs hit the live API and 4xx.
         if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set WORLDBANKDATA_TEST_TOPIC_ENTID JSON to run live");
+            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set WORLD_BANK_DATA_TEST_TOPIC_ENTID JSON to run live");
             return;
         }
         $client = $setup["client"];
@@ -117,22 +117,22 @@ function topic_basic_setup($extra)
     // Detect ENTID env override before envOverride consumes it. When live
     // mode is on without a real override, the basic test runs against synthetic
     // IDs from the fixture and 4xx's. Surface this so the test can skip.
-    $entid_env_raw = getenv("WORLDBANKDATA_TEST_TOPIC_ENTID");
+    $entid_env_raw = getenv("WORLD_BANK_DATA_TEST_TOPIC_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 
     $env = Runner::env_override([
-        "WORLDBANKDATA_TEST_TOPIC_ENTID" => $idmap,
-        "WORLDBANKDATA_TEST_LIVE" => "FALSE",
-        "WORLDBANKDATA_TEST_EXPLAIN" => "FALSE",
+        "WORLD_BANK_DATA_TEST_TOPIC_ENTID" => $idmap,
+        "WORLD_BANK_DATA_TEST_LIVE" => "FALSE",
+        "WORLD_BANK_DATA_TEST_EXPLAIN" => "FALSE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
-        $env["WORLDBANKDATA_TEST_TOPIC_ENTID"]);
+        $env["WORLD_BANK_DATA_TEST_TOPIC_ENTID"]);
     if ($idmap_resolved === null) {
         $idmap_resolved = Helpers::to_map($idmap);
     }
 
-    if ($env["WORLDBANKDATA_TEST_LIVE"] === "TRUE") {
+    if ($env["WORLD_BANK_DATA_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
             ],
@@ -141,13 +141,13 @@ function topic_basic_setup($extra)
         $client = new WorldBankDataSDK(Helpers::to_map($merged_opts));
     }
 
-    $live = $env["WORLDBANKDATA_TEST_LIVE"] === "TRUE";
+    $live = $env["WORLD_BANK_DATA_TEST_LIVE"] === "TRUE";
     return [
         "client" => $client,
         "data" => $entity_data,
         "idmap" => $idmap_resolved,
         "env" => $env,
-        "explain" => $env["WORLDBANKDATA_TEST_EXPLAIN"] === "TRUE",
+        "explain" => $env["WORLD_BANK_DATA_TEST_EXPLAIN"] === "TRUE",
         "live" => $live,
         "synthetic_only" => $live && !$idmap_overridden,
         "now" => (int)(microtime(true) * 1000),

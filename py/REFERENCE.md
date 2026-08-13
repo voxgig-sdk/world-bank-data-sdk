@@ -100,15 +100,16 @@ country = client.Country()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `adminregion` | `dict` | No |  |
-| `capital_city` | `str` | No |  |
+| `capitalCity` | `str` | No |  |
 | `id` | `str` | No |  |
-| `income_level` | `dict` | No |  |
-| `iso2_code` | `str` | No |  |
+| `incomeLevel` | `dict` | No |  |
+| `iso2Code` | `str` | No |  |
 | `latitude` | `str` | No |  |
-| `lending_type` | `dict` | No |  |
+| `lendingType` | `dict` | No |  |
 | `longitude` | `str` | No |  |
 | `name` | `str` | No |  |
 | `page` | `int` | No |  |
+| `pages` | `int` | No |  |
 | `per_page` | `int` | No |  |
 | `region` | `dict` | No |  |
 | `total` | `int` | No |  |
@@ -181,9 +182,9 @@ indicator = client.Indicator()
 | `name` | `str` | No |  |
 | `obs_status` | `str` | No |  |
 | `source` | `dict` | No |  |
-| `source_note` | `str` | No |  |
-| `source_organization` | `str` | No |  |
-| `topic` | `list` | No |  |
+| `sourceNote` | `str` | No |  |
+| `sourceOrganization` | `str` | No |  |
+| `topics` | `list` | No |  |
 | `unit` | `str` | No |  |
 | `value` | `float` | No |  |
 
@@ -307,7 +308,7 @@ topic = client.Topic()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `id` | `str` | No |  |
-| `source_note` | `str` | No |  |
+| `sourceNote` | `str` | No |  |
 | `value` | `str` | No |  |
 
 ### Operations

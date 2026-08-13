@@ -8,15 +8,16 @@
 
 ---@class Country
 ---@field adminregion? table
----@field capital_city? string
+---@field capitalCity? string
 ---@field id? string
----@field income_level? table
----@field iso2_code? string
+---@field incomeLevel? table
+---@field iso2Code? string
 ---@field latitude? string
----@field lending_type? table
+---@field lendingType? table
 ---@field longitude? string
 ---@field name? string
 ---@field page? number
+---@field pages? number
 ---@field per_page? number
 ---@field region? table
 ---@field total? number
@@ -26,15 +27,16 @@
 
 ---@class CountryListMatch
 ---@field adminregion? table
----@field capital_city? string
+---@field capitalCity? string
 ---@field id? string
----@field income_level? table
----@field iso2_code? string
+---@field incomeLevel? table
+---@field iso2Code? string
 ---@field latitude? string
----@field lending_type? table
+---@field lendingType? table
 ---@field longitude? string
 ---@field name? string
 ---@field page? number
+---@field pages? number
 ---@field per_page? number
 ---@field region? table
 ---@field total? number
@@ -49,9 +51,9 @@
 ---@field name? string
 ---@field obs_status? string
 ---@field source? table
----@field source_note? string
----@field source_organization? string
----@field topic? table
+---@field sourceNote? string
+---@field sourceOrganization? string
+---@field topics? table
 ---@field unit? string
 ---@field value? number
 
@@ -69,9 +71,9 @@
 ---@field name? string
 ---@field obs_status? string
 ---@field source? table
----@field source_note? string
----@field source_organization? string
----@field topic? table
+---@field sourceNote? string
+---@field sourceOrganization? string
+---@field topics? table
 ---@field unit? string
 ---@field value? number
 
@@ -90,12 +92,12 @@
 
 ---@class Topic
 ---@field id? string
----@field source_note? string
+---@field sourceNote? string
 ---@field value? string
 
 ---@class TopicListMatch
 ---@field id? string
----@field source_note? string
+---@field sourceNote? string
 ---@field value? string
 
 local M = {}

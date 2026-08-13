@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from worldbankdata_sdk.utility.voxgig_struct import voxgig_struct as vs
 from worldbankdata_sdk import WorldBankDataSDK
-from core import helpers
+from worldbankdata_sdk.core import helpers
 from test import runner
 
 
@@ -70,11 +70,11 @@ def _metadata_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "WORLDBANKDATA_TEST_METADATA_ENTID": {},
-        "WORLDBANKDATA_TEST_LIVE": "FALSE",
+        "WORLD_BANK_DATA_TEST_METADATA_ENTID": {},
+        "WORLD_BANK_DATA_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("WORLDBANKDATA_TEST_LIVE") == "TRUE"
+    live = env.get("WORLD_BANK_DATA_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {

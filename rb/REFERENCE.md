@@ -106,15 +106,16 @@ country = client.Country
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `adminregion` | `Hash` | No |  |
-| `capital_city` | `String` | No |  |
+| `capitalCity` | `String` | No |  |
 | `id` | `String` | No |  |
-| `income_level` | `Hash` | No |  |
-| `iso2_code` | `String` | No |  |
+| `incomeLevel` | `Hash` | No |  |
+| `iso2Code` | `String` | No |  |
 | `latitude` | `String` | No |  |
-| `lending_type` | `Hash` | No |  |
+| `lendingType` | `Hash` | No |  |
 | `longitude` | `String` | No |  |
 | `name` | `String` | No |  |
 | `page` | `Integer` | No |  |
+| `pages` | `Integer` | No |  |
 | `per_page` | `Integer` | No |  |
 | `region` | `Hash` | No |  |
 | `total` | `Integer` | No |  |
@@ -186,9 +187,9 @@ indicator = client.Indicator
 | `name` | `String` | No |  |
 | `obs_status` | `String` | No |  |
 | `source` | `Hash` | No |  |
-| `source_note` | `String` | No |  |
-| `source_organization` | `String` | No |  |
-| `topic` | `Array` | No |  |
+| `sourceNote` | `String` | No |  |
+| `sourceOrganization` | `String` | No |  |
+| `topics` | `Array` | No |  |
 | `unit` | `String` | No |  |
 | `value` | `Float` | No |  |
 
@@ -310,7 +311,7 @@ topic = client.Topic
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `id` | `String` | No |  |
-| `source_note` | `String` | No |  |
+| `sourceNote` | `String` | No |  |
 | `value` | `String` | No |  |
 
 ### Operations

@@ -23,8 +23,8 @@ module WorldBankDataTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("WORLDBANKDATA_TEST_LIVE")
-    override = getenv("WORLDBANKDATA_TEST_OVERRIDE")
+    live = getenv("WORLD_BANK_DATA_TEST_LIVE")
+    override = getenv("WORLD_BANK_DATA_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module WorldBankDataTestRunner
       end
     end
 
-    explain = getenv("WORLDBANKDATA_TEST_EXPLAIN")
-    m["WORLDBANKDATA_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("WORLD_BANK_DATA_TEST_EXPLAIN")
+    m["WORLD_BANK_DATA_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

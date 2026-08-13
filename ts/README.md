@@ -35,7 +35,9 @@ const client = new WorldBankDataSDK()
 
 ### 2. List country records
 
-`list()` resolves to an array of Country objects — iterate it directly:
+`list()` resolves to an array of Country ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
 const countrys = await client.Country().list()
@@ -133,7 +135,8 @@ Create a mock client for unit testing — no server required:
 const client = WorldBankDataSDK.test()
 
 const country = await client.Country().list()
-// country is a bare entity populated with mock response data
+// country is the entity, populated with mock response data
+// — call country.data() for the record itself
 console.log(country)
 ```
 
@@ -303,15 +306,16 @@ The `prepare()` method returns:
 | Field | Description |
 | --- | --- |
 | `adminregion` |  |
-| `capital_city` |  |
+| `capitalCity` |  |
 | `id` |  |
-| `income_level` |  |
-| `iso2_code` |  |
+| `incomeLevel` |  |
+| `iso2Code` |  |
 | `latitude` |  |
-| `lending_type` |  |
+| `lendingType` |  |
 | `longitude` |  |
 | `name` |  |
 | `page` |  |
+| `pages` |  |
 | `per_page` |  |
 | `region` |  |
 | `total` |  |
@@ -333,9 +337,9 @@ API path: `/country`
 | `name` |  |
 | `obs_status` |  |
 | `source` |  |
-| `source_note` |  |
-| `source_organization` |  |
-| `topic` |  |
+| `sourceNote` |  |
+| `sourceOrganization` |  |
+| `topics` |  |
 | `unit` |  |
 | `value` |  |
 
@@ -365,7 +369,7 @@ API path: `/source/{sourceId}/indicator`
 | Field | Description |
 | --- | --- |
 | `id` |  |
-| `source_note` |  |
+| `sourceNote` |  |
 | `value` |  |
 
 Operations: list.
@@ -393,15 +397,16 @@ Create an instance: `const country = client.Country()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `adminregion` | `Record<string, any>` |  |
-| `capital_city` | `string` |  |
+| `capitalCity` | `string` |  |
 | `id` | `string` |  |
-| `income_level` | `Record<string, any>` |  |
-| `iso2_code` | `string` |  |
+| `incomeLevel` | `Record<string, any>` |  |
+| `iso2Code` | `string` |  |
 | `latitude` | `string` |  |
-| `lending_type` | `Record<string, any>` |  |
+| `lendingType` | `Record<string, any>` |  |
 | `longitude` | `string` |  |
 | `name` | `string` |  |
 | `page` | `number` |  |
+| `pages` | `number` |  |
 | `per_page` | `number` |  |
 | `region` | `Record<string, any>` |  |
 | `total` | `number` |  |
@@ -443,9 +448,9 @@ Create an instance: `const indicator = client.Indicator()`
 | `name` | `string` |  |
 | `obs_status` | `string` |  |
 | `source` | `Record<string, any>` |  |
-| `source_note` | `string` |  |
-| `source_organization` | `string` |  |
-| `topic` | `any[]` |  |
+| `sourceNote` | `string` |  |
+| `sourceOrganization` | `string` |  |
+| `topics` | `any[]` |  |
 | `unit` | `string` |  |
 | `value` | `number` |  |
 
@@ -507,7 +512,7 @@ Create an instance: `const topic = client.Topic()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `id` | `string` |  |
-| `source_note` | `string` |  |
+| `sourceNote` | `string` |  |
 | `value` | `string` |  |
 
 #### Example: List

@@ -6,20 +6,25 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
 
-import "encoding/json"
+import (
+	"encoding/json"
+
+	"github.com/voxgig-sdk/world-bank-data-sdk/go/core"
+)
 
 // Country is the typed data model for the country entity.
 type Country struct {
 	Adminregion *map[string]any `json:"adminregion,omitempty"`
-	CapitalCity *string `json:"capital_city,omitempty"`
+	CapitalCity *string `json:"capitalCity,omitempty"`
 	Id *string `json:"id,omitempty"`
-	IncomeLevel *map[string]any `json:"income_level,omitempty"`
-	Iso2Code *string `json:"iso2_code,omitempty"`
+	IncomeLevel *map[string]any `json:"incomeLevel,omitempty"`
+	Iso2Code *string `json:"iso2Code,omitempty"`
 	Latitude *string `json:"latitude,omitempty"`
-	LendingType *map[string]any `json:"lending_type,omitempty"`
+	LendingType *map[string]any `json:"lendingType,omitempty"`
 	Longitude *string `json:"longitude,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Page *int `json:"page,omitempty"`
+	Pages *int `json:"pages,omitempty"`
 	PerPage *int `json:"per_page,omitempty"`
 	Region *map[string]any `json:"region,omitempty"`
 	Total *int `json:"total,omitempty"`
@@ -33,15 +38,16 @@ type CountryLoadMatch struct {
 // CountryListMatch is the typed request payload for Country.ListTyped.
 type CountryListMatch struct {
 	Adminregion *map[string]any `json:"adminregion,omitempty"`
-	CapitalCity *string `json:"capital_city,omitempty"`
+	CapitalCity *string `json:"capitalCity,omitempty"`
 	Id *string `json:"id,omitempty"`
-	IncomeLevel *map[string]any `json:"income_level,omitempty"`
-	Iso2Code *string `json:"iso2_code,omitempty"`
+	IncomeLevel *map[string]any `json:"incomeLevel,omitempty"`
+	Iso2Code *string `json:"iso2Code,omitempty"`
 	Latitude *string `json:"latitude,omitempty"`
-	LendingType *map[string]any `json:"lending_type,omitempty"`
+	LendingType *map[string]any `json:"lendingType,omitempty"`
 	Longitude *string `json:"longitude,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Page *int `json:"page,omitempty"`
+	Pages *int `json:"pages,omitempty"`
 	PerPage *int `json:"per_page,omitempty"`
 	Region *map[string]any `json:"region,omitempty"`
 	Total *int `json:"total,omitempty"`
@@ -58,9 +64,9 @@ type Indicator struct {
 	Name *string `json:"name,omitempty"`
 	ObsStatus *string `json:"obs_status,omitempty"`
 	Source *map[string]any `json:"source,omitempty"`
-	SourceNote *string `json:"source_note,omitempty"`
-	SourceOrganization *string `json:"source_organization,omitempty"`
-	Topic *[]any `json:"topic,omitempty"`
+	SourceNote *string `json:"sourceNote,omitempty"`
+	SourceOrganization *string `json:"sourceOrganization,omitempty"`
+	Topics *[]any `json:"topics,omitempty"`
 	Unit *string `json:"unit,omitempty"`
 	Value *float64 `json:"value,omitempty"`
 }
@@ -82,9 +88,9 @@ type IndicatorListMatch struct {
 	Name *string `json:"name,omitempty"`
 	ObsStatus *string `json:"obs_status,omitempty"`
 	Source *map[string]any `json:"source,omitempty"`
-	SourceNote *string `json:"source_note,omitempty"`
-	SourceOrganization *string `json:"source_organization,omitempty"`
-	Topic *[]any `json:"topic,omitempty"`
+	SourceNote *string `json:"sourceNote,omitempty"`
+	SourceOrganization *string `json:"sourceOrganization,omitempty"`
+	Topics *[]any `json:"topics,omitempty"`
 	Unit *string `json:"unit,omitempty"`
 	Value *float64 `json:"value,omitempty"`
 }
@@ -109,14 +115,14 @@ type MetadataListMatch struct {
 // Topic is the typed data model for the topic entity.
 type Topic struct {
 	Id *string `json:"id,omitempty"`
-	SourceNote *string `json:"source_note,omitempty"`
+	SourceNote *string `json:"sourceNote,omitempty"`
 	Value *string `json:"value,omitempty"`
 }
 
 // TopicListMatch is the typed request payload for Topic.ListTyped.
 type TopicListMatch struct {
 	Id *string `json:"id,omitempty"`
-	SourceNote *string `json:"source_note,omitempty"`
+	SourceNote *string `json:"sourceNote,omitempty"`
 	Value *string `json:"value,omitempty"`
 }
 
@@ -132,12 +138,26 @@ func asMap(v any) map[string]any {
 	return out
 }
 
-// typedFrom decodes a runtime value (a map[string]any produced by the op
-// pipeline) into a typed model T via a JSON round-trip. On any error it
-// returns the zero value of T; the op's own (value, error) tuple carries the
-// real error.
+// entityData unwraps an entity to its data map.
+//
+// Operations resolve to the ENTITY, not the raw data (see AGENTS.md), and an
+// entity's fields are UNEXPORTED — marshalling one directly yields `{}`, so
+// every typed accessor would silently hand back a zero-valued struct. The
+// typed boundary therefore takes the data hop first.
+func entityData(v any) any {
+	if ent, ok := v.(core.Entity); ok {
+		return ent.Data()
+	}
+	return v
+}
+
+// typedFrom decodes a runtime value (an entity, or the map[string]any the op
+// pipeline produced) into a typed model T via a JSON round-trip. On any error
+// it returns the zero value of T; the op's own (value, error) tuple carries
+// the real error.
 func typedFrom[T any](v any) T {
 	var out T
+	v = entityData(v)
 	if v == nil {
 		return out
 	}
@@ -149,12 +169,20 @@ func typedFrom[T any](v any) T {
 	return out
 }
 
-// typedSliceFrom decodes a runtime list value ([]any of maps) into a typed
-// slice []T via a JSON round-trip, for list ops.
+// typedSliceFrom decodes a runtime list value into a typed slice []T via a
+// JSON round-trip, for list ops. `list` resolves to a slice of ENTITY
+// instances, so each element takes the data hop.
 func typedSliceFrom[T any](v any) []T {
 	var out []T
 	if v == nil {
 		return out
+	}
+	if list, ok := v.([]any); ok {
+		unwrapped := make([]any, 0, len(list))
+		for _, item := range list {
+			unwrapped = append(unwrapped, entityData(item))
+		}
+		v = unwrapped
 	}
 	b, err := json.Marshal(v)
 	if err != nil {

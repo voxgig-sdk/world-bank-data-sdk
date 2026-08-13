@@ -16,11 +16,11 @@
 import pytest
 
 from projectname_sdk import WorldBankDataSDK
-from core.error import WorldBankDataError
-from core.result import WorldBankDataResult
-from core.response import WorldBankDataResponse
-from core.spec import WorldBankDataSpec
-from feature.base_feature import WorldBankDataBaseFeature
+from projectname_sdk.core.error import WorldBankDataError
+from projectname_sdk.core.result import WorldBankDataResult
+from projectname_sdk.core.response import WorldBankDataResponse
+from projectname_sdk.core.spec import WorldBankDataSpec
+from projectname_sdk.feature.base_feature import WorldBankDataBaseFeature
 
 
 def _client():

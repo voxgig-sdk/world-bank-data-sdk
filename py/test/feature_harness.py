@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import WorldBankDataControl
-from core.error import WorldBankDataError
-from core.result import WorldBankDataResult
-from core.spec import WorldBankDataSpec
+from worldbankdata_sdk.config import make_config
+from worldbankdata_sdk.features import _make_feature
+from worldbankdata_sdk.core.control import WorldBankDataControl
+from worldbankdata_sdk.core.error import WorldBankDataError
+from worldbankdata_sdk.core.result import WorldBankDataResult
+from worldbankdata_sdk.core.spec import WorldBankDataSpec
 
 
 # True when this SDK was generated with the named feature.

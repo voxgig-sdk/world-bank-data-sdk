@@ -38,9 +38,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = WorldBankDataSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = WorldBankDataSDK.test({
+  entity: {
+    country: {
+      test01: { id: 'test01' },
+    },
+  },
+})
 const countrys = await client.Country().list()
-// countrys is an array of bare Country records populated with mock data
+// countrys is an array of Country entities, populated with mock data
+// — call countrys[0].data() for the record itself
 console.log(countrys)
 ```
 
@@ -110,7 +119,7 @@ import { WorldBankDataSDK } from '@voxgig-sdk/world-bank-data'
 
 const client = new WorldBankDataSDK()
 
-// List all countrys (returns Country[])
+// List all countrys (returns CountryEntity[] — .data() for the record)
 const countrys = await client.Country().list()
 for (const country of countrys) {
   console.log(country)
@@ -158,7 +167,7 @@ The API exposes 4 entities:
 | **Country** | The Country entity (list, load). | `/country` |
 | **Indicator** | The Indicator entity (list, load). | `/indicator` |
 | **Metadata** | The Metadata entity (list). | `/source/{sourceId}/indicator` |
-| **Topic** | The Topic entity (list). | `/topic/{topicId}/indicator` |
+| **Topic** | The Topic entity (list). | `/topic` |
 
 The operations available across these entities are **load**, **list** — see each entity's
 own list above for exactly which it supports.
@@ -194,7 +203,7 @@ $client = new WorldBankDataSDK();
 $countrys = $client->Country()->list();
 print_r($countrys);
 
-// Load a specific country (returns the bare record; throws on error)
+// Load a specific country (returns the ENTITY; call data_get() for the record; throws on error)
 $country = $client->Country()->load(["id" => "example_id"]);
 print_r($country);
 ```
@@ -225,7 +234,7 @@ client = WorldBankDataSDK.new
 countrys = client.Country.list
 puts countrys
 
-# Load a specific country (returns the bare record; raises on error)
+# Load a specific country (returns the ENTITY; call data_get for the record)
 country = client.Country.load({ "id" => "example_id" })
 puts country
 ```
@@ -362,6 +371,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://datahelpdesk.worldbank.org/knowledgebase/topics/125589](https://datahelpdesk.worldbank.org/knowledgebase/topics/125589)
 

@@ -92,7 +92,7 @@ func TestCountryEntity(t *testing.T) {
 		// The basic flow consumes synthetic IDs from the fixture. In live mode
 		// without an *_ENTID env override, those IDs hit the live API and 4xx.
 		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set WORLDBANKDATA_TEST_COUNTRY_ENTID JSON to run live")
+			t.Skip("live entity test uses synthetic IDs from fixture — set WORLD_BANK_DATA_TEST_COUNTRY_ENTID JSON to run live")
 			return
 		}
 		client := setup.client
@@ -128,7 +128,7 @@ func TestCountryEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		countryRef01DataDt0LoadResult := core.ToMapAny(countryRef01DataDt0Loaded)
+		countryRef01DataDt0LoadResult := core.ToMapAny(entityData(countryRef01DataDt0Loaded))
 		if countryRef01DataDt0LoadResult == nil {
 			t.Fatal("expected load result to be a map")
 		}
@@ -176,21 +176,21 @@ func countryBasicSetup(extra map[string]any) *entityTestSetup {
 	// Detect ENTID env override before envOverride consumes it. When live
 	// mode is on without a real override, the basic test runs against synthetic
 	// IDs from the fixture and 4xx's. Surface this so the test can skip.
-	entidEnvRaw := os.Getenv("WORLDBANKDATA_TEST_COUNTRY_ENTID")
+	entidEnvRaw := os.Getenv("WORLD_BANK_DATA_TEST_COUNTRY_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 
 	env := envOverride(map[string]any{
-		"WORLDBANKDATA_TEST_COUNTRY_ENTID": idmap,
-		"WORLDBANKDATA_TEST_LIVE":      "FALSE",
-		"WORLDBANKDATA_TEST_EXPLAIN":   "FALSE",
+		"WORLD_BANK_DATA_TEST_COUNTRY_ENTID": idmap,
+		"WORLD_BANK_DATA_TEST_LIVE":      "FALSE",
+		"WORLD_BANK_DATA_TEST_EXPLAIN":   "FALSE",
 	})
 
-	idmapResolved := core.ToMapAny(env["WORLDBANKDATA_TEST_COUNTRY_ENTID"])
+	idmapResolved := core.ToMapAny(env["WORLD_BANK_DATA_TEST_COUNTRY_ENTID"])
 	if idmapResolved == nil {
 		idmapResolved = core.ToMapAny(idmap)
 	}
 
-	if env["WORLDBANKDATA_TEST_LIVE"] == "TRUE" {
+	if env["WORLD_BANK_DATA_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
 			},
@@ -199,13 +199,13 @@ func countryBasicSetup(extra map[string]any) *entityTestSetup {
 		client = sdk.NewWorldBankDataSDK(core.ToMapAny(mergedOpts))
 	}
 
-	live := env["WORLDBANKDATA_TEST_LIVE"] == "TRUE"
+	live := env["WORLD_BANK_DATA_TEST_LIVE"] == "TRUE"
 	return &entityTestSetup{
 		client:        client,
 		data:          entityData,
 		idmap:         idmapResolved,
 		env:           env,
-		explain:       env["WORLDBANKDATA_TEST_EXPLAIN"] == "TRUE",
+		explain:       env["WORLD_BANK_DATA_TEST_EXPLAIN"] == "TRUE",
 		live:          live,
 		syntheticOnly: live && !idmapOverridden,
 		now:           time.Now().UnixMilli(),

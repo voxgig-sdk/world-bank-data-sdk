@@ -62,7 +62,7 @@ class MetadataEntityTest < Minitest::Test
     # The basic flow consumes synthetic IDs from the fixture. In live mode
     # without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup[:synthetic_only]
-      skip "live entity test uses synthetic IDs from fixture — set WORLDBANKDATA_TEST_METADATA_ENTID JSON to run live"
+      skip "live entity test uses synthetic IDs from fixture — set WORLD_BANK_DATA_TEST_METADATA_ENTID JSON to run live"
       return
     end
     client = setup[:client]
@@ -111,22 +111,22 @@ def metadata_basic_setup(extra)
   # Detect ENTID env override before envOverride consumes it. When live
   # mode is on without a real override, the basic test runs against synthetic
   # IDs from the fixture and 4xx's. Surface this so the test can skip.
-  entid_env_raw = ENV["WORLDBANKDATA_TEST_METADATA_ENTID"]
+  entid_env_raw = ENV["WORLD_BANK_DATA_TEST_METADATA_ENTID"]
   idmap_overridden = !entid_env_raw.nil? && entid_env_raw.strip.start_with?("{")
 
   env = Runner.env_override({
-    "WORLDBANKDATA_TEST_METADATA_ENTID" => idmap,
-    "WORLDBANKDATA_TEST_LIVE" => "FALSE",
-    "WORLDBANKDATA_TEST_EXPLAIN" => "FALSE",
+    "WORLD_BANK_DATA_TEST_METADATA_ENTID" => idmap,
+    "WORLD_BANK_DATA_TEST_LIVE" => "FALSE",
+    "WORLD_BANK_DATA_TEST_EXPLAIN" => "FALSE",
   })
 
   idmap_resolved = Helpers.to_map(
-    env["WORLDBANKDATA_TEST_METADATA_ENTID"])
+    env["WORLD_BANK_DATA_TEST_METADATA_ENTID"])
   if idmap_resolved.nil?
     idmap_resolved = Helpers.to_map(idmap)
   end
 
-  if env["WORLDBANKDATA_TEST_LIVE"] == "TRUE"
+  if env["WORLD_BANK_DATA_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
       },
@@ -135,13 +135,13 @@ def metadata_basic_setup(extra)
     client = WorldBankDataSDK.new(Helpers.to_map(merged_opts))
   end
 
-  live = env["WORLDBANKDATA_TEST_LIVE"] == "TRUE"
+  live = env["WORLD_BANK_DATA_TEST_LIVE"] == "TRUE"
   {
     client: client,
     data: entity_data,
     idmap: idmap_resolved,
     env: env,
-    explain: env["WORLDBANKDATA_TEST_EXPLAIN"] == "TRUE",
+    explain: env["WORLD_BANK_DATA_TEST_EXPLAIN"] == "TRUE",
     live: live,
     synthetic_only: live && !idmap_overridden,
     now: (Time.now.to_f * 1000).to_i,

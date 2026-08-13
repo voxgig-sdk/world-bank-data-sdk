@@ -111,15 +111,16 @@ fmt.Println(country.GetName()) // "country"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `adminregion` | `map[string]any` | No |  |
-| `capital_city` | `string` | No |  |
+| `capitalCity` | `string` | No |  |
 | `id` | `string` | No |  |
-| `income_level` | `map[string]any` | No |  |
-| `iso2_code` | `string` | No |  |
+| `incomeLevel` | `map[string]any` | No |  |
+| `iso2Code` | `string` | No |  |
 | `latitude` | `string` | No |  |
-| `lending_type` | `map[string]any` | No |  |
+| `lendingType` | `map[string]any` | No |  |
 | `longitude` | `string` | No |  |
 | `name` | `string` | No |  |
 | `page` | `int` | No |  |
+| `pages` | `int` | No |  |
 | `per_page` | `int` | No |  |
 | `region` | `map[string]any` | No |  |
 | `total` | `int` | No |  |
@@ -194,9 +195,9 @@ fmt.Println(indicator.GetName()) // "indicator"
 | `name` | `string` | No |  |
 | `obs_status` | `string` | No |  |
 | `source` | `map[string]any` | No |  |
-| `source_note` | `string` | No |  |
-| `source_organization` | `string` | No |  |
-| `topic` | `[]any` | No |  |
+| `sourceNote` | `string` | No |  |
+| `sourceOrganization` | `string` | No |  |
+| `topics` | `[]any` | No |  |
 | `unit` | `string` | No |  |
 | `value` | `float64` | No |  |
 
@@ -320,7 +321,7 @@ fmt.Println(topic.GetName()) // "topic"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `id` | `string` | No |  |
-| `source_note` | `string` | No |  |
+| `sourceNote` | `string` | No |  |
 | `value` | `string` | No |  |
 
 ### Operations

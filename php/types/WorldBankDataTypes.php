@@ -16,15 +16,16 @@ declare(strict_types=1);
 class Country
 {
     public ?array $adminregion = null;
-    public ?string $capital_city = null;
+    public ?string $capitalCity = null;
     public ?string $id = null;
-    public ?array $income_level = null;
-    public ?string $iso2_code = null;
+    public ?array $incomeLevel = null;
+    public ?string $iso2Code = null;
     public ?string $latitude = null;
-    public ?array $lending_type = null;
+    public ?array $lendingType = null;
     public ?string $longitude = null;
     public ?string $name = null;
     public ?int $page = null;
+    public ?int $pages = null;
     public ?int $per_page = null;
     public ?array $region = null;
     public ?int $total = null;
@@ -40,15 +41,16 @@ class CountryLoadMatch
 class CountryListMatch
 {
     public ?array $adminregion = null;
-    public ?string $capital_city = null;
+    public ?string $capitalCity = null;
     public ?string $id = null;
-    public ?array $income_level = null;
-    public ?string $iso2_code = null;
+    public ?array $incomeLevel = null;
+    public ?string $iso2Code = null;
     public ?string $latitude = null;
-    public ?array $lending_type = null;
+    public ?array $lendingType = null;
     public ?string $longitude = null;
     public ?string $name = null;
     public ?int $page = null;
+    public ?int $pages = null;
     public ?int $per_page = null;
     public ?array $region = null;
     public ?int $total = null;
@@ -66,9 +68,9 @@ class Indicator
     public ?string $name = null;
     public ?string $obs_status = null;
     public ?array $source = null;
-    public ?string $source_note = null;
-    public ?string $source_organization = null;
-    public ?array $topic = null;
+    public ?string $sourceNote = null;
+    public ?string $sourceOrganization = null;
+    public ?array $topics = null;
     public ?string $unit = null;
     public ?float $value = null;
 }
@@ -92,9 +94,9 @@ class IndicatorListMatch
     public ?string $name = null;
     public ?string $obs_status = null;
     public ?array $source = null;
-    public ?string $source_note = null;
-    public ?string $source_organization = null;
-    public ?array $topic = null;
+    public ?string $sourceNote = null;
+    public ?string $sourceOrganization = null;
+    public ?array $topics = null;
     public ?string $unit = null;
     public ?float $value = null;
 }
@@ -122,7 +124,7 @@ class MetadataListMatch
 class Topic
 {
     public ?string $id = null;
-    public ?string $source_note = null;
+    public ?string $sourceNote = null;
     public ?string $value = null;
 }
 
@@ -130,7 +132,7 @@ class Topic
 class TopicListMatch
 {
     public ?string $id = null;
-    public ?string $source_note = null;
+    public ?string $sourceNote = null;
     public ?string $value = null;
 }
 

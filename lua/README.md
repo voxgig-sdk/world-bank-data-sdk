@@ -43,7 +43,7 @@ local countrys, err = client:Country():list()
 if err then error(err) end
 
 for _, item in ipairs(countrys) do
-  print(item["id"], item["capital_city"])
+  print(item["id"], item["capitalCity"])
 end
 ```
 
@@ -245,15 +245,16 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | Field | Description |
 | --- | --- |
 | `adminregion` |  |
-| `capital_city` |  |
+| `capitalCity` |  |
 | `id` |  |
-| `income_level` |  |
-| `iso2_code` |  |
+| `incomeLevel` |  |
+| `iso2Code` |  |
 | `latitude` |  |
-| `lending_type` |  |
+| `lendingType` |  |
 | `longitude` |  |
 | `name` |  |
 | `page` |  |
+| `pages` |  |
 | `per_page` |  |
 | `region` |  |
 | `total` |  |
@@ -275,9 +276,9 @@ API path: `/country`
 | `name` |  |
 | `obs_status` |  |
 | `source` |  |
-| `source_note` |  |
-| `source_organization` |  |
-| `topic` |  |
+| `sourceNote` |  |
+| `sourceOrganization` |  |
+| `topics` |  |
 | `unit` |  |
 | `value` |  |
 
@@ -307,7 +308,7 @@ API path: `/source/{sourceId}/indicator`
 | Field | Description |
 | --- | --- |
 | `id` |  |
-| `source_note` |  |
+| `sourceNote` |  |
 | `value` |  |
 
 Operations: List.
@@ -335,15 +336,16 @@ Create an instance: `local country = client:Country(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `adminregion` | `table` |  |
-| `capital_city` | `string` |  |
+| `capitalCity` | `string` |  |
 | `id` | `string` |  |
-| `income_level` | `table` |  |
-| `iso2_code` | `string` |  |
+| `incomeLevel` | `table` |  |
+| `iso2Code` | `string` |  |
 | `latitude` | `string` |  |
-| `lending_type` | `table` |  |
+| `lendingType` | `table` |  |
 | `longitude` | `string` |  |
 | `name` | `string` |  |
 | `page` | `number` |  |
+| `pages` | `number` |  |
 | `per_page` | `number` |  |
 | `region` | `table` |  |
 | `total` | `number` |  |
@@ -385,9 +387,9 @@ Create an instance: `local indicator = client:Indicator(nil)`
 | `name` | `string` |  |
 | `obs_status` | `string` |  |
 | `source` | `table` |  |
-| `source_note` | `string` |  |
-| `source_organization` | `string` |  |
-| `topic` | `table` |  |
+| `sourceNote` | `string` |  |
+| `sourceOrganization` | `string` |  |
+| `topics` | `table` |  |
 | `unit` | `string` |  |
 | `value` | `number` |  |
 
@@ -449,7 +451,7 @@ Create an instance: `local topic = client:Topic(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `id` | `string` |  |
-| `source_note` | `string` |  |
+| `sourceNote` | `string` |  |
 | `value` | `string` |  |
 
 #### Example: List

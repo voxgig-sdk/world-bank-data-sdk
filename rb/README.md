@@ -48,7 +48,7 @@ end
 
 ```ruby
 begin
-  # load returns the bare Country record (raises on error).
+  # load returns the ENTITY — call data_get for the Country record (raises on error).
   country = client.Country.load({ "id" => "example_id" })
   puts country
 rescue => err
@@ -134,7 +134,8 @@ client = WorldBankDataSDK.test({
   "entity" => { "country" => { "test01" => { "id" => "test01" } } },
 })
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 country = client.Country.list()
 puts country
 ```
@@ -256,15 +257,16 @@ returns a result `Hash` with these keys:
 | Field | Description |
 | --- | --- |
 | `adminregion` |  |
-| `capital_city` |  |
+| `capitalCity` |  |
 | `id` |  |
-| `income_level` |  |
-| `iso2_code` |  |
+| `incomeLevel` |  |
+| `iso2Code` |  |
 | `latitude` |  |
-| `lending_type` |  |
+| `lendingType` |  |
 | `longitude` |  |
 | `name` |  |
 | `page` |  |
+| `pages` |  |
 | `per_page` |  |
 | `region` |  |
 | `total` |  |
@@ -286,9 +288,9 @@ API path: `/country`
 | `name` |  |
 | `obs_status` |  |
 | `source` |  |
-| `source_note` |  |
-| `source_organization` |  |
-| `topic` |  |
+| `sourceNote` |  |
+| `sourceOrganization` |  |
+| `topics` |  |
 | `unit` |  |
 | `value` |  |
 
@@ -318,7 +320,7 @@ API path: `/source/{sourceId}/indicator`
 | Field | Description |
 | --- | --- |
 | `id` |  |
-| `source_note` |  |
+| `sourceNote` |  |
 | `value` |  |
 
 Operations: List.
@@ -346,15 +348,16 @@ Create an instance: `country = client.Country`
 | Field | Type | Description |
 | --- | --- | --- |
 | `adminregion` | `Hash` |  |
-| `capital_city` | `String` |  |
+| `capitalCity` | `String` |  |
 | `id` | `String` |  |
-| `income_level` | `Hash` |  |
-| `iso2_code` | `String` |  |
+| `incomeLevel` | `Hash` |  |
+| `iso2Code` | `String` |  |
 | `latitude` | `String` |  |
-| `lending_type` | `Hash` |  |
+| `lendingType` | `Hash` |  |
 | `longitude` | `String` |  |
 | `name` | `String` |  |
 | `page` | `Integer` |  |
+| `pages` | `Integer` |  |
 | `per_page` | `Integer` |  |
 | `region` | `Hash` |  |
 | `total` | `Integer` |  |
@@ -362,7 +365,7 @@ Create an instance: `country = client.Country`
 #### Example: Load
 
 ```ruby
-# load returns the bare Country record (raises on error).
+# load returns the ENTITY — call data_get for the Country record (raises on error).
 country = client.Country.load({ "id" => "country_id" })
 ```
 
@@ -398,16 +401,16 @@ Create an instance: `indicator = client.Indicator`
 | `name` | `String` |  |
 | `obs_status` | `String` |  |
 | `source` | `Hash` |  |
-| `source_note` | `String` |  |
-| `source_organization` | `String` |  |
-| `topic` | `Array` |  |
+| `sourceNote` | `String` |  |
+| `sourceOrganization` | `String` |  |
+| `topics` | `Array` |  |
 | `unit` | `String` |  |
 | `value` | `Float` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Indicator record (raises on error).
+# load returns the ENTITY — call data_get for the Indicator record (raises on error).
 indicator = client.Indicator.load({ "id" => "indicator_id" })
 ```
 
@@ -465,7 +468,7 @@ Create an instance: `topic = client.Topic`
 | Field | Type | Description |
 | --- | --- | --- |
 | `id` | `String` |  |
-| `source_note` | `String` |  |
+| `sourceNote` | `String` |  |
 | `value` | `String` |  |
 
 #### Example: List

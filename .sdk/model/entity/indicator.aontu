@@ -51,17 +51,17 @@ main: kit: entity: indicator: {
       type: "`$OBJECT`"
     }
     {
-      name: "source_note"
+      name: "sourceNote"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "source_organization"
+      name: "sourceOrganization"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "topic"
+      name: "topics"
       req: false
       type: "`$ARRAY`"
     }

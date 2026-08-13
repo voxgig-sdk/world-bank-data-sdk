@@ -26,8 +26,8 @@ import {
 describe('IndicatorEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when WORLDBANKDATA_TEST_LIVE=TRUE.
-  afterEach(liveDelay('WORLDBANKDATA_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when WORLD_BANK_DATA_TEST_LIVE=TRUE.
+  afterEach(liveDelay('WORLD_BANK_DATA_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = WorldBankDataSDK.test()
@@ -63,13 +63,13 @@ describe('IndicatorEntity', async () => {
     const indicator_ref01_ent = client.Indicator()
     const indicator_ref01_match: any = {}
 
-    const indicator_ref01_list = await indicator_ref01_ent.list(indicator_ref01_match)
+    const indicator_ref01_list = (await indicator_ref01_ent.list(indicator_ref01_match)).map((e: any) => e.data())
 
 
     // LOAD
     const indicator_ref01_match_dt0: any = {}
     indicator_ref01_match_dt0.id = indicator_ref01_data.id
-    const indicator_ref01_data_dt0 = await indicator_ref01_ent.load(indicator_ref01_match_dt0)
+    const indicator_ref01_data_dt0 = (await indicator_ref01_ent.load(indicator_ref01_match_dt0)).data()
     assert(indicator_ref01_data_dt0.id === indicator_ref01_data.id)
 
 

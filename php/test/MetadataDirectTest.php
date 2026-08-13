@@ -80,11 +80,11 @@ function metadata_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "WORLDBANKDATA_TEST_METADATA_ENTID" => [],
-        "WORLDBANKDATA_TEST_LIVE" => "FALSE",
+        "WORLD_BANK_DATA_TEST_METADATA_ENTID" => [],
+        "WORLD_BANK_DATA_TEST_LIVE" => "FALSE",
     ]);
 
-    $live = $env["WORLDBANKDATA_TEST_LIVE"] === "TRUE";
+    $live = $env["WORLD_BANK_DATA_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [

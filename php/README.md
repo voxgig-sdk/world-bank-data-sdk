@@ -49,7 +49,7 @@ try {
 
 ```php
 try {
-    // load() returns the bare Country record (throws on error).
+    // load() returns the ENTITY — call data_get() for the Country record (throws on error).
     $country = $client->Country()->load(["id" => "example_id"]);
     print_r($country);
 } catch (\Throwable $err) {
@@ -140,7 +140,8 @@ $client = WorldBankDataSDK::test([
     "entity" => ["country" => ["test01" => ["id" => "test01"]]],
 ]);
 
-// Entity ops return the bare mock record (throws on error).
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
 $country = $client->Country()->list();
 print_r($country);
 ```
@@ -243,7 +244,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -266,15 +267,16 @@ On error, `ok` is `false` and `$err` contains the error value.
 | Field | Description |
 | --- | --- |
 | `adminregion` |  |
-| `capital_city` |  |
+| `capitalCity` |  |
 | `id` |  |
-| `income_level` |  |
-| `iso2_code` |  |
+| `incomeLevel` |  |
+| `iso2Code` |  |
 | `latitude` |  |
-| `lending_type` |  |
+| `lendingType` |  |
 | `longitude` |  |
 | `name` |  |
 | `page` |  |
+| `pages` |  |
 | `per_page` |  |
 | `region` |  |
 | `total` |  |
@@ -296,9 +298,9 @@ API path: `/country`
 | `name` |  |
 | `obs_status` |  |
 | `source` |  |
-| `source_note` |  |
-| `source_organization` |  |
-| `topic` |  |
+| `sourceNote` |  |
+| `sourceOrganization` |  |
+| `topics` |  |
 | `unit` |  |
 | `value` |  |
 
@@ -328,7 +330,7 @@ API path: `/source/{sourceId}/indicator`
 | Field | Description |
 | --- | --- |
 | `id` |  |
-| `source_note` |  |
+| `sourceNote` |  |
 | `value` |  |
 
 Operations: List.
@@ -356,15 +358,16 @@ Create an instance: `$country = $client->Country();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `adminregion` | `array` |  |
-| `capital_city` | `string` |  |
+| `capitalCity` | `string` |  |
 | `id` | `string` |  |
-| `income_level` | `array` |  |
-| `iso2_code` | `string` |  |
+| `incomeLevel` | `array` |  |
+| `iso2Code` | `string` |  |
 | `latitude` | `string` |  |
-| `lending_type` | `array` |  |
+| `lendingType` | `array` |  |
 | `longitude` | `string` |  |
 | `name` | `string` |  |
 | `page` | `int` |  |
+| `pages` | `int` |  |
 | `per_page` | `int` |  |
 | `region` | `array` |  |
 | `total` | `int` |  |
@@ -372,7 +375,7 @@ Create an instance: `$country = $client->Country();`
 #### Example: Load
 
 ```php
-// load() returns the bare Country record (throws on error).
+// load() returns the ENTITY — call data_get() for the Country record (throws on error).
 $country = $client->Country()->load(["id" => "country_id"]);
 ```
 
@@ -408,16 +411,16 @@ Create an instance: `$indicator = $client->Indicator();`
 | `name` | `string` |  |
 | `obs_status` | `string` |  |
 | `source` | `array` |  |
-| `source_note` | `string` |  |
-| `source_organization` | `string` |  |
-| `topic` | `array` |  |
+| `sourceNote` | `string` |  |
+| `sourceOrganization` | `string` |  |
+| `topics` | `array` |  |
 | `unit` | `string` |  |
 | `value` | `float` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Indicator record (throws on error).
+// load() returns the ENTITY — call data_get() for the Indicator record (throws on error).
 $indicator = $client->Indicator()->load(["id" => "indicator_id"]);
 ```
 
@@ -475,7 +478,7 @@ Create an instance: `$topic = $client->Topic();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `id` | `string` |  |
-| `source_note` | `string` |  |
+| `sourceNote` | `string` |  |
 | `value` | `string` |  |
 
 #### Example: List
