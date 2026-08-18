@@ -28,7 +28,7 @@ class WorldBankDataSDK
     utility = WorldBankDataUtility.new
     @_utility = utility
 
-    config = WorldBankDataConfig.make_config
+    config = WorldBankDataConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

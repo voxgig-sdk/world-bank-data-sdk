@@ -94,7 +94,14 @@ export interface Metadata {
 }
 
 export interface MetadataListMatch {
-  source_id?: number
+  code?: string
+  description?: string
+  id?: string
+  iso2code?: string
+  lastupdated?: string
+  name?: string
+  url?: string
+  value?: string
 }
 
 export interface Topic {

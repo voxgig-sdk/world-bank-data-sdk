@@ -40,7 +40,7 @@ class MetadataEntityTest extends TestCase
         $this->assertCount(3, $seen);
 
         // Inbound: streaming active -> yields each item from the feature.
-        $cfg = WorldBankDataConfig::make_config();
+        $cfg = WorldBankDataConfig::shared_config();
         if (isset($cfg["feature"]) && is_array($cfg["feature"]) && isset($cfg["feature"]["streaming"])) {
             $sdk = WorldBankDataSDK::test($seed, ["feature" => ["streaming" => ["active" => true]]]);
             $got = [];

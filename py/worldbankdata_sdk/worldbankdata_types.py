@@ -108,7 +108,14 @@ class Metadata(TypedDict, total=False):
 
 
 class MetadataListMatch(TypedDict, total=False):
-    source_id: int
+    code: str
+    description: str
+    id: str
+    iso2code: str
+    lastupdated: str
+    name: str
+    url: str
+    value: str
 
 
 class Topic(TypedDict, total=False):

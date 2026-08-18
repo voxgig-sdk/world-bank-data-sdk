@@ -313,10 +313,38 @@ Metadata = Struct.new(
 
 # Request payload for Metadata#list.
 #
-# @!attribute [rw] source_id
-#   @return [Integer, nil]
+# @!attribute [rw] code
+#   @return [String, nil]
+#
+# @!attribute [rw] description
+#   @return [String, nil]
+#
+# @!attribute [rw] id
+#   @return [String, nil]
+#
+# @!attribute [rw] iso2code
+#   @return [String, nil]
+#
+# @!attribute [rw] lastupdated
+#   @return [String, nil]
+#
+# @!attribute [rw] name
+#   @return [String, nil]
+#
+# @!attribute [rw] url
+#   @return [String, nil]
+#
+# @!attribute [rw] value
+#   @return [String, nil]
 MetadataListMatch = Struct.new(
-  :source_id,
+  :code,
+  :description,
+  :id,
+  :iso2code,
+  :lastupdated,
+  :name,
+  :url,
+  :value,
   keyword_init: true
 )
 

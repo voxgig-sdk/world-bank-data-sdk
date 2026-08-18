@@ -88,7 +88,14 @@
 ---@field value? string
 
 ---@class MetadataListMatch
----@field source_id? number
+---@field code? string
+---@field description? string
+---@field id? string
+---@field iso2code? string
+---@field lastupdated? string
+---@field name? string
+---@field url? string
+---@field value? string
 
 ---@class Topic
 ---@field id? string

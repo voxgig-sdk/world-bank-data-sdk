@@ -109,7 +109,14 @@ type Metadata struct {
 
 // MetadataListMatch is the typed request payload for Metadata.ListTyped.
 type MetadataListMatch struct {
-	SourceId *int `json:"source_id,omitempty"`
+	Code *string `json:"code,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Iso2code *string `json:"iso2code,omitempty"`
+	Lastupdated *string `json:"lastupdated,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Url *string `json:"url,omitempty"`
+	Value *string `json:"value,omitempty"`
 }
 
 // Topic is the typed data model for the topic entity.

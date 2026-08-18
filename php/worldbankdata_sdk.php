@@ -40,7 +40,7 @@ class WorldBankDataSDK
         $utility = new WorldBankDataUtility();
         $this->_utility = $utility;
 
-        $config = WorldBankDataConfig::make_config();
+        $config = WorldBankDataConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

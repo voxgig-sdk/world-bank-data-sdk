@@ -117,7 +117,14 @@ class Metadata
 /** Request payload for Metadata#list. */
 class MetadataListMatch
 {
-    public ?int $source_id = null;
+    public ?string $code = null;
+    public ?string $description = null;
+    public ?string $id = null;
+    public ?string $iso2code = null;
+    public ?string $lastupdated = null;
+    public ?string $name = null;
+    public ?string $url = null;
+    public ?string $value = null;
 }
 
 /** Topic entity data model. */

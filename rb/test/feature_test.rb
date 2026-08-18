@@ -15,7 +15,7 @@ require_relative "../WorldBankData_sdk"
 module WorldBankDataFeatureHarness
   # True when this SDK was generated with the named feature.
   def self.has_feature?(name)
-    f = WorldBankDataConfig.make_config["feature"]
+    f = WorldBankDataConfig.shared_config["feature"]
     f.is_a?(Hash) && !f[name].nil?
   end
 
