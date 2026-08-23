@@ -19,6 +19,9 @@ module WorldBankDataConfig
     {
       "main" => {
         "name" => "WorldBankData",
+        "slug" => "world-bank-data",
+        "version" => "0.0.1",
+        "target" => "rb",
       },
       "feature" => {
         "test" => {

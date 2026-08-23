@@ -33,6 +33,9 @@ class WorldBankDataConfig
         return [
             "main" => [
                 "name" => "WorldBankData",
+                "slug" => "world-bank-data",
+                "version" => "0.0.1",
+                "target" => "php",
             ],
             "feature" => [
                 "test" => [
