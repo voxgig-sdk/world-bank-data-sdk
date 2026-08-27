@@ -42,6 +42,7 @@ class WorldBankDataConfig
           'options' => [
             'active' => false,
           ],
+          'transport' => 'base',
         ],
             ],
             "options" => [
