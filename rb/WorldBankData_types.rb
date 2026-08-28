@@ -73,69 +73,29 @@ Country = Struct.new(
 #
 # @!attribute [rw] id
 #   @return [String]
+#
+# @!attribute [rw] format
+#   @return [String, nil]
 CountryLoadMatch = Struct.new(
   :id,
+  :format,
   keyword_init: true
 )
 
 # Request payload for Country#list.
 #
-# @!attribute [rw] adminregion
-#   @return [Hash, nil]
-#
-# @!attribute [rw] capitalCity
-#   @return [String, nil]
-#
-# @!attribute [rw] id
-#   @return [String, nil]
-#
-# @!attribute [rw] incomeLevel
-#   @return [Hash, nil]
-#
-# @!attribute [rw] iso2Code
-#   @return [String, nil]
-#
-# @!attribute [rw] latitude
-#   @return [String, nil]
-#
-# @!attribute [rw] lendingType
-#   @return [Hash, nil]
-#
-# @!attribute [rw] longitude
-#   @return [String, nil]
-#
-# @!attribute [rw] name
+# @!attribute [rw] format
 #   @return [String, nil]
 #
 # @!attribute [rw] page
 #   @return [Integer, nil]
 #
-# @!attribute [rw] pages
-#   @return [Integer, nil]
-#
 # @!attribute [rw] per_page
 #   @return [Integer, nil]
-#
-# @!attribute [rw] region
-#   @return [Hash, nil]
-#
-# @!attribute [rw] total
-#   @return [Integer, nil]
 CountryListMatch = Struct.new(
-  :adminregion,
-  :capitalCity,
-  :id,
-  :incomeLevel,
-  :iso2Code,
-  :latitude,
-  :lendingType,
-  :longitude,
-  :name,
+  :format,
   :page,
-  :pages,
   :per_page,
-  :region,
-  :total,
   keyword_init: true
 )
 
@@ -207,70 +167,58 @@ Indicator = Struct.new(
 #
 # @!attribute [rw] id
 #   @return [String]
+#
+# @!attribute [rw] date
+#   @return [String, nil]
+#
+# @!attribute [rw] format
+#   @return [String, nil]
+#
+# @!attribute [rw] frequency
+#   @return [String, nil]
+#
+# @!attribute [rw] gapfill
+#   @return [String, nil]
+#
+# @!attribute [rw] mrv
+#   @return [Integer, nil]
+#
+# @!attribute [rw] page
+#   @return [Integer, nil]
+#
+# @!attribute [rw] per_page
+#   @return [Integer, nil]
 IndicatorLoadMatch = Struct.new(
   :country_code,
   :id,
+  :date,
+  :format,
+  :frequency,
+  :gapfill,
+  :mrv,
+  :page,
+  :per_page,
   keyword_init: true
 )
 
 # Request payload for Indicator#list.
 #
-# @!attribute [rw] country
-#   @return [Hash, nil]
-#
-# @!attribute [rw] countryiso3code
+# @!attribute [rw] format
 #   @return [String, nil]
 #
-# @!attribute [rw] date
-#   @return [String, nil]
-#
-# @!attribute [rw] decimal
+# @!attribute [rw] page
 #   @return [Integer, nil]
 #
-# @!attribute [rw] id
-#   @return [String, nil]
-#
-# @!attribute [rw] indicator
-#   @return [Hash, nil]
-#
-# @!attribute [rw] name
-#   @return [String, nil]
-#
-# @!attribute [rw] obs_status
-#   @return [String, nil]
+# @!attribute [rw] per_page
+#   @return [Integer, nil]
 #
 # @!attribute [rw] source
-#   @return [Hash, nil]
-#
-# @!attribute [rw] sourceNote
-#   @return [String, nil]
-#
-# @!attribute [rw] sourceOrganization
-#   @return [String, nil]
-#
-# @!attribute [rw] topics
-#   @return [Array, nil]
-#
-# @!attribute [rw] unit
-#   @return [String, nil]
-#
-# @!attribute [rw] value
-#   @return [Float, nil]
+#   @return [Integer, nil]
 IndicatorListMatch = Struct.new(
-  :country,
-  :countryiso3code,
-  :date,
-  :decimal,
-  :id,
-  :indicator,
-  :name,
-  :obs_status,
+  :format,
+  :page,
+  :per_page,
   :source,
-  :sourceNote,
-  :sourceOrganization,
-  :topics,
-  :unit,
-  :value,
   keyword_init: true
 )
 
@@ -313,38 +261,18 @@ Metadata = Struct.new(
 
 # Request payload for Metadata#list.
 #
-# @!attribute [rw] code
+# @!attribute [rw] format
 #   @return [String, nil]
 #
-# @!attribute [rw] description
-#   @return [String, nil]
+# @!attribute [rw] page
+#   @return [Integer, nil]
 #
-# @!attribute [rw] id
-#   @return [String, nil]
-#
-# @!attribute [rw] iso2code
-#   @return [String, nil]
-#
-# @!attribute [rw] lastupdated
-#   @return [String, nil]
-#
-# @!attribute [rw] name
-#   @return [String, nil]
-#
-# @!attribute [rw] url
-#   @return [String, nil]
-#
-# @!attribute [rw] value
-#   @return [String, nil]
+# @!attribute [rw] per_page
+#   @return [Integer, nil]
 MetadataListMatch = Struct.new(
-  :code,
-  :description,
-  :id,
-  :iso2code,
-  :lastupdated,
-  :name,
-  :url,
-  :value,
+  :format,
+  :page,
+  :per_page,
   keyword_init: true
 )
 
@@ -367,18 +295,18 @@ Topic = Struct.new(
 
 # Request payload for Topic#list.
 #
-# @!attribute [rw] id
+# @!attribute [rw] format
 #   @return [String, nil]
 #
-# @!attribute [rw] sourceNote
-#   @return [String, nil]
+# @!attribute [rw] page
+#   @return [Integer, nil]
 #
-# @!attribute [rw] value
-#   @return [String, nil]
+# @!attribute [rw] per_page
+#   @return [Integer, nil]
 TopicListMatch = Struct.new(
-  :id,
-  :sourceNote,
-  :value,
+  :format,
+  :page,
+  :per_page,
   keyword_init: true
 )
 

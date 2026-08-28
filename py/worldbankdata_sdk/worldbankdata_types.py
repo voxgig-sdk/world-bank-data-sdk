@@ -33,25 +33,18 @@ class Country(TypedDict, total=False):
     total: int
 
 
-class CountryLoadMatch(TypedDict):
+class CountryLoadMatchRequired(TypedDict):
     id: str
+
+
+class CountryLoadMatch(CountryLoadMatchRequired, total=False):
+    format: str
 
 
 class CountryListMatch(TypedDict, total=False):
-    adminregion: dict
-    capitalCity: str
-    id: str
-    incomeLevel: dict
-    iso2Code: str
-    latitude: str
-    lendingType: dict
-    longitude: str
-    name: str
+    format: str
     page: int
-    pages: int
     per_page: int
-    region: dict
-    total: int
 
 
 class Indicator(TypedDict, total=False):
@@ -77,23 +70,20 @@ class IndicatorLoadMatchRequired(TypedDict):
 
 class IndicatorLoadMatch(IndicatorLoadMatchRequired, total=False):
     country_code: str
+    date: str
+    format: str
+    frequency: str
+    gapfill: str
+    mrv: int
+    page: int
+    per_page: int
 
 
 class IndicatorListMatch(TypedDict, total=False):
-    country: dict
-    countryiso3code: str
-    date: str
-    decimal: int
-    id: str
-    indicator: dict
-    name: str
-    obs_status: str
-    source: dict
-    sourceNote: str
-    sourceOrganization: str
-    topics: list
-    unit: str
-    value: float
+    format: str
+    page: int
+    per_page: int
+    source: int
 
 
 class Metadata(TypedDict, total=False):
@@ -108,14 +98,9 @@ class Metadata(TypedDict, total=False):
 
 
 class MetadataListMatch(TypedDict, total=False):
-    code: str
-    description: str
-    id: str
-    iso2code: str
-    lastupdated: str
-    name: str
-    url: str
-    value: str
+    format: str
+    page: int
+    per_page: int
 
 
 class Topic(TypedDict, total=False):
@@ -125,6 +110,6 @@ class Topic(TypedDict, total=False):
 
 
 class TopicListMatch(TypedDict, total=False):
-    id: str
-    sourceNote: str
-    value: str
+    format: str
+    page: int
+    per_page: int

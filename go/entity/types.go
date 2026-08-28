@@ -33,24 +33,14 @@ type Country struct {
 // CountryLoadMatch is the typed request payload for Country.LoadTyped.
 type CountryLoadMatch struct {
 	Id string `json:"id"`
+	Format *string `json:"format,omitempty"`
 }
 
 // CountryListMatch is the typed request payload for Country.ListTyped.
 type CountryListMatch struct {
-	Adminregion *map[string]any `json:"adminregion,omitempty"`
-	CapitalCity *string `json:"capitalCity,omitempty"`
-	Id *string `json:"id,omitempty"`
-	IncomeLevel *map[string]any `json:"incomeLevel,omitempty"`
-	Iso2Code *string `json:"iso2Code,omitempty"`
-	Latitude *string `json:"latitude,omitempty"`
-	LendingType *map[string]any `json:"lendingType,omitempty"`
-	Longitude *string `json:"longitude,omitempty"`
-	Name *string `json:"name,omitempty"`
+	Format *string `json:"format,omitempty"`
 	Page *int `json:"page,omitempty"`
-	Pages *int `json:"pages,omitempty"`
 	PerPage *int `json:"per_page,omitempty"`
-	Region *map[string]any `json:"region,omitempty"`
-	Total *int `json:"total,omitempty"`
 }
 
 // Indicator is the typed data model for the indicator entity.
@@ -75,24 +65,21 @@ type Indicator struct {
 type IndicatorLoadMatch struct {
 	CountryCode *string `json:"country_code,omitempty"`
 	Id string `json:"id"`
+	Date *string `json:"date,omitempty"`
+	Format *string `json:"format,omitempty"`
+	Frequency *string `json:"frequency,omitempty"`
+	Gapfill *string `json:"gapfill,omitempty"`
+	Mrv *int `json:"mrv,omitempty"`
+	Page *int `json:"page,omitempty"`
+	PerPage *int `json:"per_page,omitempty"`
 }
 
 // IndicatorListMatch is the typed request payload for Indicator.ListTyped.
 type IndicatorListMatch struct {
-	Country *map[string]any `json:"country,omitempty"`
-	Countryiso3code *string `json:"countryiso3code,omitempty"`
-	Date *string `json:"date,omitempty"`
-	Decimal *int `json:"decimal,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Indicator *map[string]any `json:"indicator,omitempty"`
-	Name *string `json:"name,omitempty"`
-	ObsStatus *string `json:"obs_status,omitempty"`
-	Source *map[string]any `json:"source,omitempty"`
-	SourceNote *string `json:"sourceNote,omitempty"`
-	SourceOrganization *string `json:"sourceOrganization,omitempty"`
-	Topics *[]any `json:"topics,omitempty"`
-	Unit *string `json:"unit,omitempty"`
-	Value *float64 `json:"value,omitempty"`
+	Format *string `json:"format,omitempty"`
+	Page *int `json:"page,omitempty"`
+	PerPage *int `json:"per_page,omitempty"`
+	Source *int `json:"source,omitempty"`
 }
 
 // Metadata is the typed data model for the metadata entity.
@@ -109,14 +96,9 @@ type Metadata struct {
 
 // MetadataListMatch is the typed request payload for Metadata.ListTyped.
 type MetadataListMatch struct {
-	Code *string `json:"code,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Iso2code *string `json:"iso2code,omitempty"`
-	Lastupdated *string `json:"lastupdated,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Url *string `json:"url,omitempty"`
-	Value *string `json:"value,omitempty"`
+	Format *string `json:"format,omitempty"`
+	Page *int `json:"page,omitempty"`
+	PerPage *int `json:"per_page,omitempty"`
 }
 
 // Topic is the typed data model for the topic entity.
@@ -128,9 +110,9 @@ type Topic struct {
 
 // TopicListMatch is the typed request payload for Topic.ListTyped.
 type TopicListMatch struct {
-	Id *string `json:"id,omitempty"`
-	SourceNote *string `json:"sourceNote,omitempty"`
-	Value *string `json:"value,omitempty"`
+	Format *string `json:"format,omitempty"`
+	Page *int `json:"page,omitempty"`
+	PerPage *int `json:"per_page,omitempty"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

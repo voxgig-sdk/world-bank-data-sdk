@@ -35,25 +35,15 @@ class Country
 class CountryLoadMatch
 {
     public string $id;
+    public ?string $format = null;
 }
 
 /** Request payload for Country#list. */
 class CountryListMatch
 {
-    public ?array $adminregion = null;
-    public ?string $capitalCity = null;
-    public ?string $id = null;
-    public ?array $incomeLevel = null;
-    public ?string $iso2Code = null;
-    public ?string $latitude = null;
-    public ?array $lendingType = null;
-    public ?string $longitude = null;
-    public ?string $name = null;
+    public ?string $format = null;
     public ?int $page = null;
-    public ?int $pages = null;
     public ?int $per_page = null;
-    public ?array $region = null;
-    public ?int $total = null;
 }
 
 /** Indicator entity data model. */
@@ -80,25 +70,22 @@ class IndicatorLoadMatch
 {
     public ?string $country_code = null;
     public string $id;
+    public ?string $date = null;
+    public ?string $format = null;
+    public ?string $frequency = null;
+    public ?string $gapfill = null;
+    public ?int $mrv = null;
+    public ?int $page = null;
+    public ?int $per_page = null;
 }
 
 /** Request payload for Indicator#list. */
 class IndicatorListMatch
 {
-    public ?array $country = null;
-    public ?string $countryiso3code = null;
-    public ?string $date = null;
-    public ?int $decimal = null;
-    public ?string $id = null;
-    public ?array $indicator = null;
-    public ?string $name = null;
-    public ?string $obs_status = null;
-    public ?array $source = null;
-    public ?string $sourceNote = null;
-    public ?string $sourceOrganization = null;
-    public ?array $topics = null;
-    public ?string $unit = null;
-    public ?float $value = null;
+    public ?string $format = null;
+    public ?int $page = null;
+    public ?int $per_page = null;
+    public ?int $source = null;
 }
 
 /** Metadata entity data model. */
@@ -117,14 +104,9 @@ class Metadata
 /** Request payload for Metadata#list. */
 class MetadataListMatch
 {
-    public ?string $code = null;
-    public ?string $description = null;
-    public ?string $id = null;
-    public ?string $iso2code = null;
-    public ?string $lastupdated = null;
-    public ?string $name = null;
-    public ?string $url = null;
-    public ?string $value = null;
+    public ?string $format = null;
+    public ?int $page = null;
+    public ?int $per_page = null;
 }
 
 /** Topic entity data model. */
@@ -138,8 +120,8 @@ class Topic
 /** Request payload for Topic#list. */
 class TopicListMatch
 {
-    public ?string $id = null;
-    public ?string $sourceNote = null;
-    public ?string $value = null;
+    public ?string $format = null;
+    public ?int $page = null;
+    public ?int $per_page = null;
 }
 

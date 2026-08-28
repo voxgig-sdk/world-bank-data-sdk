@@ -24,23 +24,13 @@ export interface Country {
 
 export interface CountryLoadMatch {
   id: string
+  format?: string
 }
 
 export interface CountryListMatch {
-  adminregion?: Record<string, any>
-  capitalCity?: string
-  id?: string
-  incomeLevel?: Record<string, any>
-  iso2Code?: string
-  latitude?: string
-  lendingType?: Record<string, any>
-  longitude?: string
-  name?: string
+  format?: string
   page?: number
-  pages?: number
   per_page?: number
-  region?: Record<string, any>
-  total?: number
 }
 
 export interface Indicator {
@@ -63,23 +53,20 @@ export interface Indicator {
 export interface IndicatorLoadMatch {
   country_code?: string
   id: string
+  date?: string
+  format?: string
+  frequency?: string
+  gapfill?: string
+  mrv?: number
+  page?: number
+  per_page?: number
 }
 
 export interface IndicatorListMatch {
-  country?: Record<string, any>
-  countryiso3code?: string
-  date?: string
-  decimal?: number
-  id?: string
-  indicator?: Record<string, any>
-  name?: string
-  obs_status?: string
-  source?: Record<string, any>
-  sourceNote?: string
-  sourceOrganization?: string
-  topics?: any[]
-  unit?: string
-  value?: number
+  format?: string
+  page?: number
+  per_page?: number
+  source?: number
 }
 
 export interface Metadata {
@@ -94,14 +81,9 @@ export interface Metadata {
 }
 
 export interface MetadataListMatch {
-  code?: string
-  description?: string
-  id?: string
-  iso2code?: string
-  lastupdated?: string
-  name?: string
-  url?: string
-  value?: string
+  format?: string
+  page?: number
+  per_page?: number
 }
 
 export interface Topic {
@@ -111,9 +93,9 @@ export interface Topic {
 }
 
 export interface TopicListMatch {
-  id?: string
-  sourceNote?: string
-  value?: string
+  format?: string
+  page?: number
+  per_page?: number
 
   // Selects a custom action instead of the plain list:
   //   'indicator'
