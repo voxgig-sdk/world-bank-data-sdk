@@ -1,6 +1,14 @@
 # WorldBankData SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -112,6 +120,10 @@ def make_config():
             "type": "`$INTEGER`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "country",
         "op": {
           "list": {
@@ -147,8 +159,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/country",
-                "parts": [
-                  "country",
+                "segments": [
+                  {
+                    "lit": "country",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -161,6 +175,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "country",
+                ],
               },
             ],
           },
@@ -192,15 +209,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/country/{countryCode}",
-                "parts": [
-                  "country",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "countryCode": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "country",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "format",
@@ -211,6 +232,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "country",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -278,6 +303,10 @@ def make_config():
             "type": "`$NUMBER`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "indicator",
         "op": {
           "list": {
@@ -319,8 +348,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/indicator",
-                "parts": [
-                  "indicator",
+                "segments": [
+                  {
+                    "lit": "indicator",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -334,6 +365,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "indicator",
+                ],
               },
             ],
           },
@@ -411,18 +445,26 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/countries/{countryCode}/indicators/{indicatorCode}",
-                "parts": [
-                  "countries",
-                  "{country_code}",
-                  "indicators",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "countryCode": "country_code",
                     "indicatorCode": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "countries",
+                  },
+                  {
+                    "var": "country_code",
+                  },
+                  {
+                    "lit": "indicators",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "country_code",
@@ -440,6 +482,12 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "countries",
+                  "{country_code}",
+                  "indicators",
+                  "{id}",
+                ],
               },
               {
                 "args": {
@@ -465,15 +513,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/indicator/{indicatorCode}",
-                "parts": [
-                  "indicator",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "indicatorCode": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "indicator",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "format",
@@ -484,6 +536,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "indicator",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -531,6 +587,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "metadata",
         "op": {
           "list": {
@@ -575,16 +635,22 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/source/{sourceId}/indicator",
-                "parts": [
-                  "source",
-                  "{source_id}",
-                  "indicator",
-                ],
                 "rename": {
                   "param": {
                     "sourceId": "source_id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "source",
+                  },
+                  {
+                    "var": "source_id",
+                  },
+                  {
+                    "lit": "indicator",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "format",
@@ -597,6 +663,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "source",
+                  "{source_id}",
+                  "indicator",
+                ],
               },
               {
                 "args": {
@@ -627,8 +698,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/incomelevel",
-                "parts": [
-                  "incomelevel",
+                "segments": [
+                  {
+                    "lit": "incomelevel",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -641,6 +714,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "incomelevel",
+                ],
               },
               {
                 "args": {
@@ -671,8 +747,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/lendingtype",
-                "parts": [
-                  "lendingtype",
+                "segments": [
+                  {
+                    "lit": "lendingtype",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -685,6 +763,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "lendingtype",
+                ],
               },
               {
                 "args": {
@@ -715,8 +796,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/region",
-                "parts": [
-                  "region",
+                "segments": [
+                  {
+                    "lit": "region",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -729,6 +812,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "region",
+                ],
               },
               {
                 "args": {
@@ -759,8 +845,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/source",
-                "parts": [
-                  "source",
+                "segments": [
+                  {
+                    "lit": "source",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -773,6 +861,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "source",
+                ],
               },
             ],
           },
@@ -800,6 +891,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "topic",
         "op": {
           "list": {
@@ -844,16 +939,22 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/topic/{topicId}/indicator",
-                "parts": [
-                  "topic",
-                  "{id}",
-                  "indicator",
-                ],
                 "rename": {
                   "param": {
                     "topicId": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "topic",
+                  },
+                  {
+                    "var": "id",
+                  },
+                  {
+                    "lit": "indicator",
+                  },
+                ],
                 "select": {
                   "$action": "indicator",
                   "exist": [
@@ -867,6 +968,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "topic",
+                  "{id}",
+                  "indicator",
+                ],
               },
               {
                 "args": {
@@ -897,8 +1003,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/topic",
-                "parts": [
-                  "topic",
+                "segments": [
+                  {
+                    "lit": "topic",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -911,6 +1019,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "topic",
+                ],
               },
             ],
           },

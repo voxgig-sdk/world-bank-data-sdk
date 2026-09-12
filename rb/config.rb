@@ -103,6 +103,10 @@ module WorldBankDataConfig
               "type" => "`$INTEGER`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "country",
           "op" => {
             "list" => {
@@ -138,8 +142,10 @@ module WorldBankDataConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/country",
-                  "parts" => [
-                    "country",
+                  "segments" => [
+                    {
+                      "lit" => "country",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -152,6 +158,9 @@ module WorldBankDataConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "country",
+                  ],
                 },
               ],
             },
@@ -183,15 +192,19 @@ module WorldBankDataConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/country/{countryCode}",
-                  "parts" => [
-                    "country",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "countryCode" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "country",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "format",
@@ -202,6 +215,10 @@ module WorldBankDataConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "country",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -269,6 +286,10 @@ module WorldBankDataConfig
               "type" => "`$NUMBER`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "indicator",
           "op" => {
             "list" => {
@@ -310,8 +331,10 @@ module WorldBankDataConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/indicator",
-                  "parts" => [
-                    "indicator",
+                  "segments" => [
+                    {
+                      "lit" => "indicator",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -325,6 +348,9 @@ module WorldBankDataConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "indicator",
+                  ],
                 },
               ],
             },
@@ -402,18 +428,26 @@ module WorldBankDataConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/countries/{countryCode}/indicators/{indicatorCode}",
-                  "parts" => [
-                    "countries",
-                    "{country_code}",
-                    "indicators",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "countryCode" => "country_code",
                       "indicatorCode" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "countries",
+                    },
+                    {
+                      "var" => "country_code",
+                    },
+                    {
+                      "lit" => "indicators",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "country_code",
@@ -431,6 +465,12 @@ module WorldBankDataConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "countries",
+                    "{country_code}",
+                    "indicators",
+                    "{id}",
+                  ],
                 },
                 {
                   "args" => {
@@ -456,15 +496,19 @@ module WorldBankDataConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/indicator/{indicatorCode}",
-                  "parts" => [
-                    "indicator",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "indicatorCode" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "indicator",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "format",
@@ -475,6 +519,10 @@ module WorldBankDataConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "indicator",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -522,6 +570,10 @@ module WorldBankDataConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "metadata",
           "op" => {
             "list" => {
@@ -566,16 +618,22 @@ module WorldBankDataConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/source/{sourceId}/indicator",
-                  "parts" => [
-                    "source",
-                    "{source_id}",
-                    "indicator",
-                  ],
                   "rename" => {
                     "param" => {
                       "sourceId" => "source_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "source",
+                    },
+                    {
+                      "var" => "source_id",
+                    },
+                    {
+                      "lit" => "indicator",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "format",
@@ -588,6 +646,11 @@ module WorldBankDataConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "source",
+                    "{source_id}",
+                    "indicator",
+                  ],
                 },
                 {
                   "args" => {
@@ -618,8 +681,10 @@ module WorldBankDataConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/incomelevel",
-                  "parts" => [
-                    "incomelevel",
+                  "segments" => [
+                    {
+                      "lit" => "incomelevel",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -632,6 +697,9 @@ module WorldBankDataConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "incomelevel",
+                  ],
                 },
                 {
                   "args" => {
@@ -662,8 +730,10 @@ module WorldBankDataConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/lendingtype",
-                  "parts" => [
-                    "lendingtype",
+                  "segments" => [
+                    {
+                      "lit" => "lendingtype",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -676,6 +746,9 @@ module WorldBankDataConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "lendingtype",
+                  ],
                 },
                 {
                   "args" => {
@@ -706,8 +779,10 @@ module WorldBankDataConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/region",
-                  "parts" => [
-                    "region",
+                  "segments" => [
+                    {
+                      "lit" => "region",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -720,6 +795,9 @@ module WorldBankDataConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "region",
+                  ],
                 },
                 {
                   "args" => {
@@ -750,8 +828,10 @@ module WorldBankDataConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/source",
-                  "parts" => [
-                    "source",
+                  "segments" => [
+                    {
+                      "lit" => "source",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -764,6 +844,9 @@ module WorldBankDataConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "source",
+                  ],
                 },
               ],
             },
@@ -791,6 +874,10 @@ module WorldBankDataConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "topic",
           "op" => {
             "list" => {
@@ -835,16 +922,22 @@ module WorldBankDataConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/topic/{topicId}/indicator",
-                  "parts" => [
-                    "topic",
-                    "{id}",
-                    "indicator",
-                  ],
                   "rename" => {
                     "param" => {
                       "topicId" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "topic",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                    {
+                      "lit" => "indicator",
+                    },
+                  ],
                   "select" => {
                     "$action" => "indicator",
                     "exist" => [
@@ -858,6 +951,11 @@ module WorldBankDataConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "topic",
+                    "{id}",
+                    "indicator",
+                  ],
                 },
                 {
                   "args" => {
@@ -888,8 +986,10 @@ module WorldBankDataConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/topic",
-                  "parts" => [
-                    "topic",
+                  "segments" => [
+                    {
+                      "lit" => "topic",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -902,6 +1002,9 @@ module WorldBankDataConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "topic",
+                  ],
                 },
               ],
             },

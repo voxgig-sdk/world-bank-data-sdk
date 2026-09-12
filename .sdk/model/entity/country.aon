@@ -118,8 +118,10 @@ main: kit: entity: country: {
           }
           method: "GET"
           orig: "/country"
-          parts: [
-            "country"
+          segments: [
+            {
+              lit: "country"
+            }
           ]
           select: {
             exist: [
@@ -162,15 +164,19 @@ main: kit: entity: country: {
           }
           method: "GET"
           orig: "/country/{countryCode}"
-          parts: [
-            "country"
-            "{id}"
-          ]
           rename: {
             param: {
               countryCode: "id"
             }
           }
+          segments: [
+            {
+              lit: "country"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "format"

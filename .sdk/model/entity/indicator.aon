@@ -125,8 +125,10 @@ main: kit: entity: indicator: {
           }
           method: "GET"
           orig: "/indicator"
-          parts: [
-            "indicator"
+          segments: [
+            {
+              lit: "indicator"
+            }
           ]
           select: {
             exist: [
@@ -222,18 +224,26 @@ main: kit: entity: indicator: {
           }
           method: "GET"
           orig: "/countries/{countryCode}/indicators/{indicatorCode}"
-          parts: [
-            "countries"
-            "{country_code}"
-            "indicators"
-            "{id}"
-          ]
           rename: {
             param: {
               countryCode: "country_code"
               indicatorCode: "id"
             }
           }
+          segments: [
+            {
+              lit: "countries"
+            }
+            {
+              var: "country_code"
+            }
+            {
+              lit: "indicators"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "country_code"
@@ -276,15 +286,19 @@ main: kit: entity: indicator: {
           }
           method: "GET"
           orig: "/indicator/{indicatorCode}"
-          parts: [
-            "indicator"
-            "{id}"
-          ]
           rename: {
             param: {
               indicatorCode: "id"
             }
           }
+          segments: [
+            {
+              lit: "indicator"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "format"

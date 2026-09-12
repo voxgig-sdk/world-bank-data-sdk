@@ -117,6 +117,10 @@ class WorldBankDataConfig
               'type' => '`$INTEGER`',
             ],
           ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
+          ],
           'name' => 'country',
           'op' => [
             'list' => [
@@ -152,8 +156,10 @@ class WorldBankDataConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/country',
-                  'parts' => [
-                    'country',
+                  'segments' => [
+                    [
+                      'lit' => 'country',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -165,6 +171,9 @@ class WorldBankDataConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'country',
                   ],
                 ],
               ],
@@ -197,13 +206,17 @@ class WorldBankDataConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/country/{countryCode}',
-                  'parts' => [
-                    'country',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'countryCode' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'country',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -215,6 +228,10 @@ class WorldBankDataConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'country',
+                    '{id}',
                   ],
                 ],
               ],
@@ -283,6 +300,10 @@ class WorldBankDataConfig
               'type' => '`$NUMBER`',
             ],
           ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
+          ],
           'name' => 'indicator',
           'op' => [
             'list' => [
@@ -324,8 +345,10 @@ class WorldBankDataConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/indicator',
-                  'parts' => [
-                    'indicator',
+                  'segments' => [
+                    [
+                      'lit' => 'indicator',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -338,6 +361,9 @@ class WorldBankDataConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'indicator',
                   ],
                 ],
               ],
@@ -416,16 +442,24 @@ class WorldBankDataConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/countries/{countryCode}/indicators/{indicatorCode}',
-                  'parts' => [
-                    'countries',
-                    '{country_code}',
-                    'indicators',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'countryCode' => 'country_code',
                       'indicatorCode' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'countries',
+                    ],
+                    [
+                      'var' => 'country_code',
+                    ],
+                    [
+                      'lit' => 'indicators',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -444,6 +478,12 @@ class WorldBankDataConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'countries',
+                    '{country_code}',
+                    'indicators',
+                    '{id}',
                   ],
                 ],
                 [
@@ -470,13 +510,17 @@ class WorldBankDataConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/indicator/{indicatorCode}',
-                  'parts' => [
-                    'indicator',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'indicatorCode' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'indicator',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -488,6 +532,10 @@ class WorldBankDataConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'indicator',
+                    '{id}',
                   ],
                 ],
               ],
@@ -536,6 +584,10 @@ class WorldBankDataConfig
               'type' => '`$STRING`',
             ],
           ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
+          ],
           'name' => 'metadata',
           'op' => [
             'list' => [
@@ -580,14 +632,20 @@ class WorldBankDataConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/source/{sourceId}/indicator',
-                  'parts' => [
-                    'source',
-                    '{source_id}',
-                    'indicator',
-                  ],
                   'rename' => [
                     'param' => [
                       'sourceId' => 'source_id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'source',
+                    ],
+                    [
+                      'var' => 'source_id',
+                    ],
+                    [
+                      'lit' => 'indicator',
                     ],
                   ],
                   'select' => [
@@ -601,6 +659,11 @@ class WorldBankDataConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'source',
+                    '{source_id}',
+                    'indicator',
                   ],
                 ],
                 [
@@ -632,8 +695,10 @@ class WorldBankDataConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/incomelevel',
-                  'parts' => [
-                    'incomelevel',
+                  'segments' => [
+                    [
+                      'lit' => 'incomelevel',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -645,6 +710,9 @@ class WorldBankDataConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'incomelevel',
                   ],
                 ],
                 [
@@ -676,8 +744,10 @@ class WorldBankDataConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/lendingtype',
-                  'parts' => [
-                    'lendingtype',
+                  'segments' => [
+                    [
+                      'lit' => 'lendingtype',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -689,6 +759,9 @@ class WorldBankDataConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'lendingtype',
                   ],
                 ],
                 [
@@ -720,8 +793,10 @@ class WorldBankDataConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/region',
-                  'parts' => [
-                    'region',
+                  'segments' => [
+                    [
+                      'lit' => 'region',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -733,6 +808,9 @@ class WorldBankDataConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'region',
                   ],
                 ],
                 [
@@ -764,8 +842,10 @@ class WorldBankDataConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/source',
-                  'parts' => [
-                    'source',
+                  'segments' => [
+                    [
+                      'lit' => 'source',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -777,6 +857,9 @@ class WorldBankDataConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'source',
                   ],
                 ],
               ],
@@ -804,6 +887,10 @@ class WorldBankDataConfig
               'name' => 'value',
               'type' => '`$STRING`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'topic',
           'op' => [
@@ -849,14 +936,20 @@ class WorldBankDataConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/topic/{topicId}/indicator',
-                  'parts' => [
-                    'topic',
-                    '{id}',
-                    'indicator',
-                  ],
                   'rename' => [
                     'param' => [
                       'topicId' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'topic',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'indicator',
                     ],
                   ],
                   'select' => [
@@ -871,6 +964,11 @@ class WorldBankDataConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'topic',
+                    '{id}',
+                    'indicator',
                   ],
                 ],
                 [
@@ -902,8 +1000,10 @@ class WorldBankDataConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/topic',
-                  'parts' => [
-                    'topic',
+                  'segments' => [
+                    [
+                      'lit' => 'topic',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -915,6 +1015,9 @@ class WorldBankDataConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'topic',
                   ],
                 ],
               ],

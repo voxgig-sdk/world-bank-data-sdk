@@ -72,16 +72,22 @@ main: kit: entity: topic: {
           }
           method: "GET"
           orig: "/topic/{topicId}/indicator"
-          parts: [
-            "topic"
-            "{id}"
-            "indicator"
-          ]
           rename: {
             param: {
               topicId: "id"
             }
           }
+          segments: [
+            {
+              lit: "topic"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "indicator"
+            }
+          ]
           select: {
             "$action": "indicator"
             exist: [
@@ -127,8 +133,10 @@ main: kit: entity: topic: {
           }
           method: "GET"
           orig: "/topic"
-          parts: [
-            "topic"
+          segments: [
+            {
+              lit: "topic"
+            }
           ]
           select: {
             exist: [

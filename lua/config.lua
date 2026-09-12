@@ -91,6 +91,10 @@ local function make_config()
             ["type"] = "`$INTEGER`",
           },
         },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "country",
         ["op"] = {
           ["list"] = {
@@ -126,8 +130,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/country",
-                ["parts"] = {
-                  "country",
+                ["segments"] = {
+                  {
+                    ["lit"] = "country",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -139,6 +145,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "country",
                 },
               },
             },
@@ -171,13 +180,17 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/country/{countryCode}",
-                ["parts"] = {
-                  "country",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["countryCode"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "country",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -189,6 +202,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "country",
+                  "{id}",
                 },
               },
             },
@@ -257,6 +274,10 @@ local function make_config()
             ["type"] = "`$NUMBER`",
           },
         },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "indicator",
         ["op"] = {
           ["list"] = {
@@ -298,8 +319,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/indicator",
-                ["parts"] = {
-                  "indicator",
+                ["segments"] = {
+                  {
+                    ["lit"] = "indicator",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -312,6 +335,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "indicator",
                 },
               },
             },
@@ -390,16 +416,24 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/countries/{countryCode}/indicators/{indicatorCode}",
-                ["parts"] = {
-                  "countries",
-                  "{country_code}",
-                  "indicators",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["countryCode"] = "country_code",
                     ["indicatorCode"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "countries",
+                  },
+                  {
+                    ["var"] = "country_code",
+                  },
+                  {
+                    ["lit"] = "indicators",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -418,6 +452,12 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "countries",
+                  "{country_code}",
+                  "indicators",
+                  "{id}",
                 },
               },
               {
@@ -444,13 +484,17 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/indicator/{indicatorCode}",
-                ["parts"] = {
-                  "indicator",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["indicatorCode"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "indicator",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -462,6 +506,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "indicator",
+                  "{id}",
                 },
               },
             },
@@ -510,6 +558,10 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
         },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "metadata",
         ["op"] = {
           ["list"] = {
@@ -554,14 +606,20 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/source/{sourceId}/indicator",
-                ["parts"] = {
-                  "source",
-                  "{source_id}",
-                  "indicator",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["sourceId"] = "source_id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "source",
+                  },
+                  {
+                    ["var"] = "source_id",
+                  },
+                  {
+                    ["lit"] = "indicator",
                   },
                 },
                 ["select"] = {
@@ -575,6 +633,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "source",
+                  "{source_id}",
+                  "indicator",
                 },
               },
               {
@@ -606,8 +669,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/incomelevel",
-                ["parts"] = {
-                  "incomelevel",
+                ["segments"] = {
+                  {
+                    ["lit"] = "incomelevel",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -619,6 +684,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "incomelevel",
                 },
               },
               {
@@ -650,8 +718,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/lendingtype",
-                ["parts"] = {
-                  "lendingtype",
+                ["segments"] = {
+                  {
+                    ["lit"] = "lendingtype",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -663,6 +733,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "lendingtype",
                 },
               },
               {
@@ -694,8 +767,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/region",
-                ["parts"] = {
-                  "region",
+                ["segments"] = {
+                  {
+                    ["lit"] = "region",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -707,6 +782,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "region",
                 },
               },
               {
@@ -738,8 +816,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/source",
-                ["parts"] = {
-                  "source",
+                ["segments"] = {
+                  {
+                    ["lit"] = "source",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -751,6 +831,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "source",
                 },
               },
             },
@@ -778,6 +861,10 @@ local function make_config()
             ["name"] = "value",
             ["type"] = "`$STRING`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "topic",
         ["op"] = {
@@ -823,14 +910,20 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/topic/{topicId}/indicator",
-                ["parts"] = {
-                  "topic",
-                  "{id}",
-                  "indicator",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["topicId"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "topic",
+                  },
+                  {
+                    ["var"] = "id",
+                  },
+                  {
+                    ["lit"] = "indicator",
                   },
                 },
                 ["select"] = {
@@ -845,6 +938,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "topic",
+                  "{id}",
+                  "indicator",
                 },
               },
               {
@@ -876,8 +974,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/topic",
-                ["parts"] = {
-                  "topic",
+                ["segments"] = {
+                  {
+                    ["lit"] = "topic",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -889,6 +989,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "topic",
                 },
               },
             },

@@ -97,16 +97,22 @@ main: kit: entity: metadata: {
           }
           method: "GET"
           orig: "/source/{sourceId}/indicator"
-          parts: [
-            "source"
-            "{source_id}"
-            "indicator"
-          ]
           rename: {
             param: {
               sourceId: "source_id"
             }
           }
+          segments: [
+            {
+              lit: "source"
+            }
+            {
+              var: "source_id"
+            }
+            {
+              lit: "indicator"
+            }
+          ]
           select: {
             exist: [
               "format"
@@ -151,8 +157,10 @@ main: kit: entity: metadata: {
           }
           method: "GET"
           orig: "/incomelevel"
-          parts: [
-            "incomelevel"
+          segments: [
+            {
+              lit: "incomelevel"
+            }
           ]
           select: {
             exist: [
@@ -197,8 +205,10 @@ main: kit: entity: metadata: {
           }
           method: "GET"
           orig: "/lendingtype"
-          parts: [
-            "lendingtype"
+          segments: [
+            {
+              lit: "lendingtype"
+            }
           ]
           select: {
             exist: [
@@ -243,8 +253,10 @@ main: kit: entity: metadata: {
           }
           method: "GET"
           orig: "/region"
-          parts: [
-            "region"
+          segments: [
+            {
+              lit: "region"
+            }
           ]
           select: {
             exist: [
@@ -289,8 +301,10 @@ main: kit: entity: metadata: {
           }
           method: "GET"
           orig: "/source"
-          parts: [
-            "source"
+          segments: [
+            {
+              lit: "source"
+            }
           ]
           select: {
             exist: [

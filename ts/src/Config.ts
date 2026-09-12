@@ -10,6 +10,17 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
+// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
+// the model's active plugin groups. A feature that takes a `plugins` option
+// (secrets over sekreto) reads its own entry; a feature with no plugins has
+// none. Named imports above make each definition statically reachable, so
+// an SDK carries exactly the plugin modules its model selects — the same
+// leanness the old side-effect registry imports bought, without a registry.
+const FEATURE_PLUGINS: Record<string, any[]> = {
+  
+}
+
+
 class Config {
 
   makeFeature(this: any, fn: string) {
@@ -132,6 +143,10 @@ class Config {
           "type": "`$INTEGER`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "country",
       "op": {
         "list": {
@@ -167,8 +182,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/country",
-              "parts": [
-                "country"
+              "segments": [
+                {
+                  "lit": "country"
+                }
               ],
               "select": {
                 "exist": [
@@ -180,7 +197,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "country"
+              ]
             }
           ]
         },
@@ -212,15 +232,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/country/{countryCode}",
-              "parts": [
-                "country",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "countryCode": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "country"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "format",
@@ -230,7 +254,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "country",
+                "{id}"
+              ]
             }
           ]
         }
@@ -298,6 +326,10 @@ class Config {
           "type": "`$NUMBER`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "indicator",
       "op": {
         "list": {
@@ -339,8 +371,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/indicator",
-              "parts": [
-                "indicator"
+              "segments": [
+                {
+                  "lit": "indicator"
+                }
               ],
               "select": {
                 "exist": [
@@ -353,7 +387,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "indicator"
+              ]
             }
           ]
         },
@@ -431,18 +468,26 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/countries/{countryCode}/indicators/{indicatorCode}",
-              "parts": [
-                "countries",
-                "{country_code}",
-                "indicators",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "countryCode": "country_code",
                   "indicatorCode": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "countries"
+                },
+                {
+                  "var": "country_code"
+                },
+                {
+                  "lit": "indicators"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "country_code",
@@ -459,7 +504,13 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "countries",
+                "{country_code}",
+                "indicators",
+                "{id}"
+              ]
             },
             {
               "args": {
@@ -485,15 +536,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/indicator/{indicatorCode}",
-              "parts": [
-                "indicator",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "indicatorCode": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "indicator"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "format",
@@ -503,7 +558,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "indicator",
+                "{id}"
+              ]
             }
           ]
         }
@@ -551,6 +610,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "metadata",
       "op": {
         "list": {
@@ -595,16 +658,22 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/source/{sourceId}/indicator",
-              "parts": [
-                "source",
-                "{source_id}",
-                "indicator"
-              ],
               "rename": {
                 "param": {
                   "sourceId": "source_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "source"
+                },
+                {
+                  "var": "source_id"
+                },
+                {
+                  "lit": "indicator"
+                }
+              ],
               "select": {
                 "exist": [
                   "format",
@@ -616,7 +685,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "source",
+                "{source_id}",
+                "indicator"
+              ]
             },
             {
               "args": {
@@ -647,8 +721,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/incomelevel",
-              "parts": [
-                "incomelevel"
+              "segments": [
+                {
+                  "lit": "incomelevel"
+                }
               ],
               "select": {
                 "exist": [
@@ -660,7 +736,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "incomelevel"
+              ]
             },
             {
               "args": {
@@ -691,8 +770,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/lendingtype",
-              "parts": [
-                "lendingtype"
+              "segments": [
+                {
+                  "lit": "lendingtype"
+                }
               ],
               "select": {
                 "exist": [
@@ -704,7 +785,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "lendingtype"
+              ]
             },
             {
               "args": {
@@ -735,8 +819,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/region",
-              "parts": [
-                "region"
+              "segments": [
+                {
+                  "lit": "region"
+                }
               ],
               "select": {
                 "exist": [
@@ -748,7 +834,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "region"
+              ]
             },
             {
               "args": {
@@ -779,8 +868,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/source",
-              "parts": [
-                "source"
+              "segments": [
+                {
+                  "lit": "source"
+                }
               ],
               "select": {
                 "exist": [
@@ -792,7 +883,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "source"
+              ]
             }
           ]
         }
@@ -820,6 +914,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "topic",
       "op": {
         "list": {
@@ -864,16 +962,22 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/topic/{topicId}/indicator",
-              "parts": [
-                "topic",
-                "{id}",
-                "indicator"
-              ],
               "rename": {
                 "param": {
                   "topicId": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "topic"
+                },
+                {
+                  "var": "id"
+                },
+                {
+                  "lit": "indicator"
+                }
+              ],
               "select": {
                 "$action": "indicator",
                 "exist": [
@@ -886,7 +990,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "topic",
+                "{id}",
+                "indicator"
+              ]
             },
             {
               "args": {
@@ -917,8 +1026,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/topic",
-              "parts": [
-                "topic"
+              "segments": [
+                {
+                  "lit": "topic"
+                }
               ],
               "select": {
                 "exist": [
@@ -930,7 +1041,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "topic"
+              ]
             }
           ]
         }
@@ -946,6 +1060,7 @@ class Config {
 const config = new Config()
 
 export {
-  config
+  config,
+  FEATURE_PLUGINS,
 }
 
