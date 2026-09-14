@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { WorldBankDataSDK } from '@voxgig-sdk/world-bank-data'
+import { WorldBankDataSDK } from '@voxgig-sdk/world-bank-data-sdk'
 
 const client = new WorldBankDataSDK()
 ```
@@ -604,7 +604,7 @@ world-bank-data/
 Import the SDK from the package root:
 
 ```ts
-import { WorldBankDataSDK } from '@voxgig-sdk/world-bank-data'
+import { WorldBankDataSDK } from '@voxgig-sdk/world-bank-data-sdk'
 ```
 
 ### Entity state

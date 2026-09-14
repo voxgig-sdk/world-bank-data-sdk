@@ -105,7 +105,7 @@ local results, err = client:Country():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/world-bank-data` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-bank-data-sdk/releases) |
+| TypeScript | `@voxgig-sdk/world-bank-data-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-bank-data-sdk/releases) |
 | Python | `voxgig-sdk-world-bank-data` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-bank-data-sdk/releases) |
 | PHP | `voxgig-sdk/world-bank-data` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-bank-data-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/world-bank-data-sdk/go` | `go get github.com/voxgig-sdk/world-bank-data-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:Country():list()
 ### TypeScript
 
 ```ts
-import { WorldBankDataSDK } from '@voxgig-sdk/world-bank-data'
+import { WorldBankDataSDK } from '@voxgig-sdk/world-bank-data-sdk'
 
 const client = new WorldBankDataSDK()
 
