@@ -5,7 +5,7 @@
         "country": {},
         "countryiso3code": "s8d",
         "date": "s8e",
-        "decimal": "s8f",
+        "decimal": 143,
         "id": "INDICATOR00",
         "indicator": {},
         "name": "s92",
@@ -22,7 +22,7 @@
         "country": {},
         "countryiso3code": "s119",
         "date": "s11a",
-        "decimal": "s11b",
+        "decimal": 283,
         "id": "INDICATOR01",
         "indicator": {},
         "name": "s11e",
@@ -39,7 +39,7 @@
         "country": {},
         "countryiso3code": "s1a5",
         "date": "s1a6",
-        "decimal": "s1a7",
+        "decimal": 423,
         "id": "INDICATOR02",
         "indicator": {},
         "name": "s1aa",
@@ -60,7 +60,7 @@
         "country": {},
         "countryiso3code": "s231",
         "date": "s232",
-        "decimal": "s233",
+        "decimal": 563,
         "indicator": {},
         "name": "s236",
         "obs_status": "s237",
@@ -70,6 +70,316 @@
         "topics": [],
         "unit": "s23c",
         "value": 573
+      }
+    }
+  },
+  "requests": {
+    "GET /indicator": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getIndicators",
+        "parameters": [
+          {
+            "description": "Response format (json or xml)",
+            "in": "query",
+            "name": "format",
+            "schema": {
+              "default": "json",
+              "enum": [
+                "json",
+                "xml"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Page number for pagination",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Number of results per page",
+            "in": "query",
+            "name": "per_page",
+            "schema": {
+              "default": 50,
+              "maximum": 32500,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Filter by source ID",
+            "in": "query",
+            "name": "source",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful response with indicator list"
+          },
+          "400": {
+            "description": "Bad request - invalid parameters"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /countries/{countryCode}/indicators/{indicatorCode}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getCountryIndicatorData",
+        "parameters": [
+          {
+            "description": "ISO 2-letter or 3-letter country code, or 'all' for all countries",
+            "in": "path",
+            "name": "countryCode",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Indicator code (e.g., NY.GDP.MKTP.CD for GDP)",
+            "in": "path",
+            "name": "indicatorCode",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Response format (json or xml)",
+            "in": "query",
+            "name": "format",
+            "schema": {
+              "default": "json",
+              "enum": [
+                "json",
+                "xml"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Date range (e.g., 2010:2020 or specific year like 2020)",
+            "in": "query",
+            "name": "date",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Page number for pagination",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Number of results per page",
+            "in": "query",
+            "name": "per_page",
+            "schema": {
+              "default": 50,
+              "maximum": 32500,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Most recent values - number of most recent values to return",
+            "in": "query",
+            "name": "mrv",
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Fill gaps in data with Y (yes) or N (no)",
+            "in": "query",
+            "name": "gapfill",
+            "schema": {
+              "default": "N",
+              "enum": [
+                "Y",
+                "N"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Data frequency (Y for yearly, Q for quarterly, M for monthly)",
+            "in": "query",
+            "name": "frequency",
+            "schema": {
+              "enum": [
+                "Y",
+                "Q",
+                "M"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "country": {
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "countryiso3code": {
+                        "type": "string"
+                      },
+                      "date": {
+                        "type": "string"
+                      },
+                      "decimal": {
+                        "type": "integer"
+                      },
+                      "indicator": {
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "obs_status": {
+                        "type": "string"
+                      },
+                      "unit": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "number"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful response with indicator data"
+          },
+          "400": {
+            "description": "Bad request - invalid parameters"
+          },
+          "404": {
+            "description": "Country or indicator not found"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /indicator/{indicatorCode}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getIndicatorByCode",
+        "parameters": [
+          {
+            "description": "Indicator code (e.g., NY.GDP.MKTP.CD)",
+            "in": "path",
+            "name": "indicatorCode",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Response format (json or xml)",
+            "in": "query",
+            "name": "format",
+            "schema": {
+              "default": "json",
+              "enum": [
+                "json",
+                "xml"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "source": {
+                      "type": "object"
+                    },
+                    "sourceNote": {
+                      "type": "string"
+                    },
+                    "sourceOrganization": {
+                      "type": "string"
+                    },
+                    "topics": {
+                      "items": {
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response with indicator details"
+          },
+          "404": {
+            "description": "Indicator not found"
+          }
+        },
+        "securitySource": "unspecified"
       }
     }
   }

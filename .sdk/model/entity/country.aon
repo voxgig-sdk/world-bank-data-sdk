@@ -116,6 +116,12 @@ main: kit: entity: country: {
               }
             ]
           }
+          contract: {
+            id: "GET /country"
+            json: "{\"operationId\":\"getCountries\",\"parameters\":[{\"description\":\"Response format (json or xml)\",\"in\":\"query\",\"name\":\"format\",\"schema\":{\"default\":\"json\",\"enum\":[\"json\",\"xml\"],\"type\":\"string\"}},{\"description\":\"Page number for pagination\",\"in\":\"query\",\"name\":\"page\",\"schema\":{\"default\":1,\"minimum\":1,\"type\":\"integer\"}},{\"description\":\"Number of results per page\",\"in\":\"query\",\"name\":\"per_page\",\"schema\":{\"default\":50,\"maximum\":1000,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"properties\":{\"page\":{\"type\":\"integer\"},\"pages\":{\"type\":\"integer\"},\"per_page\":{\"type\":\"integer\"},\"total\":{\"type\":\"integer\"}},\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Successful response with country list\"},\"400\":{\"description\":\"Bad request - invalid parameters\"},\"500\":{\"description\":\"Internal server error\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/country"
           segments: [
@@ -161,6 +167,12 @@ main: kit: entity: country: {
                 type: "`$STRING`"
               }
             ]
+          }
+          contract: {
+            id: "GET /country/{countryCode}"
+            json: "{\"operationId\":\"getCountryByCode\",\"parameters\":[{\"description\":\"ISO 2-letter or 3-letter country code (e.g., US, USA, BR, BRA)\",\"in\":\"path\",\"name\":\"countryCode\",\"required\":true,\"schema\":{\"type\":\"string\"}},{\"description\":\"Response format (json or xml)\",\"in\":\"query\",\"name\":\"format\",\"schema\":{\"default\":\"json\",\"enum\":[\"json\",\"xml\"],\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"adminregion\":{\"type\":\"object\"},\"capitalCity\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"incomeLevel\":{\"type\":\"object\"},\"iso2Code\":{\"type\":\"string\"},\"latitude\":{\"type\":\"string\"},\"lendingType\":{\"type\":\"object\"},\"longitude\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"region\":{\"type\":\"object\"}},\"type\":\"object\"}}},\"description\":\"Successful response with country details\"},\"404\":{\"description\":\"Country not found\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
           }
           method: "GET"
           orig: "/country/{countryCode}"

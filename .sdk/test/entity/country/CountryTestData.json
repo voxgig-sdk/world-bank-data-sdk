@@ -11,11 +11,11 @@
         "lendingType": {},
         "longitude": "s93",
         "name": "s94",
-        "page": "s95",
-        "pages": "s96",
-        "per_page": "s97",
+        "page": 149,
+        "pages": 150,
+        "per_page": 151,
         "region": {},
-        "total": "s99"
+        "total": 153
       },
       "COUNTRY01": {
         "adminregion": {},
@@ -27,11 +27,11 @@
         "lendingType": {},
         "longitude": "s11f",
         "name": "s120",
-        "page": "s121",
-        "pages": "s122",
-        "per_page": "s123",
+        "page": 289,
+        "pages": 290,
+        "per_page": 291,
         "region": {},
-        "total": "s125"
+        "total": 293
       },
       "COUNTRY02": {
         "adminregion": {},
@@ -43,11 +43,11 @@
         "lendingType": {},
         "longitude": "s1ab",
         "name": "s1ac",
-        "page": "s1ad",
-        "pages": "s1ae",
-        "per_page": "s1af",
+        "page": 429,
+        "pages": 430,
+        "per_page": 431,
         "region": {},
-        "total": "s1b1"
+        "total": 433
       }
     }
   },
@@ -62,11 +62,171 @@
         "lendingType": {},
         "longitude": "s237",
         "name": "s238",
-        "page": "s239",
-        "pages": "s23a",
-        "per_page": "s23b",
+        "page": 569,
+        "pages": 570,
+        "per_page": 571,
         "region": {},
-        "total": "s23d"
+        "total": 573
+      }
+    }
+  },
+  "requests": {
+    "GET /country": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getCountries",
+        "parameters": [
+          {
+            "description": "Response format (json or xml)",
+            "in": "query",
+            "name": "format",
+            "schema": {
+              "default": "json",
+              "enum": [
+                "json",
+                "xml"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Page number for pagination",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Number of results per page",
+            "in": "query",
+            "name": "per_page",
+            "schema": {
+              "default": 50,
+              "maximum": 1000,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "page": {
+                        "type": "integer"
+                      },
+                      "pages": {
+                        "type": "integer"
+                      },
+                      "per_page": {
+                        "type": "integer"
+                      },
+                      "total": {
+                        "type": "integer"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful response with country list"
+          },
+          "400": {
+            "description": "Bad request - invalid parameters"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /country/{countryCode}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getCountryByCode",
+        "parameters": [
+          {
+            "description": "ISO 2-letter or 3-letter country code (e.g., US, USA, BR, BRA)",
+            "in": "path",
+            "name": "countryCode",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Response format (json or xml)",
+            "in": "query",
+            "name": "format",
+            "schema": {
+              "default": "json",
+              "enum": [
+                "json",
+                "xml"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "adminregion": {
+                      "type": "object"
+                    },
+                    "capitalCity": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "incomeLevel": {
+                      "type": "object"
+                    },
+                    "iso2Code": {
+                      "type": "string"
+                    },
+                    "latitude": {
+                      "type": "string"
+                    },
+                    "lendingType": {
+                      "type": "object"
+                    },
+                    "longitude": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "region": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response with country details"
+          },
+          "404": {
+            "description": "Country not found"
+          }
+        },
+        "securitySource": "unspecified"
       }
     }
   }

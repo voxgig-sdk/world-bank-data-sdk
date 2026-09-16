@@ -1,12 +1,18 @@
 # WorldBankData SDK feature factory
 
 from worldbankdata_sdk.feature.base_feature import WorldBankDataBaseFeature
+from worldbankdata_sdk.feature.ratelimit_feature import WorldBankDataRatelimitFeature
+from worldbankdata_sdk.feature.retry_feature import WorldBankDataRetryFeature
 from worldbankdata_sdk.feature.test_feature import WorldBankDataTestFeature
+from worldbankdata_sdk.feature.timeout_feature import WorldBankDataTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: WorldBankDataBaseFeature(),
+    "ratelimit": lambda: WorldBankDataRatelimitFeature(),
+    "retry": lambda: WorldBankDataRetryFeature(),
     "test": lambda: WorldBankDataTestFeature(),
+    "timeout": lambda: WorldBankDataTimeoutFeature(),
 }
 
 

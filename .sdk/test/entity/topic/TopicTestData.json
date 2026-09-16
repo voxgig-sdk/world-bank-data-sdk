@@ -25,5 +25,148 @@
         "value": "s7a"
       }
     }
+  },
+  "requests": {
+    "GET /topic/{topicId}/indicator": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getIndicatorsByTopic",
+        "parameters": [
+          {
+            "description": "Topic ID (e.g., 1 for Agriculture, 3 for Economy)",
+            "in": "path",
+            "name": "topicId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Response format (json or xml)",
+            "in": "query",
+            "name": "format",
+            "schema": {
+              "default": "json",
+              "enum": [
+                "json",
+                "xml"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Page number for pagination",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Number of results per page",
+            "in": "query",
+            "name": "per_page",
+            "schema": {
+              "default": 50,
+              "maximum": 32500,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful response with indicators for the topic"
+          },
+          "404": {
+            "description": "Topic not found"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /topic": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getTopics",
+        "parameters": [
+          {
+            "description": "Response format (json or xml)",
+            "in": "query",
+            "name": "format",
+            "schema": {
+              "default": "json",
+              "enum": [
+                "json",
+                "xml"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Page number for pagination",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Number of results per page",
+            "in": "query",
+            "name": "per_page",
+            "schema": {
+              "default": 50,
+              "maximum": 1000,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "sourceNote": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful response with topic list"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
   }
 }

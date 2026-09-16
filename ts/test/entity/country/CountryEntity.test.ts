@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { WorldBankDataSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('CountryEntity', async () => {
 
     const live = 'TRUE' === process.env.WORLD_BANK_DATA_TEST_LIVE
     for (const op of ['list', 'load']) {
-      if (maybeSkipControl(t, 'entityOp', 'country.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'country.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set WORLD_BANK_DATA_TEST_COUNTRY_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"adminregion","req":false,"type":"`$OBJECT`","index$":0},{"active":true,"name":"capitalCity","req":false,"type":"`$STRING`","index$":1},{"active":true,"name":"id","req":false,"type":"`$STRING`","index$":2},{"active":true,"name":"incomeLevel","req":false,"type":"`$OBJECT`","index$":3},{"active":true,"name":"iso2Code","req":false,"type":"`$STRING`","index$":4},{"active":true,"name":"latitude","req":false,"type":"`$STRING`","index$":5},{"active":true,"name":"lendingType","req":false,"type":"`$OBJECT`","index$":6},{"active":true,"name":"longitude","req":false,"type":"`$STRING`","index$":7},{"active":true,"name":"name","req":false,"type":"`$STRING`","index$":8},{"active":true,"name":"page","req":false,"type":"`$INTEGER`","index$":9},{"active":true,"name":"pages","req":false,"type":"`$INTEGER`","index$":10},{"active":true,"name":"per_page","req":false,"type":"`$INTEGER`","index$":11},{"active":true,"name":"region","req":false,"type":"`$OBJECT`","index$":12},{"active":true,"name":"total","req":false,"type":"`$INTEGER`","index$":13}],"id":{"field":"id","name":"id"},"name":"country","op":{"list":{"input":"data","name":"list","points":[{"active":true,"args":{"query":[{"active":true,"example":"json","kind":"query","name":"format","orig":"format","reqd":false,"type":"`$STRING`","index$":0},{"active":true,"example":1,"kind":"query","name":"page","orig":"page","reqd":false,"type":"`$INTEGER`","index$":1},{"active":true,"example":50,"kind":"query","name":"per_page","orig":"per_page","reqd":false,"type":"`$INTEGER`","index$":2}]},"contract":{"id":"GET /country","json":"{\"operationId\":\"getCountries\",\"parameters\":[{\"description\":\"Response format (json or xml)\",\"in\":\"query\",\"name\":\"format\",\"schema\":{\"default\":\"json\",\"enum\":[\"json\",\"xml\"],\"type\":\"string\"}},{\"description\":\"Page number for pagination\",\"in\":\"query\",\"name\":\"page\",\"schema\":{\"default\":1,\"minimum\":1,\"type\":\"integer\"}},{\"description\":\"Number of results per page\",\"in\":\"query\",\"name\":\"per_page\",\"schema\":{\"default\":50,\"maximum\":1000,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"properties\":{\"page\":{\"type\":\"integer\"},\"pages\":{\"type\":\"integer\"},\"per_page\":{\"type\":\"integer\"},\"total\":{\"type\":\"integer\"}},\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Successful response with country list\"},\"400\":{\"description\":\"Bad request - invalid parameters\"},\"500\":{\"description\":\"Internal server error\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/country","segments":[{"lit":"country"}],"select":{"exist":["format","page","per_page"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"active":true,"args":{"params":[{"active":true,"kind":"param","name":"id","orig":"country_code","reqd":true,"type":"`$STRING`","index$":0}],"query":[{"active":true,"example":"json","kind":"query","name":"format","orig":"format","reqd":false,"type":"`$STRING`","index$":0}]},"contract":{"id":"GET /country/{countryCode}","json":"{\"operationId\":\"getCountryByCode\",\"parameters\":[{\"description\":\"ISO 2-letter or 3-letter country code (e.g., US, USA, BR, BRA)\",\"in\":\"path\",\"name\":\"countryCode\",\"required\":true,\"schema\":{\"type\":\"string\"}},{\"description\":\"Response format (json or xml)\",\"in\":\"query\",\"name\":\"format\",\"schema\":{\"default\":\"json\",\"enum\":[\"json\",\"xml\"],\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"adminregion\":{\"type\":\"object\"},\"capitalCity\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"incomeLevel\":{\"type\":\"object\"},\"iso2Code\":{\"type\":\"string\"},\"latitude\":{\"type\":\"string\"},\"lendingType\":{\"type\":\"object\"},\"longitude\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"region\":{\"type\":\"object\"}},\"type\":\"object\"}}},\"description\":\"Successful response with country details\"},\"404\":{\"description\":\"Country not found\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/country/{countryCode}","rename":{"param":{"countryCode":"id"}},"segments":[{"lit":"country"},{"var":"id"}],"select":{"exist":["format","id"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"country","name__orig":"country","Name":"Country","name_":"country","name-":"country","NAME":"COUNTRY","index$":0}, {"active":true,"entity":"country","key$":"BasicCountryFlow","kind":"basic","name":"BasicCountryFlow","param":{},"step":[{"active":true,"data":{},"input":{},"match":{},"op":"list","spec":[],"valid":[{"apply":"ItemExists","def":{"ref":"country_ref01"}}],"index$":0},{"active":true,"data":{},"input":{"ref":"country_ref01","srcdatavar":"country_ref01_data","suffix":"_dt0"},"match":{"id":"country01"},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-country_ref01"}}],"index$":1}]}, 'Country')
     }
     const client = setup.client
     const struct = setup.struct
@@ -116,13 +115,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['WORLD_BANK_DATA_TEST_COUNTRY_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'WORLD_BANK_DATA_TEST_COUNTRY_ENTID': idmap,
     'WORLD_BANK_DATA_TEST_LIVE': 'FALSE',
@@ -133,7 +125,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.WORLD_BANK_DATA_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['WORLD_BANK_DATA_TEST_COUNTRY_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new WorldBankDataSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -145,7 +143,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -158,7 +157,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.WORLD_BANK_DATA_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 
