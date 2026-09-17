@@ -127,18 +127,18 @@ class Config {
 
     entity: {
       
-      country: {
-      },
-
-      indicator: {
-      },
-
-      metadata: {
-      },
-
-      topic: {
-      },
-
+        country: {
+        },
+  
+        indicator: {
+        },
+  
+        metadata: {
+        },
+  
+        topic: {
+        },
+  
     }
   }
 

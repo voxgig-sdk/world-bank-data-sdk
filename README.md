@@ -105,12 +105,12 @@ local results, err = client:Country():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/world-bank-data-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-bank-data-sdk/releases) |
-| Python | `voxgig-sdk-world-bank-data` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-bank-data-sdk/releases) |
-| PHP | `voxgig-sdk/world-bank-data` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-bank-data-sdk/releases) |
+| TypeScript | `@voxgig-sdk/world-bank-data-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-bank-data-sdk/tags) |
+| Python | `voxgig-sdk-world-bank-data` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-bank-data-sdk/tags) |
+| PHP | `voxgig-sdk/world-bank-data` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-bank-data-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/world-bank-data-sdk/go` | `go get github.com/voxgig-sdk/world-bank-data-sdk/go@latest` |
-| Ruby | `voxgig-sdk-world-bank-data` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-bank-data-sdk/releases) |
-| Lua | `voxgig-sdk-world-bank-data` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-bank-data-sdk/releases) |
+| Ruby | `voxgig-sdk-world-bank-data` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-bank-data-sdk/tags) |
+| Lua | `voxgig-sdk-world-bank-data` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-bank-data-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/world-bank-data-sdk/go-cli` | `go install github.com/voxgig-sdk/world-bank-data-sdk/go-cli/cmd/world-bank-data@latest` |
 | Go MCP server | `github.com/voxgig-sdk/world-bank-data-sdk/go-mcp` | `go get github.com/voxgig-sdk/world-bank-data-sdk/go-mcp@latest` |
 

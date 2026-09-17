@@ -1,6 +1,6 @@
 # Entity Models
 
-@"country.aon"
-@"indicator.aon"
-@"metadata.aon"
-@"topic.aon"
+@"./country.aon"
+@"./indicator.aon"
+@"./metadata.aon"
+@"./topic.aon"
