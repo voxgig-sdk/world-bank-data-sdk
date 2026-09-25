@@ -19,7 +19,6 @@ import type {
   MetadataListMatch,
 } from '../WorldBankDataTypes'
 
-// TODO: needs Entity superclass
 class MetadataEntity extends WorldBankDataEntityBase<Metadata> {
 
   constructor(client: WorldBankDataSDK, entopts: any) {

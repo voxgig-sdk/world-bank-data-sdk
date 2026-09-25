@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MetadataEntity = void 0;
 const WorldBankDataEntityBase_1 = require("../WorldBankDataEntityBase");
-// TODO: needs Entity superclass
 class MetadataEntity extends WorldBankDataEntityBase_1.WorldBankDataEntityBase {
     constructor(client, entopts) {
         super(client, entopts);

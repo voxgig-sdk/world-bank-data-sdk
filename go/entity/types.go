@@ -1,7 +1,7 @@
 // Typed models for the WorldBankData SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,20 +14,6 @@ import (
 
 // Country is the typed data model for the country entity.
 type Country struct {
-	Adminregion *map[string]any `json:"adminregion,omitempty"`
-	CapitalCity *string `json:"capitalCity,omitempty"`
-	Id *string `json:"id,omitempty"`
-	IncomeLevel *map[string]any `json:"incomeLevel,omitempty"`
-	Iso2Code *string `json:"iso2Code,omitempty"`
-	Latitude *string `json:"latitude,omitempty"`
-	LendingType *map[string]any `json:"lendingType,omitempty"`
-	Longitude *string `json:"longitude,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Page *int `json:"page,omitempty"`
-	Pages *int `json:"pages,omitempty"`
-	PerPage *int `json:"per_page,omitempty"`
-	Region *map[string]any `json:"region,omitempty"`
-	Total *int `json:"total,omitempty"`
 }
 
 // CountryLoadMatch is the typed request payload for Country.LoadTyped.
@@ -45,20 +31,6 @@ type CountryListMatch struct {
 
 // Indicator is the typed data model for the indicator entity.
 type Indicator struct {
-	Country *map[string]any `json:"country,omitempty"`
-	Countryiso3code *string `json:"countryiso3code,omitempty"`
-	Date *string `json:"date,omitempty"`
-	Decimal *int `json:"decimal,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Indicator *map[string]any `json:"indicator,omitempty"`
-	Name *string `json:"name,omitempty"`
-	ObsStatus *string `json:"obs_status,omitempty"`
-	Source *map[string]any `json:"source,omitempty"`
-	SourceNote *string `json:"sourceNote,omitempty"`
-	SourceOrganization *string `json:"sourceOrganization,omitempty"`
-	Topics *[]any `json:"topics,omitempty"`
-	Unit *string `json:"unit,omitempty"`
-	Value *float64 `json:"value,omitempty"`
 }
 
 // IndicatorLoadMatch is the typed request payload for Indicator.LoadTyped.
@@ -84,14 +56,6 @@ type IndicatorListMatch struct {
 
 // Metadata is the typed data model for the metadata entity.
 type Metadata struct {
-	Code *string `json:"code,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Iso2code *string `json:"iso2code,omitempty"`
-	Lastupdated *string `json:"lastupdated,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Url *string `json:"url,omitempty"`
-	Value *string `json:"value,omitempty"`
 }
 
 // MetadataListMatch is the typed request payload for Metadata.ListTyped.
@@ -103,9 +67,6 @@ type MetadataListMatch struct {
 
 // Topic is the typed data model for the topic entity.
 type Topic struct {
-	Id *string `json:"id,omitempty"`
-	SourceNote *string `json:"sourceNote,omitempty"`
-	Value *string `json:"value,omitempty"`
 }
 
 // TopicListMatch is the typed request payload for Topic.ListTyped.

@@ -110,7 +110,7 @@ function metadata_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["metadata01", "metadata02", "metadata03", "source01", "source02", "source03"] as $k) {
+    foreach (["metadata01", "metadata02", "metadata03"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

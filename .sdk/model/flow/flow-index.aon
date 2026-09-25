@@ -1,6 +1,0 @@
-# Flows
-
-@"./BasicCountryFlow.aon"
-@"./BasicIndicatorFlow.aon"
-@"./BasicMetadataFlow.aon"
-@"./BasicTopicFlow.aon"

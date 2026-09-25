@@ -11,19 +11,12 @@ const FEATURE_CLASS = {
     test: TestFeature_1.TestFeature,
     timeout: TimeoutFeature_1.TimeoutFeature,
 };
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS = {};
 exports.FEATURE_PLUGINS = FEATURE_PLUGINS;
 class Config {
     makeFeature(fn) {
         const fc = FEATURE_CLASS[fn];
         const fi = new fc();
-        // TODO: errors etc
         return fi;
     }
     // False for a feature added at runtime via options.extend (station's
@@ -117,58 +110,72 @@ class Config {
             "fields": [
                 {
                     "name": "adminregion",
+                    "title": "Adminregion",
                     "type": "`$OBJECT`"
                 },
                 {
                     "name": "capitalCity",
+                    "title": "Capital City",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "id",
+                    "title": "Id",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "incomeLevel",
+                    "title": "Income Level",
                     "type": "`$OBJECT`"
                 },
                 {
                     "name": "iso2Code",
+                    "title": "Iso2 Code",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "latitude",
+                    "title": "Latitude",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "lendingType",
+                    "title": "Lending Type",
                     "type": "`$OBJECT`"
                 },
                 {
                     "name": "longitude",
+                    "title": "Longitude",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "name",
+                    "title": "Name",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "page",
+                    "title": "Page",
                     "type": "`$INTEGER`"
                 },
                 {
                     "name": "pages",
+                    "title": "Pages",
                     "type": "`$INTEGER`"
                 },
                 {
                     "name": "per_page",
+                    "title": "Per Page",
                     "type": "`$INTEGER`"
                 },
                 {
                     "name": "region",
+                    "title": "Region",
                     "type": "`$OBJECT`"
                 },
                 {
                     "name": "total",
+                    "title": "Total",
                     "type": "`$INTEGER`"
                 }
             ],
@@ -183,31 +190,6 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "example": "json",
-                                        "kind": "query",
-                                        "name": "format",
-                                        "orig": "format",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": 1,
-                                        "kind": "query",
-                                        "name": "page",
-                                        "orig": "page",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": 50,
-                                        "kind": "query",
-                                        "name": "per_page",
-                                        "orig": "per_page",
-                                        "type": "`$INTEGER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/country",
@@ -216,20 +198,46 @@ class Config {
                                     "lit": "country"
                                 }
                             ],
+                            "parts": [
+                                "country"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "format",
+                                        "orig": "format",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "json"
+                                    },
+                                    {
+                                        "name": "page",
+                                        "orig": "page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 1
+                                    },
+                                    {
+                                        "name": "per_page",
+                                        "orig": "per_page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 50
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "format",
                                     "page",
                                     "per_page"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "country"
-                            ]
+                            }
                         }
                     ]
                 },
@@ -238,34 +246,9 @@ class Config {
                     "name": "load",
                     "points": [
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "kind": "param",
-                                        "name": "id",
-                                        "orig": "country_code",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    }
-                                ],
-                                "query": [
-                                    {
-                                        "example": "json",
-                                        "kind": "query",
-                                        "name": "format",
-                                        "orig": "format",
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/country/{countryCode}",
-                            "rename": {
-                                "param": {
-                                    "countryCode": "id"
-                                }
-                            },
                             "segments": [
                                 {
                                     "lit": "country"
@@ -274,20 +257,45 @@ class Config {
                                     "var": "id"
                                 }
                             ],
-                            "select": {
-                                "exist": [
-                                    "format",
-                                    "id"
-                                ]
+                            "parts": [
+                                "country",
+                                "{id}"
+                            ],
+                            "rename": {
+                                "param": {
+                                    "countryCode": "id"
+                                }
                             },
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
                             },
-                            "parts": [
-                                "country",
-                                "{id}"
-                            ]
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "id",
+                                        "orig": "country_code",
+                                        "type": "`$STRING`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    }
+                                ],
+                                "query": [
+                                    {
+                                        "name": "format",
+                                        "orig": "format",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "json"
+                                    }
+                                ]
+                            },
+                            "select": {
+                                "exist": [
+                                    "format",
+                                    "id"
+                                ]
+                            }
                         }
                     ]
                 }
@@ -300,58 +308,72 @@ class Config {
             "fields": [
                 {
                     "name": "country",
+                    "title": "Country",
                     "type": "`$OBJECT`"
                 },
                 {
                     "name": "countryiso3code",
+                    "title": "Countryiso3code",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "date",
+                    "title": "Date",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "decimal",
+                    "title": "Decimal",
                     "type": "`$INTEGER`"
                 },
                 {
                     "name": "id",
+                    "title": "Id",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "indicator",
+                    "title": "Indicator",
                     "type": "`$OBJECT`"
                 },
                 {
                     "name": "name",
+                    "title": "Name",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "obs_status",
+                    "title": "Obs Status",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "source",
+                    "title": "Source",
                     "type": "`$OBJECT`"
                 },
                 {
                     "name": "sourceNote",
+                    "title": "Source Note",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "sourceOrganization",
+                    "title": "Source Organization",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "topics",
+                    "title": "Topics",
                     "type": "`$ARRAY`"
                 },
                 {
                     "name": "unit",
+                    "title": "Unit",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "value",
+                    "title": "Value",
                     "type": "`$NUMBER`"
                 }
             ],
@@ -366,37 +388,6 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "example": "json",
-                                        "kind": "query",
-                                        "name": "format",
-                                        "orig": "format",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": 1,
-                                        "kind": "query",
-                                        "name": "page",
-                                        "orig": "page",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": 50,
-                                        "kind": "query",
-                                        "name": "per_page",
-                                        "orig": "per_page",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "source",
-                                        "orig": "source",
-                                        "type": "`$INTEGER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/indicator",
@@ -405,6 +396,45 @@ class Config {
                                     "lit": "indicator"
                                 }
                             ],
+                            "parts": [
+                                "indicator"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "format",
+                                        "orig": "format",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "json"
+                                    },
+                                    {
+                                        "name": "page",
+                                        "orig": "page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 1
+                                    },
+                                    {
+                                        "name": "per_page",
+                                        "orig": "per_page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 50
+                                    },
+                                    {
+                                        "name": "source",
+                                        "orig": "source",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query"
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "format",
@@ -412,14 +442,7 @@ class Config {
                                     "per_page",
                                     "source"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "indicator"
-                            ]
+                            }
                         }
                     ]
                 },
@@ -428,81 +451,9 @@ class Config {
                     "name": "load",
                     "points": [
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "kind": "param",
-                                        "name": "country_code",
-                                        "orig": "country_code",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "param",
-                                        "name": "id",
-                                        "orig": "indicator_code",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    }
-                                ],
-                                "query": [
-                                    {
-                                        "kind": "query",
-                                        "name": "date",
-                                        "orig": "date",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": "json",
-                                        "kind": "query",
-                                        "name": "format",
-                                        "orig": "format",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "frequency",
-                                        "orig": "frequency",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": "N",
-                                        "kind": "query",
-                                        "name": "gapfill",
-                                        "orig": "gapfill",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "mrv",
-                                        "orig": "mrv",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": 1,
-                                        "kind": "query",
-                                        "name": "page",
-                                        "orig": "page",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": 50,
-                                        "kind": "query",
-                                        "name": "per_page",
-                                        "orig": "per_page",
-                                        "type": "`$INTEGER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/countries/{countryCode}/indicators/{indicatorCode}",
-                            "rename": {
-                                "param": {
-                                    "countryCode": "country_code",
-                                    "indicatorCode": "id"
-                                }
-                            },
                             "segments": [
                                 {
                                     "lit": "countries"
@@ -517,6 +468,88 @@ class Config {
                                     "var": "id"
                                 }
                             ],
+                            "parts": [
+                                "countries",
+                                "{country_code}",
+                                "indicators",
+                                "{id}"
+                            ],
+                            "rename": {
+                                "param": {
+                                    "countryCode": "country_code",
+                                    "indicatorCode": "id"
+                                }
+                            },
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "country_code",
+                                        "orig": "country_code",
+                                        "type": "`$STRING`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    },
+                                    {
+                                        "name": "id",
+                                        "orig": "indicator_code",
+                                        "type": "`$STRING`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    }
+                                ],
+                                "query": [
+                                    {
+                                        "name": "date",
+                                        "orig": "date",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "format",
+                                        "orig": "format",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "json"
+                                    },
+                                    {
+                                        "name": "frequency",
+                                        "orig": "frequency",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "gapfill",
+                                        "orig": "gapfill",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "N"
+                                    },
+                                    {
+                                        "name": "mrv",
+                                        "orig": "mrv",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "page",
+                                        "orig": "page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 1
+                                    },
+                                    {
+                                        "name": "per_page",
+                                        "orig": "per_page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 50
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "country_code",
@@ -529,47 +562,12 @@ class Config {
                                     "page",
                                     "per_page"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "countries",
-                                "{country_code}",
-                                "indicators",
-                                "{id}"
-                            ]
+                            }
                         },
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "kind": "param",
-                                        "name": "id",
-                                        "orig": "indicator_code",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    }
-                                ],
-                                "query": [
-                                    {
-                                        "example": "json",
-                                        "kind": "query",
-                                        "name": "format",
-                                        "orig": "format",
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/indicator/{indicatorCode}",
-                            "rename": {
-                                "param": {
-                                    "indicatorCode": "id"
-                                }
-                            },
                             "segments": [
                                 {
                                     "lit": "indicator"
@@ -578,20 +576,45 @@ class Config {
                                     "var": "id"
                                 }
                             ],
-                            "select": {
-                                "exist": [
-                                    "format",
-                                    "id"
-                                ]
+                            "parts": [
+                                "indicator",
+                                "{id}"
+                            ],
+                            "rename": {
+                                "param": {
+                                    "indicatorCode": "id"
+                                }
                             },
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
                             },
-                            "parts": [
-                                "indicator",
-                                "{id}"
-                            ]
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "id",
+                                        "orig": "indicator_code",
+                                        "type": "`$STRING`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    }
+                                ],
+                                "query": [
+                                    {
+                                        "name": "format",
+                                        "orig": "format",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "json"
+                                    }
+                                ]
+                            },
+                            "select": {
+                                "exist": [
+                                    "format",
+                                    "id"
+                                ]
+                            }
                         }
                     ]
                 }
@@ -599,7 +622,7 @@ class Config {
             "relations": {
                 "ancestors": [
                     [
-                        "country"
+                        "$.main.kit.entity.country"
                     ]
                 ]
             }
@@ -608,34 +631,42 @@ class Config {
             "fields": [
                 {
                     "name": "code",
+                    "title": "Code",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "description",
+                    "title": "Description",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "id",
+                    "title": "Id",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "iso2code",
+                    "title": "Iso2code",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "lastupdated",
+                    "title": "Lastupdated",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "name",
+                    "title": "Name",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "url",
+                    "title": "Url",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "value",
+                    "title": "Value",
                     "type": "`$STRING`"
                 }
             ],
@@ -650,48 +681,9 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "kind": "param",
-                                        "name": "source_id",
-                                        "orig": "source_id",
-                                        "reqd": true,
-                                        "type": "`$INTEGER`"
-                                    }
-                                ],
-                                "query": [
-                                    {
-                                        "example": "json",
-                                        "kind": "query",
-                                        "name": "format",
-                                        "orig": "format",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": 1,
-                                        "kind": "query",
-                                        "name": "page",
-                                        "orig": "page",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": 50,
-                                        "kind": "query",
-                                        "name": "per_page",
-                                        "orig": "per_page",
-                                        "type": "`$INTEGER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/source/{sourceId}/indicator",
-                            "rename": {
-                                "param": {
-                                    "sourceId": "source_id"
-                                }
-                            },
                             "segments": [
                                 {
                                     "lit": "source"
@@ -703,6 +695,54 @@ class Config {
                                     "lit": "indicator"
                                 }
                             ],
+                            "parts": [
+                                "source",
+                                "{source_id}",
+                                "indicator"
+                            ],
+                            "rename": {
+                                "param": {
+                                    "sourceId": "source_id"
+                                }
+                            },
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "source_id",
+                                        "orig": "source_id",
+                                        "type": "`$INTEGER`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    }
+                                ],
+                                "query": [
+                                    {
+                                        "name": "format",
+                                        "orig": "format",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "json"
+                                    },
+                                    {
+                                        "name": "page",
+                                        "orig": "page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 1
+                                    },
+                                    {
+                                        "name": "per_page",
+                                        "orig": "per_page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 50
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "format",
@@ -710,43 +750,9 @@ class Config {
                                     "per_page",
                                     "source_id"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "source",
-                                "{source_id}",
-                                "indicator"
-                            ]
+                            }
                         },
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "example": "json",
-                                        "kind": "query",
-                                        "name": "format",
-                                        "orig": "format",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": 1,
-                                        "kind": "query",
-                                        "name": "page",
-                                        "orig": "page",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": 50,
-                                        "kind": "query",
-                                        "name": "per_page",
-                                        "orig": "per_page",
-                                        "type": "`$INTEGER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/incomelevel",
@@ -755,47 +761,48 @@ class Config {
                                     "lit": "incomelevel"
                                 }
                             ],
+                            "parts": [
+                                "incomelevel"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "format",
+                                        "orig": "format",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "json"
+                                    },
+                                    {
+                                        "name": "page",
+                                        "orig": "page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 1
+                                    },
+                                    {
+                                        "name": "per_page",
+                                        "orig": "per_page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 50
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "format",
                                     "page",
                                     "per_page"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "incomelevel"
-                            ]
+                            }
                         },
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "example": "json",
-                                        "kind": "query",
-                                        "name": "format",
-                                        "orig": "format",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": 1,
-                                        "kind": "query",
-                                        "name": "page",
-                                        "orig": "page",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": 50,
-                                        "kind": "query",
-                                        "name": "per_page",
-                                        "orig": "per_page",
-                                        "type": "`$INTEGER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/lendingtype",
@@ -804,47 +811,48 @@ class Config {
                                     "lit": "lendingtype"
                                 }
                             ],
+                            "parts": [
+                                "lendingtype"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "format",
+                                        "orig": "format",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "json"
+                                    },
+                                    {
+                                        "name": "page",
+                                        "orig": "page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 1
+                                    },
+                                    {
+                                        "name": "per_page",
+                                        "orig": "per_page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 50
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "format",
                                     "page",
                                     "per_page"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "lendingtype"
-                            ]
+                            }
                         },
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "example": "json",
-                                        "kind": "query",
-                                        "name": "format",
-                                        "orig": "format",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": 1,
-                                        "kind": "query",
-                                        "name": "page",
-                                        "orig": "page",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": 50,
-                                        "kind": "query",
-                                        "name": "per_page",
-                                        "orig": "per_page",
-                                        "type": "`$INTEGER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/region",
@@ -853,47 +861,48 @@ class Config {
                                     "lit": "region"
                                 }
                             ],
+                            "parts": [
+                                "region"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "format",
+                                        "orig": "format",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "json"
+                                    },
+                                    {
+                                        "name": "page",
+                                        "orig": "page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 1
+                                    },
+                                    {
+                                        "name": "per_page",
+                                        "orig": "per_page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 50
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "format",
                                     "page",
                                     "per_page"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "region"
-                            ]
+                            }
                         },
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "example": "json",
-                                        "kind": "query",
-                                        "name": "format",
-                                        "orig": "format",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": 1,
-                                        "kind": "query",
-                                        "name": "page",
-                                        "orig": "page",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": 50,
-                                        "kind": "query",
-                                        "name": "per_page",
-                                        "orig": "per_page",
-                                        "type": "`$INTEGER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/source",
@@ -902,44 +911,69 @@ class Config {
                                     "lit": "source"
                                 }
                             ],
+                            "parts": [
+                                "source"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "format",
+                                        "orig": "format",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "json"
+                                    },
+                                    {
+                                        "name": "page",
+                                        "orig": "page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 1
+                                    },
+                                    {
+                                        "name": "per_page",
+                                        "orig": "per_page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 50
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "format",
                                     "page",
                                     "per_page"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "source"
-                            ]
+                            }
                         }
                     ]
                 }
             },
             "relations": {
-                "ancestors": [
-                    [
-                        "source"
-                    ]
-                ]
+                "ancestors": []
             }
         },
         "topic": {
             "fields": [
                 {
                     "name": "id",
+                    "title": "Id",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "sourceNote",
+                    "title": "Source Note",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "value",
+                    "title": "Value",
                     "type": "`$STRING`"
                 }
             ],
@@ -954,48 +988,9 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "kind": "param",
-                                        "name": "id",
-                                        "orig": "topic_id",
-                                        "reqd": true,
-                                        "type": "`$INTEGER`"
-                                    }
-                                ],
-                                "query": [
-                                    {
-                                        "example": "json",
-                                        "kind": "query",
-                                        "name": "format",
-                                        "orig": "format",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": 1,
-                                        "kind": "query",
-                                        "name": "page",
-                                        "orig": "page",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": 50,
-                                        "kind": "query",
-                                        "name": "per_page",
-                                        "orig": "per_page",
-                                        "type": "`$INTEGER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/topic/{topicId}/indicator",
-                            "rename": {
-                                "param": {
-                                    "topicId": "id"
-                                }
-                            },
                             "segments": [
                                 {
                                     "lit": "topic"
@@ -1007,6 +1002,54 @@ class Config {
                                     "lit": "indicator"
                                 }
                             ],
+                            "parts": [
+                                "topic",
+                                "{id}",
+                                "indicator"
+                            ],
+                            "rename": {
+                                "param": {
+                                    "topicId": "id"
+                                }
+                            },
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "id",
+                                        "orig": "topic_id",
+                                        "type": "`$INTEGER`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    }
+                                ],
+                                "query": [
+                                    {
+                                        "name": "format",
+                                        "orig": "format",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "json"
+                                    },
+                                    {
+                                        "name": "page",
+                                        "orig": "page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 1
+                                    },
+                                    {
+                                        "name": "per_page",
+                                        "orig": "per_page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 50
+                                    }
+                                ]
+                            },
                             "select": {
                                 "$action": "indicator",
                                 "exist": [
@@ -1015,43 +1058,9 @@ class Config {
                                     "page",
                                     "per_page"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "topic",
-                                "{id}",
-                                "indicator"
-                            ]
+                            }
                         },
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "example": "json",
-                                        "kind": "query",
-                                        "name": "format",
-                                        "orig": "format",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": 1,
-                                        "kind": "query",
-                                        "name": "page",
-                                        "orig": "page",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": 50,
-                                        "kind": "query",
-                                        "name": "per_page",
-                                        "orig": "per_page",
-                                        "type": "`$INTEGER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/topic",
@@ -1060,20 +1069,46 @@ class Config {
                                     "lit": "topic"
                                 }
                             ],
+                            "parts": [
+                                "topic"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "format",
+                                        "orig": "format",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "json"
+                                    },
+                                    {
+                                        "name": "page",
+                                        "orig": "page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 1
+                                    },
+                                    {
+                                        "name": "per_page",
+                                        "orig": "per_page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 50
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "format",
                                     "page",
                                     "per_page"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "topic"
-                            ]
+                            }
                         }
                     ]
                 }

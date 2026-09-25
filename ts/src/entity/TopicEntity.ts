@@ -19,7 +19,6 @@ import type {
   TopicListMatch,
 } from '../WorldBankDataTypes'
 
-// TODO: needs Entity superclass
 class TopicEntity extends WorldBankDataEntityBase<Topic> {
 
   constructor(client: WorldBankDataSDK, entopts: any) {

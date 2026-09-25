@@ -148,7 +148,7 @@ func metadataBasicSetup(extra map[string]any) *entityTestSetup {
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap, _ := vs.Transform(
-		[]any{"metadata01", "metadata02", "metadata03", "source01", "source02", "source03"},
+		[]any{"metadata01", "metadata02", "metadata03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",

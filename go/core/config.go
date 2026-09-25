@@ -94,58 +94,72 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "adminregion",
+						"title": "Adminregion",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "capitalCity",
+						"title": "Capital City",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "incomeLevel",
+						"title": "Income Level",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "iso2Code",
+						"title": "Iso2 Code",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "latitude",
+						"title": "Latitude",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "lendingType",
+						"title": "Lending Type",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "longitude",
+						"title": "Longitude",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "name",
+						"title": "Name",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "page",
+						"title": "Page",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "pages",
+						"title": "Pages",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "per_page",
+						"title": "Per Page",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "region",
+						"title": "Region",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "total",
+						"title": "Total",
 						"type": "`$INTEGER`",
 					},
 				},
@@ -160,37 +174,45 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": "json",
-											"kind": "query",
-											"name": "format",
-											"orig": "format",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 50,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/country",
 								"segments": []any{
 									map[string]any{
 										"lit": "country",
+									},
+								},
+								"parts": []any{
+									"country",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "format",
+											"orig": "format",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "json",
+										},
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 50,
+										},
 									},
 								},
 								"select": map[string]any{
@@ -200,13 +222,6 @@ func MakeConfig() map[string]any {
 										"per_page",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"country",
-								},
 							},
 						},
 					},
@@ -215,34 +230,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "country_code",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"example": "json",
-											"kind": "query",
-											"name": "format",
-											"orig": "format",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/country/{countryCode}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"countryCode": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "country",
@@ -251,19 +241,44 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"format",
-										"id",
+								"parts": []any{
+									"country",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"countryCode": "id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"country",
-									"{id}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "country_code",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "format",
+											"orig": "format",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "json",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"format",
+										"id",
+									},
 								},
 							},
 						},
@@ -277,58 +292,72 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "country",
+						"title": "Country",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "countryiso3code",
+						"title": "Countryiso3code",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "date",
+						"title": "Date",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "decimal",
+						"title": "Decimal",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "indicator",
+						"title": "Indicator",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "name",
+						"title": "Name",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "obs_status",
+						"title": "Obs Status",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "source",
+						"title": "Source",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "sourceNote",
+						"title": "Source Note",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "sourceOrganization",
+						"title": "Source Organization",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "topics",
+						"title": "Topics",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "unit",
+						"title": "Unit",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "value",
+						"title": "Value",
 						"type": "`$NUMBER`",
 					},
 				},
@@ -343,43 +372,51 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": "json",
-											"kind": "query",
-											"name": "format",
-											"orig": "format",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 50,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "source",
-											"orig": "source",
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/indicator",
 								"segments": []any{
 									map[string]any{
 										"lit": "indicator",
+									},
+								},
+								"parts": []any{
+									"indicator",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "format",
+											"orig": "format",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "json",
+										},
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 50,
+										},
+										map[string]any{
+											"name": "source",
+											"orig": "source",
+											"type": "`$INTEGER`",
+											"kind": "query",
+										},
 									},
 								},
 								"select": map[string]any{
@@ -390,13 +427,6 @@ func MakeConfig() map[string]any {
 										"source",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"indicator",
-								},
 							},
 						},
 					},
@@ -405,81 +435,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "country_code",
-											"orig": "country_code",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "indicator_code",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "date",
-											"orig": "date",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": "json",
-											"kind": "query",
-											"name": "format",
-											"orig": "format",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "frequency",
-											"orig": "frequency",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": "N",
-											"kind": "query",
-											"name": "gapfill",
-											"orig": "gapfill",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "mrv",
-											"orig": "mrv",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 50,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/countries/{countryCode}/indicators/{indicatorCode}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"countryCode": "country_code",
-										"indicatorCode": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "countries",
@@ -492,6 +450,88 @@ func MakeConfig() map[string]any {
 									},
 									map[string]any{
 										"var": "id",
+									},
+								},
+								"parts": []any{
+									"countries",
+									"{country_code}",
+									"indicators",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"countryCode": "country_code",
+										"indicatorCode": "id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "country_code",
+											"orig": "country_code",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "id",
+											"orig": "indicator_code",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "date",
+											"orig": "date",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "format",
+											"orig": "format",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "json",
+										},
+										map[string]any{
+											"name": "frequency",
+											"orig": "frequency",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "gapfill",
+											"orig": "gapfill",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "N",
+										},
+										map[string]any{
+											"name": "mrv",
+											"orig": "mrv",
+											"type": "`$INTEGER`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 50,
+										},
 									},
 								},
 								"select": map[string]any{
@@ -507,46 +547,11 @@ func MakeConfig() map[string]any {
 										"per_page",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"countries",
-									"{country_code}",
-									"indicators",
-									"{id}",
-								},
 							},
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "indicator_code",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"example": "json",
-											"kind": "query",
-											"name": "format",
-											"orig": "format",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/indicator/{indicatorCode}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"indicatorCode": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "indicator",
@@ -555,19 +560,44 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"format",
-										"id",
+								"parts": []any{
+									"indicator",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"indicatorCode": "id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"indicator",
-									"{id}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "indicator_code",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "format",
+											"orig": "format",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "json",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"format",
+										"id",
+									},
 								},
 							},
 						},
@@ -576,7 +606,7 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"country",
+							"$.main.kit.entity.country",
 						},
 					},
 				},
@@ -585,34 +615,42 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "code",
+						"title": "Code",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "description",
+						"title": "Description",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "iso2code",
+						"title": "Iso2code",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "lastupdated",
+						"title": "Lastupdated",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "name",
+						"title": "Name",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "url",
+						"title": "Url",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "value",
+						"title": "Value",
 						"type": "`$STRING`",
 					},
 				},
@@ -627,48 +665,9 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "source_id",
-											"orig": "source_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"example": "json",
-											"kind": "query",
-											"name": "format",
-											"orig": "format",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 50,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/source/{sourceId}/indicator",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"sourceId": "source_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "source",
@@ -680,6 +679,54 @@ func MakeConfig() map[string]any {
 										"lit": "indicator",
 									},
 								},
+								"parts": []any{
+									"source",
+									"{source_id}",
+									"indicator",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"sourceId": "source_id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "source_id",
+											"orig": "source_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "format",
+											"orig": "format",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "json",
+										},
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 50,
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"format",
@@ -688,42 +735,8 @@ func MakeConfig() map[string]any {
 										"source_id",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"source",
-									"{source_id}",
-									"indicator",
-								},
 							},
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": "json",
-											"kind": "query",
-											"name": "format",
-											"orig": "format",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 50,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/incomelevel",
@@ -732,6 +745,39 @@ func MakeConfig() map[string]any {
 										"lit": "incomelevel",
 									},
 								},
+								"parts": []any{
+									"incomelevel",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "format",
+											"orig": "format",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "json",
+										},
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 50,
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"format",
@@ -739,40 +785,8 @@ func MakeConfig() map[string]any {
 										"per_page",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"incomelevel",
-								},
 							},
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": "json",
-											"kind": "query",
-											"name": "format",
-											"orig": "format",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 50,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/lendingtype",
@@ -781,6 +795,39 @@ func MakeConfig() map[string]any {
 										"lit": "lendingtype",
 									},
 								},
+								"parts": []any{
+									"lendingtype",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "format",
+											"orig": "format",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "json",
+										},
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 50,
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"format",
@@ -788,40 +835,8 @@ func MakeConfig() map[string]any {
 										"per_page",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"lendingtype",
-								},
 							},
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": "json",
-											"kind": "query",
-											"name": "format",
-											"orig": "format",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 50,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/region",
@@ -830,6 +845,39 @@ func MakeConfig() map[string]any {
 										"lit": "region",
 									},
 								},
+								"parts": []any{
+									"region",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "format",
+											"orig": "format",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "json",
+										},
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 50,
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"format",
@@ -837,40 +885,8 @@ func MakeConfig() map[string]any {
 										"per_page",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"region",
-								},
 							},
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": "json",
-											"kind": "query",
-											"name": "format",
-											"orig": "format",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 50,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/source",
@@ -879,6 +895,39 @@ func MakeConfig() map[string]any {
 										"lit": "source",
 									},
 								},
+								"parts": []any{
+									"source",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "format",
+											"orig": "format",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "json",
+										},
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 50,
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"format",
@@ -886,37 +935,29 @@ func MakeConfig() map[string]any {
 										"per_page",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"source",
-								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"source",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 			"topic": map[string]any{
 				"fields": []any{
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "sourceNote",
+						"title": "Source Note",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "value",
+						"title": "Value",
 						"type": "`$STRING`",
 					},
 				},
@@ -931,48 +972,9 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "topic_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"example": "json",
-											"kind": "query",
-											"name": "format",
-											"orig": "format",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 50,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/topic/{topicId}/indicator",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"topicId": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "topic",
@@ -984,6 +986,54 @@ func MakeConfig() map[string]any {
 										"lit": "indicator",
 									},
 								},
+								"parts": []any{
+									"topic",
+									"{id}",
+									"indicator",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"topicId": "id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "topic_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "format",
+											"orig": "format",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "json",
+										},
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 50,
+										},
+									},
+								},
 								"select": map[string]any{
 									"$action": "indicator",
 									"exist": []any{
@@ -993,42 +1043,8 @@ func MakeConfig() map[string]any {
 										"per_page",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"topic",
-									"{id}",
-									"indicator",
-								},
 							},
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": "json",
-											"kind": "query",
-											"name": "format",
-											"orig": "format",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 50,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/topic",
@@ -1037,19 +1053,45 @@ func MakeConfig() map[string]any {
 										"lit": "topic",
 									},
 								},
+								"parts": []any{
+									"topic",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "format",
+											"orig": "format",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "json",
+										},
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 50,
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"format",
 										"page",
 										"per_page",
 									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"topic",
 								},
 							},
 						},

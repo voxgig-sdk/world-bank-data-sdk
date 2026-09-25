@@ -1,0 +1,351 @@
+# Entity: indicator
+
+main: kit: entity: indicator: {
+
+  alias: field: {}
+
+  fields: {
+    country: {
+      h: "Country"
+      n: "country"
+      r: false
+      t: "`$OBJECT`"
+    }
+    countryiso3code: {
+      h: "Countryiso3code"
+      n: "countryiso3code"
+      r: false
+      t: "`$STRING`"
+    }
+    date: {
+      h: "Date"
+      n: "date"
+      r: false
+      t: "`$STRING`"
+    }
+    decimal: {
+      h: "Decimal"
+      n: "decimal"
+      r: false
+      t: "`$INTEGER`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+    indicator: {
+      h: "Indicator"
+      n: "indicator"
+      r: false
+      t: "`$OBJECT`"
+    }
+    name: {
+      h: "Name"
+      n: "name"
+      r: false
+      t: "`$STRING`"
+    }
+    obs_status: {
+      h: "Obs Status"
+      n: "obs_status"
+      r: false
+      t: "`$STRING`"
+    }
+    source: {
+      h: "Source"
+      n: "source"
+      r: false
+      t: "`$OBJECT`"
+    }
+    sourceNote: {
+      h: "Source Note"
+      n: "sourceNote"
+      r: false
+      t: "`$STRING`"
+    }
+    sourceOrganization: {
+      h: "Source Organization"
+      n: "sourceOrganization"
+      r: false
+      t: "`$STRING`"
+    }
+    topics: {
+      h: "Topics"
+      n: "topics"
+      r: false
+      t: "`$ARRAY`"
+    }
+    unit: {
+      h: "Unit"
+      n: "unit"
+      r: false
+      t: "`$STRING`"
+    }
+    value: {
+      h: "Value"
+      n: "value"
+      r: false
+      t: "`$NUMBER`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "indicator"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /indicator"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: "json"
+                k: "query"
+                n: "format"
+                or: "format"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: 1
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: 50
+                k: "query"
+                n: "per_page"
+                or: "per_page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "source"
+                or: "source"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/indicator"
+          q: {
+            exist: [
+              "format"
+              "page"
+              "per_page"
+              "source"
+            ]
+          }
+          s: [
+            {
+              lit: "indicator"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /countries/{countryCode}/indicators/{indicatorCode}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "country_code"
+                or: "country_code"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "id"
+                or: "indicator_code"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "date"
+                or: "date"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: "json"
+                k: "query"
+                n: "format"
+                or: "format"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "frequency"
+                or: "frequency"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: "N"
+                k: "query"
+                n: "gapfill"
+                or: "gapfill"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "mrv"
+                or: "mrv"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: 1
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: 50
+                k: "query"
+                n: "per_page"
+                or: "per_page"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/countries/{countryCode}/indicators/{indicatorCode}"
+          q: {
+            exist: [
+              "country_code"
+              "date"
+              "format"
+              "frequency"
+              "gapfill"
+              "id"
+              "mrv"
+              "page"
+              "per_page"
+            ]
+          }
+          r: {
+            param: {
+              countryCode: "country_code"
+              indicatorCode: "id"
+            }
+          }
+          s: [
+            {
+              lit: "countries"
+            }
+            {
+              var: "country_code"
+            }
+            {
+              lit: "indicators"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "GET /indicator/{indicatorCode}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "indicator_code"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                ex: "json"
+                k: "query"
+                n: "format"
+                or: "format"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/indicator/{indicatorCode}"
+          q: {
+            exist: [
+              "format"
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              indicatorCode: "id"
+            }
+          }
+          s: [
+            {
+              lit: "indicator"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.country")]
+  ]
+
+}

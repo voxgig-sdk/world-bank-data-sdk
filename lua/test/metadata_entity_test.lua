@@ -114,7 +114,7 @@ function metadata_basic_setup(extra)
 
   -- Generate idmap via transform.
   local idmap = vs.transform(
-    { "metadata01", "metadata02", "metadata03", "source01", "source02", "source03" },
+    { "metadata01", "metadata02", "metadata03" },
     {
       ["`$PACK`"] = { "", {
         ["`$KEY`"] = "`$COPY`",

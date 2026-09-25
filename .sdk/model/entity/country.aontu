@@ -1,0 +1,221 @@
+# Entity: country
+
+main: kit: entity: country: {
+
+  alias: field: {}
+
+  fields: {
+    adminregion: {
+      h: "Adminregion"
+      n: "adminregion"
+      r: false
+      t: "`$OBJECT`"
+    }
+    capitalCity: {
+      h: "Capital City"
+      n: "capitalCity"
+      r: false
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+    incomeLevel: {
+      h: "Income Level"
+      n: "incomeLevel"
+      r: false
+      t: "`$OBJECT`"
+    }
+    iso2Code: {
+      h: "Iso2 Code"
+      n: "iso2Code"
+      r: false
+      t: "`$STRING`"
+    }
+    latitude: {
+      h: "Latitude"
+      n: "latitude"
+      r: false
+      t: "`$STRING`"
+    }
+    lendingType: {
+      h: "Lending Type"
+      n: "lendingType"
+      r: false
+      t: "`$OBJECT`"
+    }
+    longitude: {
+      h: "Longitude"
+      n: "longitude"
+      r: false
+      t: "`$STRING`"
+    }
+    name: {
+      h: "Name"
+      n: "name"
+      r: false
+      t: "`$STRING`"
+    }
+    page: {
+      h: "Page"
+      n: "page"
+      r: false
+      t: "`$INTEGER`"
+    }
+    pages: {
+      h: "Pages"
+      n: "pages"
+      r: false
+      t: "`$INTEGER`"
+    }
+    per_page: {
+      h: "Per Page"
+      n: "per_page"
+      r: false
+      t: "`$INTEGER`"
+    }
+    region: {
+      h: "Region"
+      n: "region"
+      r: false
+      t: "`$OBJECT`"
+    }
+    total: {
+      h: "Total"
+      n: "total"
+      r: false
+      t: "`$INTEGER`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "country"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /country"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: "json"
+                k: "query"
+                n: "format"
+                or: "format"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: 1
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: 50
+                k: "query"
+                n: "per_page"
+                or: "per_page"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/country"
+          q: {
+            exist: [
+              "format"
+              "page"
+              "per_page"
+            ]
+          }
+          s: [
+            {
+              lit: "country"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /country/{countryCode}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "country_code"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                ex: "json"
+                k: "query"
+                n: "format"
+                or: "format"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/country/{countryCode}"
+          q: {
+            exist: [
+              "format"
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              countryCode: "id"
+            }
+          }
+          s: [
+            {
+              lit: "country"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}
