@@ -76,7 +76,7 @@ main: kit: entity: metadata: {
               {
                 k: "param"
                 n: "source_id"
-                or: "source_id"
+                or: "sourceId"
                 r: true
                 t: "`$INTEGER`"
               }

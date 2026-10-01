@@ -170,7 +170,7 @@ main: kit: entity: country: {
               {
                 k: "param"
                 n: "id"
-                or: "country_code"
+                or: "countryCode"
                 r: true
                 t: "`$STRING`"
               }

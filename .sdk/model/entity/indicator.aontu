@@ -178,14 +178,14 @@ main: kit: entity: indicator: {
               {
                 k: "param"
                 n: "country_code"
-                or: "country_code"
+                or: "countryCode"
                 r: true
                 t: "`$STRING`"
               }
               {
                 k: "param"
                 n: "id"
-                or: "indicator_code"
+                or: "indicatorCode"
                 r: true
                 t: "`$STRING`"
               }
@@ -297,7 +297,7 @@ main: kit: entity: indicator: {
               {
                 k: "param"
                 n: "id"
-                or: "indicator_code"
+                or: "indicatorCode"
                 r: true
                 t: "`$STRING`"
               }

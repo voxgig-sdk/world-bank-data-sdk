@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 WorldBankDataUtility.registrar = ->(u) {
   u.clean = WorldBankDataUtilities::Clean
+  u.clean_add = WorldBankDataUtilities::CleanAdd
+  u.clean_explain = WorldBankDataUtilities::CleanExplain
   u.done = WorldBankDataUtilities::Done
   u.make_error = WorldBankDataUtilities::MakeError
   u.feature_add = WorldBankDataUtilities::FeatureAdd

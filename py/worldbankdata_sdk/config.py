@@ -283,7 +283,7 @@ def make_config():
                   "params": [
                     {
                       "name": "id",
-                      "orig": "country_code",
+                      "orig": "countryCode",
                       "type": "`$STRING`",
                       "kind": "param",
                       "reqd": True,
@@ -497,14 +497,14 @@ def make_config():
                   "params": [
                     {
                       "name": "country_code",
-                      "orig": "country_code",
+                      "orig": "countryCode",
                       "type": "`$STRING`",
                       "kind": "param",
                       "reqd": True,
                     },
                     {
                       "name": "id",
-                      "orig": "indicator_code",
+                      "orig": "indicatorCode",
                       "type": "`$STRING`",
                       "kind": "param",
                       "reqd": True,
@@ -602,7 +602,7 @@ def make_config():
                   "params": [
                     {
                       "name": "id",
-                      "orig": "indicator_code",
+                      "orig": "indicatorCode",
                       "type": "`$STRING`",
                       "kind": "param",
                       "reqd": True,
@@ -722,7 +722,7 @@ def make_config():
                   "params": [
                     {
                       "name": "source_id",
-                      "orig": "source_id",
+                      "orig": "sourceId",
                       "type": "`$INTEGER`",
                       "kind": "param",
                       "reqd": True,
@@ -1029,7 +1029,7 @@ def make_config():
                   "params": [
                     {
                       "name": "id",
-                      "orig": "topic_id",
+                      "orig": "topicId",
                       "type": "`$INTEGER`",
                       "kind": "param",
                       "reqd": True,

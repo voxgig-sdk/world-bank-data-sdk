@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 WorldBankDataUtility::setRegistrar(function (WorldBankDataUtility $u): void {
     $u->clean = [WorldBankDataClean::class, 'call'];
+    $u->clean_add = [WorldBankDataClean::class, 'add'];
+    $u->clean_explain = [WorldBankDataDone::class, 'clean_explain'];
     $u->done = [WorldBankDataDone::class, 'call'];
     $u->make_error = [WorldBankDataMakeError::class, 'call'];
     $u->feature_add = [WorldBankDataFeatureAdd::class, 'call'];

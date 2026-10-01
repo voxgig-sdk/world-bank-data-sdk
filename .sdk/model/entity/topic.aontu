@@ -46,7 +46,7 @@ main: kit: entity: topic: {
               {
                 k: "param"
                 n: "id"
-                or: "topic_id"
+                or: "topicId"
                 r: true
                 t: "`$INTEGER`"
               }
