@@ -3,5 +3,23 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "Successful response with country details",
+      "Successful response with country list",
+      "Successful response with income level list",
+      "Successful response with indicator data",
+      "Successful response with indicator details",
+      "Successful response with indicator list",
+      "Successful response with indicators for the topic",
+      "Successful response with indicators from the source",
+      "Successful response with lending type list",
+      "Successful response with region list",
+      "Successful response with source list",
+      "Successful response with topic list",
+      "The World Bank Data API provides access to a wide array of economic, financial, and social data from over 200 countries. It allows developers to integrate World Bank datasets into their applications and services, facilitating data-driven decision-making for research and policy development.",
+      "World Bank Data API V2"
+    ]
+  }
 }

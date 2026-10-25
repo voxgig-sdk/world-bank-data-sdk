@@ -137,12 +137,9 @@ main: kit: entity: country: {
           }
           m: "GET"
           o: "/country"
-          q: {
-            exist: [
-              "format"
-              "page"
-              "per_page"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -190,7 +187,6 @@ main: kit: entity: country: {
           o: "/country/{countryCode}"
           q: {
             exist: [
-              "format"
               "id"
             ]
           }
@@ -198,6 +194,10 @@ main: kit: entity: country: {
             param: {
               countryCode: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

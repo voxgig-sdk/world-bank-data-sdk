@@ -79,6 +79,7 @@ module WorldBankDataConfig
           },
           "optspec" => {
             "clearTimer" => "`$FUNCTION`",
+            "now" => "`$FUNCTION`",
             "setTimer" => "`$FUNCTION`",
           },
           "strict" => false,
@@ -213,6 +214,7 @@ module WorldBankDataConfig
                         "type" => "`$INTEGER`",
                         "kind" => "query",
                         "example" => 1,
+                        "field" => true,
                       },
                       {
                         "name" => "per_page",
@@ -220,15 +222,14 @@ module WorldBankDataConfig
                         "type" => "`$INTEGER`",
                         "kind" => "query",
                         "example" => 50,
+                        "field" => true,
                       },
                     ],
                   },
-                  "select" => {
-                    "exist" => [
-                      "format",
-                      "page",
-                      "per_page",
-                    ],
+                  "select" => {},
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -284,9 +285,12 @@ module WorldBankDataConfig
                   },
                   "select" => {
                     "exist" => [
-                      "format",
                       "id",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -424,16 +428,14 @@ module WorldBankDataConfig
                         "orig" => "source",
                         "type" => "`$INTEGER`",
                         "kind" => "query",
+                        "field" => true,
                       },
                     ],
                   },
-                  "select" => {
-                    "exist" => [
-                      "format",
-                      "page",
-                      "per_page",
-                      "source",
-                    ],
+                  "select" => {},
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -499,6 +501,7 @@ module WorldBankDataConfig
                         "orig" => "date",
                         "type" => "`$STRING`",
                         "kind" => "query",
+                        "field" => true,
                       },
                       {
                         "name" => "format",
@@ -545,15 +548,12 @@ module WorldBankDataConfig
                   "select" => {
                     "exist" => [
                       "country_code",
-                      "date",
-                      "format",
-                      "frequency",
-                      "gapfill",
                       "id",
-                      "mrv",
-                      "page",
-                      "per_page",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
                 {
@@ -603,9 +603,12 @@ module WorldBankDataConfig
                   },
                   "select" => {
                     "exist" => [
-                      "format",
                       "id",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -737,11 +740,12 @@ module WorldBankDataConfig
                   },
                   "select" => {
                     "exist" => [
-                      "format",
-                      "page",
-                      "per_page",
                       "source_id",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
                 {
@@ -786,12 +790,10 @@ module WorldBankDataConfig
                       },
                     ],
                   },
-                  "select" => {
-                    "exist" => [
-                      "format",
-                      "page",
-                      "per_page",
-                    ],
+                  "select" => {},
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
                 {
@@ -836,12 +838,10 @@ module WorldBankDataConfig
                       },
                     ],
                   },
-                  "select" => {
-                    "exist" => [
-                      "format",
-                      "page",
-                      "per_page",
-                    ],
+                  "select" => {},
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
                 {
@@ -886,12 +886,10 @@ module WorldBankDataConfig
                       },
                     ],
                   },
-                  "select" => {
-                    "exist" => [
-                      "format",
-                      "page",
-                      "per_page",
-                    ],
+                  "select" => {},
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
                 {
@@ -936,12 +934,10 @@ module WorldBankDataConfig
                       },
                     ],
                   },
-                  "select" => {
-                    "exist" => [
-                      "format",
-                      "page",
-                      "per_page",
-                    ],
+                  "select" => {},
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -1045,11 +1041,12 @@ module WorldBankDataConfig
                   "select" => {
                     "$action" => "indicator",
                     "exist" => [
-                      "format",
                       "id",
-                      "page",
-                      "per_page",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
                 {
@@ -1094,12 +1091,10 @@ module WorldBankDataConfig
                       },
                     ],
                   },
-                  "select" => {
-                    "exist" => [
-                      "format",
-                      "page",
-                      "per_page",
-                    ],
+                  "select" => {},
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],

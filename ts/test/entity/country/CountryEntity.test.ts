@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { WorldBankDataSDK, BaseFeature, stdutil } from '../../..'
+import { WorldBankDataSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,64 @@ describe('CountryEntity', async () => {
   })
 
 
+  class FailHook extends BaseFeature {
+    name = 'failhook'
+    version = '0.0.1'
+    active = true
+    unexpected = 0
+    init() { }
+    PreSpec() { throw new Error('country hook failed') }
+    PreUnexpected() { this.unexpected++ }
+  }
+
+  test('stream-error', async () => {
+    const offline = { net: { offline: true } }
+    await assert.rejects(async () => {
+      for await (const _item of WorldBankDataSDK.test(offline).Country().stream('list')) { }
+    }, /offline/)
+
+    for await (const _item of WorldBankDataSDK.test(offline).Country()
+      .stream('list', undefined, { ctrl: { throw: false } })) { }
+
+    if (null != (config as any).feature?.rbac) {
+      const denied = WorldBankDataSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } })
+      await assert.rejects(async () => {
+        for await (const _item of denied.Country().stream('list')) { }
+      }, (err: any) => 'rbac_denied' === err.code)
+    }
+  })
+
+  test('stream-ctrl', async () => {
+    const explain: any = {}
+    const ctrl: any = { explain }
+    for await (const _item of WorldBankDataSDK.test().Country().stream('list', undefined, { ctrl })) { }
+    assert.deepStrictEqual(Object.keys(ctrl), ['explain'])
+    assert(explain === ctrl.explain && 0 < Object.keys(explain).length)
+  })
+
+  test('unexpected', async () => {
+    const hook = new FailHook()
+    const client = new WorldBankDataSDK({ feature: { test: { active: true } }, extend: [hook] })
+    await assert.rejects(client.Country().list(), /hook failed/)
+    assert(0 < hook.unexpected)
+
+    const fired = hook.unexpected
+    assert.strictEqual(await client.Country().list(undefined, { throw: false }), undefined)
+    assert(fired < hook.unexpected)
+  })
+
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = WorldBankDataSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Country().list({"format":1} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.WORLD_BANK_DATA_TEST_LIVE
@@ -51,7 +109,7 @@ describe('CountryEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"adminregion":{"a":true,"h":"Adminregion","n":"adminregion","r":false,"t":"`$OBJECT`","key$":"adminregion","index$":0},"capitalCity":{"a":true,"h":"Capital City","n":"capitalCity","r":false,"t":"`$STRING`","key$":"capitalCity","index$":1},"id":{"a":true,"h":"Id","n":"id","r":false,"t":"`$STRING`","key$":"id","index$":2},"incomeLevel":{"a":true,"h":"Income Level","n":"incomeLevel","r":false,"t":"`$OBJECT`","key$":"incomeLevel","index$":3},"iso2Code":{"a":true,"h":"Iso2 Code","n":"iso2Code","r":false,"t":"`$STRING`","key$":"iso2Code","index$":4},"latitude":{"a":true,"h":"Latitude","n":"latitude","r":false,"t":"`$STRING`","key$":"latitude","index$":5},"lendingType":{"a":true,"h":"Lending Type","n":"lendingType","r":false,"t":"`$OBJECT`","key$":"lendingType","index$":6},"longitude":{"a":true,"h":"Longitude","n":"longitude","r":false,"t":"`$STRING`","key$":"longitude","index$":7},"name":{"a":true,"h":"Name","n":"name","r":false,"t":"`$STRING`","key$":"name","index$":8},"page":{"a":true,"h":"Page","n":"page","r":false,"t":"`$INTEGER`","key$":"page","index$":9},"pages":{"a":true,"h":"Pages","n":"pages","r":false,"t":"`$INTEGER`","key$":"pages","index$":10},"per_page":{"a":true,"h":"Per Page","n":"per_page","r":false,"t":"`$INTEGER`","key$":"per_page","index$":11},"region":{"a":true,"h":"Region","n":"region","r":false,"t":"`$OBJECT`","key$":"region","index$":12},"total":{"a":true,"h":"Total","n":"total","r":false,"t":"`$INTEGER`","key$":"total","index$":13}},"id":{"field":"id","name":"id"},"name":"country","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /country","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":"json","k":"query","n":"format","or":"format","r":false,"t":"`$STRING`","index$":0},{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"ex":50,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":2}]},"k":"http","m":"GET","o":"/country","q":{"exist":["format","page","per_page"]},"r":{},"s":[{"lit":"country"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /country/{countryCode}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"countryCode","r":true,"t":"`$STRING`","index$":0}],"query":[{"a":true,"ex":"json","k":"query","n":"format","or":"format","r":false,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/country/{countryCode}","q":{"exist":["format","id"]},"r":{"param":{"countryCode":"id"}},"s":[{"lit":"country"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"country","name__orig":"country","Name":"Country","name_":"country","name-":"country","NAME":"COUNTRY","index$":0}, {"active":true,"entity":"country","key$":"BasicCountryFlow","kind":"basic","name":"BasicCountryFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"country_ref01"}}],"index$":0},{"a":true,"d":{},"i":{"ref":"country_ref01","srcdatavar":"country_ref01_data","suffix":"_dt0"},"m":{"id":"country01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-country_ref01"}}],"index$":1}]}, 'Country', {"GET /country":{"protocol":"http","parameters":[{"name":"format","in":"query","description":"Response format (json or xml)","schema":{"type":"string","enum":["json","xml"],"default":"json"},"index$":0},{"name":"page","in":"query","description":"Page number for pagination","schema":{"type":"integer","minimum":1,"default":1},"index$":1},{"name":"per_page","in":"query","description":"Number of results per page","schema":{"type":"integer","minimum":1,"maximum":1000,"default":50},"index$":2}]},"GET /country/{countryCode}":{"protocol":"http","parameters":[{"name":"countryCode","in":"path","required":true,"description":"ISO 2-letter or 3-letter country code (e.g., US, USA, BR, BRA)","schema":{"type":"string"},"index$":0},{"name":"format","in":"query","description":"Response format (json or xml)","schema":{"type":"string","enum":["json","xml"],"default":"json"},"index$":1}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"adminregion":{"a":true,"h":"Adminregion","n":"adminregion","r":false,"t":"`$OBJECT`","key$":"adminregion","index$":0},"capitalCity":{"a":true,"h":"Capital City","n":"capitalCity","r":false,"t":"`$STRING`","key$":"capitalCity","index$":1},"id":{"a":true,"h":"Id","n":"id","r":false,"t":"`$STRING`","key$":"id","index$":2},"incomeLevel":{"a":true,"h":"Income Level","n":"incomeLevel","r":false,"t":"`$OBJECT`","key$":"incomeLevel","index$":3},"iso2Code":{"a":true,"h":"Iso2 Code","n":"iso2Code","r":false,"t":"`$STRING`","key$":"iso2Code","index$":4},"latitude":{"a":true,"h":"Latitude","n":"latitude","r":false,"t":"`$STRING`","key$":"latitude","index$":5},"lendingType":{"a":true,"h":"Lending Type","n":"lendingType","r":false,"t":"`$OBJECT`","key$":"lendingType","index$":6},"longitude":{"a":true,"h":"Longitude","n":"longitude","r":false,"t":"`$STRING`","key$":"longitude","index$":7},"name":{"a":true,"h":"Name","n":"name","r":false,"t":"`$STRING`","key$":"name","index$":8},"page":{"a":true,"h":"Page","n":"page","r":false,"t":"`$INTEGER`","key$":"page","index$":9},"pages":{"a":true,"h":"Pages","n":"pages","r":false,"t":"`$INTEGER`","key$":"pages","index$":10},"per_page":{"a":true,"h":"Per Page","n":"per_page","r":false,"t":"`$INTEGER`","key$":"per_page","index$":11},"region":{"a":true,"h":"Region","n":"region","r":false,"t":"`$OBJECT`","key$":"region","index$":12},"total":{"a":true,"h":"Total","n":"total","r":false,"t":"`$INTEGER`","key$":"total","index$":13}},"id":{"field":"id","name":"id"},"name":"country","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /country","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":"json","k":"query","n":"format","or":"format","r":false,"t":"`$STRING`","index$":0},{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"ex":50,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":2}]},"k":"http","m":"GET","o":"/country","q":{},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"country"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /country/{countryCode}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"countryCode","r":true,"t":"`$STRING`","index$":0}],"query":[{"a":true,"ex":"json","k":"query","n":"format","or":"format","r":false,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/country/{countryCode}","q":{"exist":["id"]},"r":{"param":{"countryCode":"id"}},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"country"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"country","name__orig":"country","Name":"Country","name_":"country","name-":"country","NAME":"COUNTRY","index$":0}, {"active":true,"entity":"country","key$":"BasicCountryFlow","kind":"basic","name":"BasicCountryFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"country_ref01"}}],"index$":0},{"a":true,"d":{},"i":{"ref":"country_ref01","srcdatavar":"country_ref01_data","suffix":"_dt0"},"m":{"id":"country01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-country_ref01"}}],"index$":1}]}, 'Country', {"GET /country":{"protocol":"http","parameters":[{"name":"format","in":"query","description":"Response format (json or xml)","schema":{"type":"string","enum":["json","xml"],"default":"json"},"index$":0},{"name":"page","in":"query","description":"Page number for pagination","schema":{"type":"integer","minimum":1,"default":1},"index$":1},{"name":"per_page","in":"query","description":"Number of results per page","schema":{"type":"integer","minimum":1,"maximum":1000,"default":50},"index$":2}]},"GET /country/{countryCode}":{"protocol":"http","parameters":[{"name":"countryCode","in":"path","required":true,"description":"ISO 2-letter or 3-letter country code (e.g., US, USA, BR, BRA)","schema":{"type":"string"},"index$":0},{"name":"format","in":"query","description":"Response format (json or xml)","schema":{"type":"string","enum":["json","xml"],"default":"json"},"index$":1}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -79,6 +137,12 @@ describe('CountryEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

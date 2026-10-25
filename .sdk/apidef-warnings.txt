@@ -1,0 +1,13 @@
+{
+  point: "warning"
+  note: "Points GET /incomelevel, GET /lendingtype, GET /region and GET /source on entity=metadata op=list have the same selector (exist: none), so only GET /incomelevel is ever chosen. An action or another entity in guide.aontu tells them apart."
+  entity: "metadata"
+  op: "list"
+  points: [
+    "GET /incomelevel"
+    "GET /lendingtype"
+    "GET /region"
+    "GET /source"
+  ]
+
+}

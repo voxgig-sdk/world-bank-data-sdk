@@ -247,14 +247,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/country",
-                  "q": {
-                    "exist": [
-                      "format",
-                      "page",
-                      "per_page"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "country"
@@ -306,7 +304,6 @@
                   "o": "/country/{countryCode}",
                   "q": {
                     "exist": [
-                      "format",
                       "id"
                     ]
                   },
@@ -314,6 +311,10 @@
                     "param": {
                       "countryCode": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -499,15 +500,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/indicator",
-                  "q": {
-                    "exist": [
-                      "format",
-                      "page",
-                      "per_page",
-                      "source"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "indicator"
@@ -619,14 +617,7 @@
                   "q": {
                     "exist": [
                       "country_code",
-                      "date",
-                      "format",
-                      "frequency",
-                      "gapfill",
-                      "id",
-                      "mrv",
-                      "page",
-                      "per_page"
+                      "id"
                     ]
                   },
                   "r": {
@@ -634,6 +625,10 @@
                       "countryCode": "country_code",
                       "indicatorCode": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -689,7 +684,6 @@
                   "o": "/indicator/{indicatorCode}",
                   "q": {
                     "exist": [
-                      "format",
                       "id"
                     ]
                   },
@@ -697,6 +691,10 @@
                     "param": {
                       "indicatorCode": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -848,9 +846,6 @@
                   "o": "/source/{sourceId}/indicator",
                   "q": {
                     "exist": [
-                      "format",
-                      "page",
-                      "per_page",
                       "source_id"
                     ]
                   },
@@ -858,6 +853,10 @@
                     "param": {
                       "sourceId": "source_id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -916,14 +915,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/incomelevel",
-                  "q": {
-                    "exist": [
-                      "format",
-                      "page",
-                      "per_page"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "incomelevel"
@@ -975,14 +972,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/lendingtype",
-                  "q": {
-                    "exist": [
-                      "format",
-                      "page",
-                      "per_page"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "lendingtype"
@@ -1034,14 +1029,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/region",
-                  "q": {
-                    "exist": [
-                      "format",
-                      "page",
-                      "per_page"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "region"
@@ -1093,14 +1086,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/source",
-                  "q": {
-                    "exist": [
-                      "format",
-                      "page",
-                      "per_page"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "source"
@@ -1210,16 +1201,17 @@
                   "q": {
                     "$action": "indicator",
                     "exist": [
-                      "format",
-                      "id",
-                      "page",
-                      "per_page"
+                      "id"
                     ]
                   },
                   "r": {
                     "param": {
                       "topicId": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -1278,14 +1270,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/topic",
-                  "q": {
-                    "exist": [
-                      "format",
-                      "page",
-                      "per_page"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "topic"
@@ -1626,6 +1616,7 @@
             },
             "optspec": {
               "clearTimer": "`$FUNCTION`",
+              "now": "`$FUNCTION`",
               "setTimer": "`$FUNCTION`"
             },
             "strict": false
@@ -1888,7 +1879,7 @@
       "optspec": {
         "allow": {
           "method": "GET,PUT,POST,PATCH,DELETE,OPTIONS",
-          "op": "create,update,load,list,remove,command,direct,graphql"
+          "op": "create,update,patch,load,list,remove,command,direct,graphql"
         },
         "apikey": "",
         "auth": {
@@ -1941,6 +1932,11 @@
         "top": {
           "active": true
         }
+      },
+      "publisher": {
+        "name": "",
+        "security": "",
+        "url": ""
       },
       "repo": {
         "host": "github.com",
@@ -2171,7 +2167,10 @@
             "version": "0.0.1"
           },
           "superseded": [],
-          "title": "Go MCP server"
+          "title": "Go MCP server",
+          "tool": {
+            "write": false
+          }
         },
         "lua": {
           "active": true,
@@ -2548,6 +2547,17 @@
           "base": "",
           "strict": true
         }
+      },
+      "text": {
+        "about_md": "",
+        "docs_url": "",
+        "entity_desc": {},
+        "homepage": "",
+        "meta_source": "",
+        "summary": "",
+        "tagline": "",
+        "title": "",
+        "website": ""
       }
     }
   },

@@ -83,16 +83,17 @@ main: kit: entity: topic: {
           q: {
             "$action": "indicator"
             exist: [
-              "format"
               "id"
-              "page"
-              "per_page"
             ]
           }
           r: {
             param: {
               topicId: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -146,12 +147,9 @@ main: kit: entity: topic: {
           }
           m: "GET"
           o: "/topic"
-          q: {
-            exist: [
-              "format"
-              "page"
-              "per_page"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

@@ -112,9 +112,6 @@ main: kit: entity: metadata: {
           o: "/source/{sourceId}/indicator"
           q: {
             exist: [
-              "format"
-              "page"
-              "per_page"
               "source_id"
             ]
           }
@@ -122,6 +119,10 @@ main: kit: entity: metadata: {
             param: {
               sourceId: "source_id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -175,12 +176,9 @@ main: kit: entity: metadata: {
           }
           m: "GET"
           o: "/incomelevel"
-          q: {
-            exist: [
-              "format"
-              "page"
-              "per_page"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -228,12 +226,9 @@ main: kit: entity: metadata: {
           }
           m: "GET"
           o: "/lendingtype"
-          q: {
-            exist: [
-              "format"
-              "page"
-              "per_page"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -281,12 +276,9 @@ main: kit: entity: metadata: {
           }
           m: "GET"
           o: "/region"
-          q: {
-            exist: [
-              "format"
-              "page"
-              "per_page"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -334,12 +326,9 @@ main: kit: entity: metadata: {
           }
           m: "GET"
           o: "/source"
-          q: {
-            exist: [
-              "format"
-              "page"
-              "per_page"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

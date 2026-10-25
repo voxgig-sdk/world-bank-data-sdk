@@ -144,13 +144,9 @@ main: kit: entity: indicator: {
           }
           m: "GET"
           o: "/indicator"
-          q: {
-            exist: [
-              "format"
-              "page"
-              "per_page"
-              "source"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -251,14 +247,7 @@ main: kit: entity: indicator: {
           q: {
             exist: [
               "country_code"
-              "date"
-              "format"
-              "frequency"
-              "gapfill"
               "id"
-              "mrv"
-              "page"
-              "per_page"
             ]
           }
           r: {
@@ -266,6 +255,10 @@ main: kit: entity: indicator: {
               countryCode: "country_code"
               indicatorCode: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -317,7 +310,6 @@ main: kit: entity: indicator: {
           o: "/indicator/{indicatorCode}"
           q: {
             exist: [
-              "format"
               "id"
             ]
           }
@@ -325,6 +317,10 @@ main: kit: entity: indicator: {
             param: {
               indicatorCode: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

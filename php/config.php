@@ -93,6 +93,7 @@ class WorldBankDataConfig
           ],
           'optspec' => [
             'clearTimer' => '`$FUNCTION`',
+            'now' => '`$FUNCTION`',
             'setTimer' => '`$FUNCTION`',
           ],
           'strict' => false,
@@ -227,6 +228,7 @@ class WorldBankDataConfig
                         'type' => '`$INTEGER`',
                         'kind' => 'query',
                         'example' => 1,
+                        'field' => true,
                       ],
                       [
                         'name' => 'per_page',
@@ -234,15 +236,14 @@ class WorldBankDataConfig
                         'type' => '`$INTEGER`',
                         'kind' => 'query',
                         'example' => 50,
+                        'field' => true,
                       ],
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'format',
-                      'page',
-                      'per_page',
-                    ],
+                  'select' => [],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -298,9 +299,12 @@ class WorldBankDataConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'format',
                       'id',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -438,16 +442,14 @@ class WorldBankDataConfig
                         'orig' => 'source',
                         'type' => '`$INTEGER`',
                         'kind' => 'query',
+                        'field' => true,
                       ],
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'format',
-                      'page',
-                      'per_page',
-                      'source',
-                    ],
+                  'select' => [],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -513,6 +515,7 @@ class WorldBankDataConfig
                         'orig' => 'date',
                         'type' => '`$STRING`',
                         'kind' => 'query',
+                        'field' => true,
                       ],
                       [
                         'name' => 'format',
@@ -559,15 +562,12 @@ class WorldBankDataConfig
                   'select' => [
                     'exist' => [
                       'country_code',
-                      'date',
-                      'format',
-                      'frequency',
-                      'gapfill',
                       'id',
-                      'mrv',
-                      'page',
-                      'per_page',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
                 [
@@ -617,9 +617,12 @@ class WorldBankDataConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'format',
                       'id',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -751,11 +754,12 @@ class WorldBankDataConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'format',
-                      'page',
-                      'per_page',
                       'source_id',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
                 [
@@ -800,12 +804,10 @@ class WorldBankDataConfig
                       ],
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'format',
-                      'page',
-                      'per_page',
-                    ],
+                  'select' => [],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
                 [
@@ -850,12 +852,10 @@ class WorldBankDataConfig
                       ],
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'format',
-                      'page',
-                      'per_page',
-                    ],
+                  'select' => [],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
                 [
@@ -900,12 +900,10 @@ class WorldBankDataConfig
                       ],
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'format',
-                      'page',
-                      'per_page',
-                    ],
+                  'select' => [],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
                 [
@@ -950,12 +948,10 @@ class WorldBankDataConfig
                       ],
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'format',
-                      'page',
-                      'per_page',
-                    ],
+                  'select' => [],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -1059,11 +1055,12 @@ class WorldBankDataConfig
                   'select' => [
                     '$action' => 'indicator',
                     'exist' => [
-                      'format',
                       'id',
-                      'page',
-                      'per_page',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
                 [
@@ -1108,12 +1105,10 @@ class WorldBankDataConfig
                       ],
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'format',
-                      'page',
-                      'per_page',
-                    ],
+                  'select' => [],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],

@@ -16,15 +16,33 @@ const PLAN: any[] = [
     "path": "/country",
     "args": [],
     "select": {
-      "format": "v1",
-      "page": "v1",
-      "per_page": "v1"
+      "format": "json",
+      "page": 1,
+      "per_page": 50
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "format",
       "page",
       "per_page"
+    ],
+    "queryArgs": [
+      {
+        "name": "format",
+        "wire": "format"
+      },
+      {
+        "name": "page",
+        "wire": "page"
+      },
+      {
+        "name": "per_page",
+        "wire": "per_page"
+      }
     ],
     "auth": null,
     "status": 200,
@@ -52,11 +70,21 @@ const PLAN: any[] = [
       }
     ],
     "select": {
-      "format": "v1"
+      "format": "json"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "format"
+    ],
+    "queryArgs": [
+      {
+        "name": "format",
+        "wire": "format"
+      }
     ],
     "auth": null,
     "status": 200,
@@ -82,17 +110,39 @@ const PLAN: any[] = [
     "path": "/indicator",
     "args": [],
     "select": {
-      "format": "v1",
-      "page": "v1",
-      "per_page": "v1",
+      "format": "json",
+      "page": 1,
+      "per_page": 50,
       "source": "v1"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "format",
       "page",
       "per_page",
       "source"
+    ],
+    "queryArgs": [
+      {
+        "name": "format",
+        "wire": "format"
+      },
+      {
+        "name": "page",
+        "wire": "page"
+      },
+      {
+        "name": "per_page",
+        "wire": "per_page"
+      },
+      {
+        "name": "source",
+        "wire": "source"
+      }
     ],
     "auth": null,
     "status": 200,
@@ -121,14 +171,18 @@ const PLAN: any[] = [
     ],
     "select": {
       "date": "v1",
-      "format": "v1",
+      "format": "json",
       "frequency": "v1",
-      "gapfill": "v1",
+      "gapfill": "N",
       "mrv": "v1",
-      "page": "v1",
-      "per_page": "v1"
+      "page": 1,
+      "per_page": 50
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "format",
       "date",
@@ -137,6 +191,36 @@ const PLAN: any[] = [
       "mrv",
       "gapfill",
       "frequency"
+    ],
+    "queryArgs": [
+      {
+        "name": "date",
+        "wire": "date"
+      },
+      {
+        "name": "format",
+        "wire": "format"
+      },
+      {
+        "name": "frequency",
+        "wire": "frequency"
+      },
+      {
+        "name": "gapfill",
+        "wire": "gapfill"
+      },
+      {
+        "name": "mrv",
+        "wire": "mrv"
+      },
+      {
+        "name": "page",
+        "wire": "page"
+      },
+      {
+        "name": "per_page",
+        "wire": "per_page"
+      }
     ],
     "auth": null,
     "status": 200,
@@ -174,11 +258,21 @@ const PLAN: any[] = [
       }
     ],
     "select": {
-      "format": "v1"
+      "format": "json"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "format"
+    ],
+    "queryArgs": [
+      {
+        "name": "format",
+        "wire": "format"
+      }
     ],
     "auth": null,
     "status": 200,
@@ -208,15 +302,33 @@ const PLAN: any[] = [
       }
     ],
     "select": {
-      "format": "v1",
-      "page": "v1",
-      "per_page": "v1"
+      "format": "json",
+      "page": 1,
+      "per_page": 50
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "format",
       "page",
       "per_page"
+    ],
+    "queryArgs": [
+      {
+        "name": "format",
+        "wire": "format"
+      },
+      {
+        "name": "page",
+        "wire": "page"
+      },
+      {
+        "name": "per_page",
+        "wire": "per_page"
+      }
     ],
     "auth": null,
     "status": 200,
@@ -240,15 +352,33 @@ const PLAN: any[] = [
       }
     ],
     "select": {
-      "format": "v1",
-      "page": "v1",
-      "per_page": "v1"
+      "format": "json",
+      "page": 1,
+      "per_page": 50
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "format",
       "page",
       "per_page"
+    ],
+    "queryArgs": [
+      {
+        "name": "format",
+        "wire": "format"
+      },
+      {
+        "name": "page",
+        "wire": "page"
+      },
+      {
+        "name": "per_page",
+        "wire": "per_page"
+      }
     ],
     "auth": null,
     "status": 200,
@@ -265,15 +395,33 @@ const PLAN: any[] = [
     "path": "/topic",
     "args": [],
     "select": {
-      "format": "v1",
-      "page": "v1",
-      "per_page": "v1"
+      "format": "json",
+      "page": 1,
+      "per_page": 50
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "format",
       "page",
       "per_page"
+    ],
+    "queryArgs": [
+      {
+        "name": "format",
+        "wire": "format"
+      },
+      {
+        "name": "page",
+        "wire": "page"
+      },
+      {
+        "name": "per_page",
+        "wire": "per_page"
+      }
     ],
     "auth": null,
     "status": 200,

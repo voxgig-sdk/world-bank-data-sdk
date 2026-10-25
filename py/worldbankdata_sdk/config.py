@@ -96,6 +96,7 @@ def make_config():
         },
         "optspec": {
           "clearTimer": "`$FUNCTION`",
+          "now": "`$FUNCTION`",
           "setTimer": "`$FUNCTION`",
         },
         "strict": False,
@@ -230,6 +231,7 @@ def make_config():
                       "type": "`$INTEGER`",
                       "kind": "query",
                       "example": 1,
+                      "field": True,
                     },
                     {
                       "name": "per_page",
@@ -237,15 +239,14 @@ def make_config():
                       "type": "`$INTEGER`",
                       "kind": "query",
                       "example": 50,
+                      "field": True,
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "format",
-                    "page",
-                    "per_page",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -301,9 +302,12 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "format",
                     "id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -441,16 +445,14 @@ def make_config():
                       "orig": "source",
                       "type": "`$INTEGER`",
                       "kind": "query",
+                      "field": True,
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "format",
-                    "page",
-                    "per_page",
-                    "source",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -516,6 +518,7 @@ def make_config():
                       "orig": "date",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                     {
                       "name": "format",
@@ -562,15 +565,12 @@ def make_config():
                 "select": {
                   "exist": [
                     "country_code",
-                    "date",
-                    "format",
-                    "frequency",
-                    "gapfill",
                     "id",
-                    "mrv",
-                    "page",
-                    "per_page",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
               {
@@ -620,9 +620,12 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "format",
                     "id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -754,11 +757,12 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "format",
-                    "page",
-                    "per_page",
                     "source_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
               {
@@ -803,12 +807,10 @@ def make_config():
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "format",
-                    "page",
-                    "per_page",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
               {
@@ -853,12 +855,10 @@ def make_config():
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "format",
-                    "page",
-                    "per_page",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
               {
@@ -903,12 +903,10 @@ def make_config():
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "format",
-                    "page",
-                    "per_page",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
               {
@@ -953,12 +951,10 @@ def make_config():
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "format",
-                    "page",
-                    "per_page",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -1062,11 +1058,12 @@ def make_config():
                 "select": {
                   "$action": "indicator",
                   "exist": [
-                    "format",
                     "id",
-                    "page",
-                    "per_page",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
               {
@@ -1111,12 +1108,10 @@ def make_config():
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "format",
-                    "page",
-                    "per_page",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],

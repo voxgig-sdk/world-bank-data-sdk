@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { WorldBankDataSDK, BaseFeature, stdutil } from '../../..'
+import { WorldBankDataSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,64 @@ describe('TopicEntity', async () => {
   })
 
 
+  class FailHook extends BaseFeature {
+    name = 'failhook'
+    version = '0.0.1'
+    active = true
+    unexpected = 0
+    init() { }
+    PreSpec() { throw new Error('topic hook failed') }
+    PreUnexpected() { this.unexpected++ }
+  }
+
+  test('stream-error', async () => {
+    const offline = { net: { offline: true } }
+    await assert.rejects(async () => {
+      for await (const _item of WorldBankDataSDK.test(offline).Topic().stream('list')) { }
+    }, /offline/)
+
+    for await (const _item of WorldBankDataSDK.test(offline).Topic()
+      .stream('list', undefined, { ctrl: { throw: false } })) { }
+
+    if (null != (config as any).feature?.rbac) {
+      const denied = WorldBankDataSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } })
+      await assert.rejects(async () => {
+        for await (const _item of denied.Topic().stream('list')) { }
+      }, (err: any) => 'rbac_denied' === err.code)
+    }
+  })
+
+  test('stream-ctrl', async () => {
+    const explain: any = {}
+    const ctrl: any = { explain }
+    for await (const _item of WorldBankDataSDK.test().Topic().stream('list', undefined, { ctrl })) { }
+    assert.deepStrictEqual(Object.keys(ctrl), ['explain'])
+    assert(explain === ctrl.explain && 0 < Object.keys(explain).length)
+  })
+
+  test('unexpected', async () => {
+    const hook = new FailHook()
+    const client = new WorldBankDataSDK({ feature: { test: { active: true } }, extend: [hook] })
+    await assert.rejects(client.Topic().list(), /hook failed/)
+    assert(0 < hook.unexpected)
+
+    const fired = hook.unexpected
+    assert.strictEqual(await client.Topic().list(undefined, { throw: false }), undefined)
+    assert(fired < hook.unexpected)
+  })
+
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = WorldBankDataSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Topic().list({"format":1} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.WORLD_BANK_DATA_TEST_LIVE
@@ -51,7 +109,7 @@ describe('TopicEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"id":{"a":true,"h":"Id","n":"id","r":false,"t":"`$STRING`","key$":"id","index$":0},"sourceNote":{"a":true,"h":"Source Note","n":"sourceNote","r":false,"t":"`$STRING`","key$":"sourceNote","index$":1},"value":{"a":true,"h":"Value","n":"value","r":false,"t":"`$STRING`","key$":"value","index$":2}},"id":{"field":"id","name":"id"},"name":"topic","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /topic/{topicId}/indicator","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"topicId","r":true,"t":"`$INTEGER`","index$":0}],"query":[{"a":true,"ex":"json","k":"query","n":"format","or":"format","r":false,"t":"`$STRING`","index$":0},{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"ex":50,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":2}]},"k":"http","m":"GET","o":"/topic/{topicId}/indicator","q":{"$action":"indicator","exist":["format","id","page","per_page"]},"r":{"param":{"topicId":"id"}},"s":[{"lit":"topic"},{"var":"id"},{"lit":"indicator"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0},{"a":true,"co":{"id":"GET /topic","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":"json","k":"query","n":"format","or":"format","r":false,"t":"`$STRING`","index$":0},{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"ex":50,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":2}]},"k":"http","m":"GET","o":"/topic","q":{"exist":["format","page","per_page"]},"r":{},"s":[{"lit":"topic"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":1}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"topic","name__orig":"topic","Name":"Topic","name_":"topic","name-":"topic","NAME":"TOPIC","index$":3}, {"active":true,"entity":"topic","key$":"BasicTopicFlow","kind":"basic","name":"BasicTopicFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"topic_ref01"}}],"index$":0}]}, 'Topic', {"GET /topic/{topicId}/indicator":{"protocol":"http","parameters":[{"name":"topicId","in":"path","required":true,"description":"Topic ID (e.g., 1 for Agriculture, 3 for Economy)","schema":{"type":"integer"},"index$":0},{"name":"format","in":"query","description":"Response format (json or xml)","schema":{"type":"string","enum":["json","xml"],"default":"json"},"index$":1},{"name":"page","in":"query","description":"Page number for pagination","schema":{"type":"integer","minimum":1,"default":1},"index$":2},{"name":"per_page","in":"query","description":"Number of results per page","schema":{"type":"integer","minimum":1,"maximum":32500,"default":50},"index$":3}]},"GET /topic":{"protocol":"http","parameters":[{"name":"format","in":"query","description":"Response format (json or xml)","schema":{"type":"string","enum":["json","xml"],"default":"json"},"index$":0},{"name":"page","in":"query","description":"Page number for pagination","schema":{"type":"integer","minimum":1,"default":1},"index$":1},{"name":"per_page","in":"query","description":"Number of results per page","schema":{"type":"integer","minimum":1,"maximum":1000,"default":50},"index$":2}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"id":{"a":true,"h":"Id","n":"id","r":false,"t":"`$STRING`","key$":"id","index$":0},"sourceNote":{"a":true,"h":"Source Note","n":"sourceNote","r":false,"t":"`$STRING`","key$":"sourceNote","index$":1},"value":{"a":true,"h":"Value","n":"value","r":false,"t":"`$STRING`","key$":"value","index$":2}},"id":{"field":"id","name":"id"},"name":"topic","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /topic/{topicId}/indicator","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"topicId","r":true,"t":"`$INTEGER`","index$":0}],"query":[{"a":true,"ex":"json","k":"query","n":"format","or":"format","r":false,"t":"`$STRING`","index$":0},{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"ex":50,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":2}]},"k":"http","m":"GET","o":"/topic/{topicId}/indicator","q":{"$action":"indicator","exist":["id"]},"r":{"param":{"topicId":"id"}},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"topic"},{"var":"id"},{"lit":"indicator"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0},{"a":true,"co":{"id":"GET /topic","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":"json","k":"query","n":"format","or":"format","r":false,"t":"`$STRING`","index$":0},{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"ex":50,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":2}]},"k":"http","m":"GET","o":"/topic","q":{},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"topic"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":1}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"topic","name__orig":"topic","Name":"Topic","name_":"topic","name-":"topic","NAME":"TOPIC","index$":3}, {"active":true,"entity":"topic","key$":"BasicTopicFlow","kind":"basic","name":"BasicTopicFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"topic_ref01"}}],"index$":0}]}, 'Topic', {"GET /topic/{topicId}/indicator":{"protocol":"http","parameters":[{"name":"topicId","in":"path","required":true,"description":"Topic ID (e.g., 1 for Agriculture, 3 for Economy)","schema":{"type":"integer"},"index$":0},{"name":"format","in":"query","description":"Response format (json or xml)","schema":{"type":"string","enum":["json","xml"],"default":"json"},"index$":1},{"name":"page","in":"query","description":"Page number for pagination","schema":{"type":"integer","minimum":1,"default":1},"index$":2},{"name":"per_page","in":"query","description":"Number of results per page","schema":{"type":"integer","minimum":1,"maximum":32500,"default":50},"index$":3}]},"GET /topic":{"protocol":"http","parameters":[{"name":"format","in":"query","description":"Response format (json or xml)","schema":{"type":"string","enum":["json","xml"],"default":"json"},"index$":0},{"name":"page","in":"query","description":"Page number for pagination","schema":{"type":"integer","minimum":1,"default":1},"index$":1},{"name":"per_page","in":"query","description":"Number of results per page","schema":{"type":"integer","minimum":1,"maximum":1000,"default":50},"index$":2}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -72,6 +130,12 @@ describe('TopicEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

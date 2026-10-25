@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { WorldBankDataSDK, BaseFeature, stdutil } from '../../..'
+import { WorldBankDataSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,64 @@ describe('IndicatorEntity', async () => {
   })
 
 
+  class FailHook extends BaseFeature {
+    name = 'failhook'
+    version = '0.0.1'
+    active = true
+    unexpected = 0
+    init() { }
+    PreSpec() { throw new Error('indicator hook failed') }
+    PreUnexpected() { this.unexpected++ }
+  }
+
+  test('stream-error', async () => {
+    const offline = { net: { offline: true } }
+    await assert.rejects(async () => {
+      for await (const _item of WorldBankDataSDK.test(offline).Indicator().stream('list')) { }
+    }, /offline/)
+
+    for await (const _item of WorldBankDataSDK.test(offline).Indicator()
+      .stream('list', undefined, { ctrl: { throw: false } })) { }
+
+    if (null != (config as any).feature?.rbac) {
+      const denied = WorldBankDataSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } })
+      await assert.rejects(async () => {
+        for await (const _item of denied.Indicator().stream('list')) { }
+      }, (err: any) => 'rbac_denied' === err.code)
+    }
+  })
+
+  test('stream-ctrl', async () => {
+    const explain: any = {}
+    const ctrl: any = { explain }
+    for await (const _item of WorldBankDataSDK.test().Indicator().stream('list', undefined, { ctrl })) { }
+    assert.deepStrictEqual(Object.keys(ctrl), ['explain'])
+    assert(explain === ctrl.explain && 0 < Object.keys(explain).length)
+  })
+
+  test('unexpected', async () => {
+    const hook = new FailHook()
+    const client = new WorldBankDataSDK({ feature: { test: { active: true } }, extend: [hook] })
+    await assert.rejects(client.Indicator().list(), /hook failed/)
+    assert(0 < hook.unexpected)
+
+    const fired = hook.unexpected
+    assert.strictEqual(await client.Indicator().list(undefined, { throw: false }), undefined)
+    assert(fired < hook.unexpected)
+  })
+
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = WorldBankDataSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Indicator().list({"format":1} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.WORLD_BANK_DATA_TEST_LIVE
@@ -51,7 +109,7 @@ describe('IndicatorEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"country":{"a":true,"h":"Country","n":"country","r":false,"t":"`$OBJECT`","key$":"country","index$":0},"countryiso3code":{"a":true,"h":"Countryiso3code","n":"countryiso3code","r":false,"t":"`$STRING`","key$":"countryiso3code","index$":1},"date":{"a":true,"h":"Date","n":"date","r":false,"t":"`$STRING`","key$":"date","index$":2},"decimal":{"a":true,"h":"Decimal","n":"decimal","r":false,"t":"`$INTEGER`","key$":"decimal","index$":3},"id":{"a":true,"h":"Id","n":"id","r":false,"t":"`$STRING`","key$":"id","index$":4},"indicator":{"a":true,"h":"Indicator","n":"indicator","r":false,"t":"`$OBJECT`","key$":"indicator","index$":5},"name":{"a":true,"h":"Name","n":"name","r":false,"t":"`$STRING`","key$":"name","index$":6},"obs_status":{"a":true,"h":"Obs Status","n":"obs_status","r":false,"t":"`$STRING`","key$":"obs_status","index$":7},"source":{"a":true,"h":"Source","n":"source","r":false,"t":"`$OBJECT`","key$":"source","index$":8},"sourceNote":{"a":true,"h":"Source Note","n":"sourceNote","r":false,"t":"`$STRING`","key$":"sourceNote","index$":9},"sourceOrganization":{"a":true,"h":"Source Organization","n":"sourceOrganization","r":false,"t":"`$STRING`","key$":"sourceOrganization","index$":10},"topics":{"a":true,"h":"Topics","n":"topics","r":false,"t":"`$ARRAY`","key$":"topics","index$":11},"unit":{"a":true,"h":"Unit","n":"unit","r":false,"t":"`$STRING`","key$":"unit","index$":12},"value":{"a":true,"h":"Value","n":"value","r":false,"t":"`$NUMBER`","key$":"value","index$":13}},"id":{"field":"id","name":"id"},"name":"indicator","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /indicator","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":"json","k":"query","n":"format","or":"format","r":false,"t":"`$STRING`","index$":0},{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"ex":50,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":2},{"a":true,"k":"query","n":"source","or":"source","r":false,"t":"`$INTEGER`","index$":3}]},"k":"http","m":"GET","o":"/indicator","q":{"exist":["format","page","per_page","source"]},"r":{},"s":[{"lit":"indicator"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /countries/{countryCode}/indicators/{indicatorCode}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"country_code","or":"countryCode","r":true,"t":"`$STRING`","index$":0},{"a":true,"k":"param","n":"id","or":"indicatorCode","r":true,"t":"`$STRING`","index$":1}],"query":[{"a":true,"k":"query","n":"date","or":"date","r":false,"t":"`$STRING`","index$":0},{"a":true,"ex":"json","k":"query","n":"format","or":"format","r":false,"t":"`$STRING`","index$":1},{"a":true,"k":"query","n":"frequency","or":"frequency","r":false,"t":"`$STRING`","index$":2},{"a":true,"ex":"N","k":"query","n":"gapfill","or":"gapfill","r":false,"t":"`$STRING`","index$":3},{"a":true,"k":"query","n":"mrv","or":"mrv","r":false,"t":"`$INTEGER`","index$":4},{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":5},{"a":true,"ex":50,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":6}]},"k":"http","m":"GET","o":"/countries/{countryCode}/indicators/{indicatorCode}","q":{"exist":["country_code","date","format","frequency","gapfill","id","mrv","page","per_page"]},"r":{"param":{"countryCode":"country_code","indicatorCode":"id"}},"s":[{"lit":"countries"},{"var":"country_code"},{"lit":"indicators"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0},{"a":true,"co":{"id":"GET /indicator/{indicatorCode}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"indicatorCode","r":true,"t":"`$STRING`","index$":0}],"query":[{"a":true,"ex":"json","k":"query","n":"format","or":"format","r":false,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/indicator/{indicatorCode}","q":{"exist":["format","id"]},"r":{"param":{"indicatorCode":"id"}},"s":[{"lit":"indicator"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":1}],"key$":"load"}},"relations":{"ancestors":[["$.main.kit.entity.country"]]},"key$":"indicator","name__orig":"indicator","Name":"Indicator","name_":"indicator","name-":"indicator","NAME":"INDICATOR","index$":1}, {"active":true,"entity":"indicator","key$":"BasicIndicatorFlow","kind":"basic","name":"BasicIndicatorFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"indicator_ref01"}}],"index$":0},{"a":true,"d":{},"i":{"ref":"indicator_ref01","srcdatavar":"indicator_ref01_data","suffix":"_dt0"},"m":{"id":"indicator01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-indicator_ref01"}}],"index$":1}]}, 'Indicator', {"GET /indicator":{"protocol":"http","parameters":[{"name":"format","in":"query","description":"Response format (json or xml)","schema":{"type":"string","enum":["json","xml"],"default":"json"},"index$":0},{"name":"page","in":"query","description":"Page number for pagination","schema":{"type":"integer","minimum":1,"default":1},"index$":1},{"name":"per_page","in":"query","description":"Number of results per page","schema":{"type":"integer","minimum":1,"maximum":32500,"default":50},"index$":2},{"name":"source","in":"query","description":"Filter by source ID","schema":{"type":"integer"},"index$":3}]},"GET /countries/{countryCode}/indicators/{indicatorCode}":{"protocol":"http","parameters":[{"name":"countryCode","in":"path","required":true,"description":"ISO 2-letter or 3-letter country code, or 'all' for all countries","schema":{"type":"string"},"index$":0},{"name":"indicatorCode","in":"path","required":true,"description":"Indicator code (e.g., NY.GDP.MKTP.CD for GDP)","schema":{"type":"string"},"index$":1},{"name":"format","in":"query","description":"Response format (json or xml)","schema":{"type":"string","enum":["json","xml"],"default":"json"},"index$":2},{"name":"date","in":"query","description":"Date range (e.g., 2010:2020 or specific year like 2020)","schema":{"type":"string"},"index$":3},{"name":"page","in":"query","description":"Page number for pagination","schema":{"type":"integer","minimum":1,"default":1},"index$":4},{"name":"per_page","in":"query","description":"Number of results per page","schema":{"type":"integer","minimum":1,"maximum":32500,"default":50},"index$":5},{"name":"mrv","in":"query","description":"Most recent values - number of most recent values to return","schema":{"type":"integer","minimum":1},"index$":6},{"name":"gapfill","in":"query","description":"Fill gaps in data with Y (yes) or N (no)","schema":{"type":"string","enum":["Y","N"],"default":"N"},"index$":7},{"name":"frequency","in":"query","description":"Data frequency (Y for yearly, Q for quarterly, M for monthly)","schema":{"type":"string","enum":["Y","Q","M"]},"index$":8}]},"GET /indicator/{indicatorCode}":{"protocol":"http","parameters":[{"name":"indicatorCode","in":"path","required":true,"description":"Indicator code (e.g., NY.GDP.MKTP.CD)","schema":{"type":"string"},"index$":0},{"name":"format","in":"query","description":"Response format (json or xml)","schema":{"type":"string","enum":["json","xml"],"default":"json"},"index$":1}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"country":{"a":true,"h":"Country","n":"country","r":false,"t":"`$OBJECT`","key$":"country","index$":0},"countryiso3code":{"a":true,"h":"Countryiso3code","n":"countryiso3code","r":false,"t":"`$STRING`","key$":"countryiso3code","index$":1},"date":{"a":true,"h":"Date","n":"date","r":false,"t":"`$STRING`","key$":"date","index$":2},"decimal":{"a":true,"h":"Decimal","n":"decimal","r":false,"t":"`$INTEGER`","key$":"decimal","index$":3},"id":{"a":true,"h":"Id","n":"id","r":false,"t":"`$STRING`","key$":"id","index$":4},"indicator":{"a":true,"h":"Indicator","n":"indicator","r":false,"t":"`$OBJECT`","key$":"indicator","index$":5},"name":{"a":true,"h":"Name","n":"name","r":false,"t":"`$STRING`","key$":"name","index$":6},"obs_status":{"a":true,"h":"Obs Status","n":"obs_status","r":false,"t":"`$STRING`","key$":"obs_status","index$":7},"source":{"a":true,"h":"Source","n":"source","r":false,"t":"`$OBJECT`","key$":"source","index$":8},"sourceNote":{"a":true,"h":"Source Note","n":"sourceNote","r":false,"t":"`$STRING`","key$":"sourceNote","index$":9},"sourceOrganization":{"a":true,"h":"Source Organization","n":"sourceOrganization","r":false,"t":"`$STRING`","key$":"sourceOrganization","index$":10},"topics":{"a":true,"h":"Topics","n":"topics","r":false,"t":"`$ARRAY`","key$":"topics","index$":11},"unit":{"a":true,"h":"Unit","n":"unit","r":false,"t":"`$STRING`","key$":"unit","index$":12},"value":{"a":true,"h":"Value","n":"value","r":false,"t":"`$NUMBER`","key$":"value","index$":13}},"id":{"field":"id","name":"id"},"name":"indicator","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /indicator","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":"json","k":"query","n":"format","or":"format","r":false,"t":"`$STRING`","index$":0},{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"ex":50,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":2},{"a":true,"k":"query","n":"source","or":"source","r":false,"t":"`$INTEGER`","index$":3}]},"k":"http","m":"GET","o":"/indicator","q":{},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"indicator"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /countries/{countryCode}/indicators/{indicatorCode}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"country_code","or":"countryCode","r":true,"t":"`$STRING`","index$":0},{"a":true,"k":"param","n":"id","or":"indicatorCode","r":true,"t":"`$STRING`","index$":1}],"query":[{"a":true,"k":"query","n":"date","or":"date","r":false,"t":"`$STRING`","index$":0},{"a":true,"ex":"json","k":"query","n":"format","or":"format","r":false,"t":"`$STRING`","index$":1},{"a":true,"k":"query","n":"frequency","or":"frequency","r":false,"t":"`$STRING`","index$":2},{"a":true,"ex":"N","k":"query","n":"gapfill","or":"gapfill","r":false,"t":"`$STRING`","index$":3},{"a":true,"k":"query","n":"mrv","or":"mrv","r":false,"t":"`$INTEGER`","index$":4},{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":5},{"a":true,"ex":50,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":6}]},"k":"http","m":"GET","o":"/countries/{countryCode}/indicators/{indicatorCode}","q":{"exist":["country_code","id"]},"r":{"param":{"countryCode":"country_code","indicatorCode":"id"}},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"countries"},{"var":"country_code"},{"lit":"indicators"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0},{"a":true,"co":{"id":"GET /indicator/{indicatorCode}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"indicatorCode","r":true,"t":"`$STRING`","index$":0}],"query":[{"a":true,"ex":"json","k":"query","n":"format","or":"format","r":false,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/indicator/{indicatorCode}","q":{"exist":["id"]},"r":{"param":{"indicatorCode":"id"}},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"indicator"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":1}],"key$":"load"}},"relations":{"ancestors":[["$.main.kit.entity.country"]]},"key$":"indicator","name__orig":"indicator","Name":"Indicator","name_":"indicator","name-":"indicator","NAME":"INDICATOR","index$":1}, {"active":true,"entity":"indicator","key$":"BasicIndicatorFlow","kind":"basic","name":"BasicIndicatorFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"indicator_ref01"}}],"index$":0},{"a":true,"d":{},"i":{"ref":"indicator_ref01","srcdatavar":"indicator_ref01_data","suffix":"_dt0"},"m":{"id":"indicator01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-indicator_ref01"}}],"index$":1}]}, 'Indicator', {"GET /indicator":{"protocol":"http","parameters":[{"name":"format","in":"query","description":"Response format (json or xml)","schema":{"type":"string","enum":["json","xml"],"default":"json"},"index$":0},{"name":"page","in":"query","description":"Page number for pagination","schema":{"type":"integer","minimum":1,"default":1},"index$":1},{"name":"per_page","in":"query","description":"Number of results per page","schema":{"type":"integer","minimum":1,"maximum":32500,"default":50},"index$":2},{"name":"source","in":"query","description":"Filter by source ID","schema":{"type":"integer"},"index$":3}]},"GET /countries/{countryCode}/indicators/{indicatorCode}":{"protocol":"http","parameters":[{"name":"countryCode","in":"path","required":true,"description":"ISO 2-letter or 3-letter country code, or 'all' for all countries","schema":{"type":"string"},"index$":0},{"name":"indicatorCode","in":"path","required":true,"description":"Indicator code (e.g., NY.GDP.MKTP.CD for GDP)","schema":{"type":"string"},"index$":1},{"name":"format","in":"query","description":"Response format (json or xml)","schema":{"type":"string","enum":["json","xml"],"default":"json"},"index$":2},{"name":"date","in":"query","description":"Date range (e.g., 2010:2020 or specific year like 2020)","schema":{"type":"string"},"index$":3},{"name":"page","in":"query","description":"Page number for pagination","schema":{"type":"integer","minimum":1,"default":1},"index$":4},{"name":"per_page","in":"query","description":"Number of results per page","schema":{"type":"integer","minimum":1,"maximum":32500,"default":50},"index$":5},{"name":"mrv","in":"query","description":"Most recent values - number of most recent values to return","schema":{"type":"integer","minimum":1},"index$":6},{"name":"gapfill","in":"query","description":"Fill gaps in data with Y (yes) or N (no)","schema":{"type":"string","enum":["Y","N"],"default":"N"},"index$":7},{"name":"frequency","in":"query","description":"Data frequency (Y for yearly, Q for quarterly, M for monthly)","schema":{"type":"string","enum":["Y","Q","M"]},"index$":8}]},"GET /indicator/{indicatorCode}":{"protocol":"http","parameters":[{"name":"indicatorCode","in":"path","required":true,"description":"Indicator code (e.g., NY.GDP.MKTP.CD)","schema":{"type":"string"},"index$":0},{"name":"format","in":"query","description":"Response format (json or xml)","schema":{"type":"string","enum":["json","xml"],"default":"json"},"index$":1}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -79,6 +137,12 @@ describe('IndicatorEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

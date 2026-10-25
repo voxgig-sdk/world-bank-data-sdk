@@ -102,6 +102,7 @@ class Config {
       },
       "optspec": {
         "clearTimer": "`$FUNCTION`",
+        "now": "`$FUNCTION`",
         "setTimer": "`$FUNCTION`"
       },
       "strict": false,
@@ -251,23 +252,23 @@ class Config {
                     "orig": "page",
                     "type": "`$INTEGER`",
                     "kind": "query",
-                    "example": 1
+                    "example": 1,
+                    "field": true
                   },
                   {
                     "name": "per_page",
                     "orig": "per_page",
                     "type": "`$INTEGER`",
                     "kind": "query",
-                    "example": 50
+                    "example": 50,
+                    "field": true
                   }
                 ]
               },
-              "select": {
-                "exist": [
-                  "format",
-                  "page",
-                  "per_page"
-                ]
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -323,9 +324,12 @@ class Config {
               },
               "select": {
                 "exist": [
-                  "format",
                   "id"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -462,17 +466,15 @@ class Config {
                     "name": "source",
                     "orig": "source",
                     "type": "`$INTEGER`",
-                    "kind": "query"
+                    "kind": "query",
+                    "field": true
                   }
                 ]
               },
-              "select": {
-                "exist": [
-                  "format",
-                  "page",
-                  "per_page",
-                  "source"
-                ]
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -537,7 +539,8 @@ class Config {
                     "name": "date",
                     "orig": "date",
                     "type": "`$STRING`",
-                    "kind": "query"
+                    "kind": "query",
+                    "field": true
                   },
                   {
                     "name": "format",
@@ -584,15 +587,12 @@ class Config {
               "select": {
                 "exist": [
                   "country_code",
-                  "date",
-                  "format",
-                  "frequency",
-                  "gapfill",
-                  "id",
-                  "mrv",
-                  "page",
-                  "per_page"
+                  "id"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             },
             {
@@ -642,9 +642,12 @@ class Config {
               },
               "select": {
                 "exist": [
-                  "format",
                   "id"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -776,11 +779,12 @@ class Config {
               },
               "select": {
                 "exist": [
-                  "format",
-                  "page",
-                  "per_page",
                   "source_id"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             },
             {
@@ -825,12 +829,10 @@ class Config {
                   }
                 ]
               },
-              "select": {
-                "exist": [
-                  "format",
-                  "page",
-                  "per_page"
-                ]
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             },
             {
@@ -875,12 +877,10 @@ class Config {
                   }
                 ]
               },
-              "select": {
-                "exist": [
-                  "format",
-                  "page",
-                  "per_page"
-                ]
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             },
             {
@@ -925,12 +925,10 @@ class Config {
                   }
                 ]
               },
-              "select": {
-                "exist": [
-                  "format",
-                  "page",
-                  "per_page"
-                ]
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             },
             {
@@ -975,12 +973,10 @@ class Config {
                   }
                 ]
               },
-              "select": {
-                "exist": [
-                  "format",
-                  "page",
-                  "per_page"
-                ]
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -1084,11 +1080,12 @@ class Config {
               "select": {
                 "$action": "indicator",
                 "exist": [
-                  "format",
-                  "id",
-                  "page",
-                  "per_page"
+                  "id"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             },
             {
@@ -1133,12 +1130,10 @@ class Config {
                   }
                 ]
               },
-              "select": {
-                "exist": [
-                  "format",
-                  "page",
-                  "per_page"
-                ]
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
